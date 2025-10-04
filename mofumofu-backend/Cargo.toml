@@ -12,7 +12,7 @@ rust-version = "1.88.0"
 anyhow = "1.0.100"
 axum = { version = "0.8.6", features = ["multipart", "macros"] }
 dotenvy = "0.15.7"
-sea-orm = {version = "1.1.14", features = ["sqlx-postgres", "runtime-tokio-native-tls"]}
+sea-orm = {version = "1.1.16", features = ["sqlx-postgres", "runtime-tokio-native-tls"]}
 serde = {version = "1.0.228", features = ["derive"]}
 tokio = {version = "1.47.1", features = ["full"]}
 tracing = "0.1.41"
