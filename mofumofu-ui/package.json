@@ -34,7 +34,7 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@inlang/paraglide-js": "2.2.0",
+		"@inlang/paraglide-js": "2.4.0",
 		"@internationalized/date": "^3.10.0",
 		"@lucide/svelte": "^0.525.0",
 		"@sveltejs/adapter-cloudflare": "^7.2.4",
