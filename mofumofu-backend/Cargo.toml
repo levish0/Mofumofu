@@ -34,7 +34,7 @@ reqwest = { version = "0.12.23", features = ["json", "multipart"] }
 aws-sdk-s3 = "1.107.0"
 aws-config = { version = "1.8.5", features = ["behavior-version-latest"] }
 meilisearch-sdk = "0.30.0"
-redis = { version = "0.32.5", features = ["tokio-comp", "tokio-native-tls-comp", "connection-manager"] }
+redis = { version = "0.32.7", features = ["tokio-comp", "tokio-native-tls-comp", "connection-manager"] }
 infer = "0.19.0"
 sha2 = "0.10.9"
 image = "0.25.8"
