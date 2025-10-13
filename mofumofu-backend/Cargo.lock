@@ -1391,6 +1391,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "derive_more"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "093242cf7570c207c83073cf82f79706fe7b8317e98620a47d5be7c3d8497678"
+dependencies = [
+ "derive_more-impl",
+]
+
+[[package]]
+name = "derive_more-impl"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bda628edc44c4bb645fbe0f758797143e4e07926f7ebf4e9bdfbd3d2ce621df3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.106",
+ "unicode-xid",
+]
+
+[[package]]
 name = "digest"
 version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2726,7 +2747,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu-backend"
-version = "0.9.0"
+version = "0.9.1"
 dependencies = [
  "anyhow",
  "argon2",
@@ -4018,14 +4039,15 @@ dependencies = [
 
 [[package]]
 name = "sea-orm"
-version = "1.1.15"
+version = "1.1.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "458d38dfa73e8ab64260f9fd96d61e1ca96a312d06e94b71615a417ef29efcac"
+checksum = "699b1ec145a6530c8f862eed7529d8a6068392e628d81cc70182934001e9c2a3"
 dependencies = [
  "async-stream",
  "async-trait",
  "bigdecimal",
  "chrono",
+ "derive_more",
  "futures-util",
  "log",
  "ouroboros",
@@ -4047,9 +4069,9 @@ dependencies = [
 
 [[package]]
 name = "sea-orm-macros"
-version = "1.1.15"
+version = "1.1.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af976292446b09dd51d7b1784d6195dec76844e9e9e980b5fb12634ef417d6ea"
+checksum = "b0c964f4b7f34f53decf381bc88f03187b9355e07f356ce65544626e781a9585"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",
@@ -5178,6 +5200,12 @@ name = "unicode-segmentation"
 version = "1.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f6ccf251212114b54433ec949fd6a7841275f9ada20dddd2f29e9ceea4501493"
+
+[[package]]
+name = "unicode-xid"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
 
 [[package]]
 name = "untrusted"
