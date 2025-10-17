@@ -43,15 +43,15 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.14",
 		"@types/escape-html": "^1.0.4",
-		"@types/node": "^24.7.0",
+		"@types/node": "^24.8.1",
 		"@types/pica": "^9.0.5",
 		"autolinker": "^4.1.5",
-		"bits-ui": "^2.11.4",
+		"bits-ui": "^2.11.8",
 		"clsx": "^2.1.1",
 		"color-thief": "^2.2.5",
 		"date-fns": "^4.1.0",
 		"escape-html": "^1.0.3",
-		"ky": "^1.11.0",
+		"ky": "^1.12.0",
 		"mode-watcher": "^1.1.0",
 		"pica": "^9.0.1",
 		"prettier": "^3.6.2",
@@ -72,8 +72,8 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"remark-toc": "^9.0.0",
-		"svelte": "^5.39.9",
-		"svelte-check": "^4.3.2",
+		"svelte": "^5.40.2",
+		"svelte-check": "^4.3.3",
 		"svelte-easy-crop": "^4.0.1",
 		"svelte-hero-icons": "^5.2.0",
 		"svelte-sonner": "^1.0.5",
@@ -85,13 +85,13 @@
 		"unified": "^11.0.5",
 		"valibot": "^1.1.0",
 		"vaul-svelte": "1.0.0-next.7",
-		"vite": "^7.1.9"
+		"vite": "^7.1.10"
 	},
 	"keywords": [
 		"svelte"
 	],
 	"dependencies": {
-		"@sveltejs/kit": "^2.46.1",
+		"@sveltejs/kit": "^2.47.1",
 		"esm-env": "^1.2.2"
 	}
 }
