@@ -22,8 +22,8 @@ importers:
         specifier: ^3.10.0
         version: 3.10.0
       '@lucide/svelte':
-        specifier: ^0.525.0
-        version: 0.525.0(svelte@5.40.2)
+        specifier: ^0.546.0
+        version: 0.546.0(svelte@5.40.2)
       '@sveltejs/adapter-cloudflare':
         specifier: ^7.2.4
         version: 7.2.4(@sveltejs/kit@2.47.1(@sveltejs/vite-plugin-svelte@6.2.1(svelte@5.40.2)(vite@7.1.10(@types/node@24.8.1)(jiti@2.6.1)(lightningcss@1.30.1)))(svelte@5.40.2)(vite@7.1.10(@types/node@24.8.1)(jiti@2.6.1)(lightningcss@1.30.1)))(wrangler@4.24.4(@cloudflare/workers-types@4.20251011.0))
@@ -691,8 +691,8 @@ packages:
   '@lix-js/server-protocol-schema@0.1.1':
     resolution: {integrity: sha512-jBeALB6prAbtr5q4vTuxnRZZv1M2rKe8iNqRQhFJ4Tv7150unEa0vKyz0hs8Gl3fUGsWaNJBh3J8++fpbrpRBQ==}
 
-  '@lucide/svelte@0.525.0':
-    resolution: {integrity: sha512-dyUxkXzepagLUzL8jHQNdeH286nC66ClLACsg+Neu/bjkRJWPWMzkT+H0DKlE70QdkicGCfs1ZGmXCc351hmZA==}
+  '@lucide/svelte@0.546.0':
+    resolution: {integrity: sha512-qFVQ+BUJH9Swns7cag3Wik7VqKZfN2hwDZ2VazbZJc8VSqI0kgOZCZ2OVwrvNxdkl8Mw9M9H1ROB0BXh/WH/sA==}
     peerDependencies:
       svelte: ^5
 
@@ -2775,7 +2775,7 @@ snapshots:
 
   '@lix-js/server-protocol-schema@0.1.1': {}
 
-  '@lucide/svelte@0.525.0(svelte@5.40.2)':
+  '@lucide/svelte@0.546.0(svelte@5.40.2)':
     dependencies:
       svelte: 5.40.2
 
