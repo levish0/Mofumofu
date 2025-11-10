@@ -1,5 +1,5 @@
 use crate::entity::comments::{Column as CommentColumn, Entity as CommentEntity};
-use sea_orm::sea_query::Func;
+use sea_orm::sea_query::{Expr, Func};
 use sea_orm::{ColumnTrait, ConnectionTrait, EntityTrait, ExprTrait, QueryFilter};
 use uuid::Uuid;
 
@@ -33,10 +33,10 @@ where
         .filter(CommentColumn::Id.eq(*parent_comment_id))
         .col_expr(
             CommentColumn::ReplyCount,
-            Func::greatest([
+            Expr::expr(Func::greatest([
                 CommentColumn::ReplyCount.into_expr().sub(1),
                 0.into(),
-            ]),
+            ])),
         )
         .exec(conn)
         .await?;
