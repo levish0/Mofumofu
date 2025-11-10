@@ -46,7 +46,7 @@
 		"@types/node": "^24.10.0",
 		"@types/pica": "^9.0.5",
 		"autolinker": "^4.1.5",
-		"bits-ui": "^2.14.2",
+		"bits-ui": "^2.14.3",
 		"clsx": "^2.1.1",
 		"color-thief": "^2.2.5",
 		"date-fns": "^4.1.0",
