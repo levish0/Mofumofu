@@ -4,7 +4,7 @@ use crate::repository::comment::get_comment_by_id::repository_get_comment_by_id;
 use crate::repository::comment::update_reply_count::repository_decrement_reply_count;
 use crate::repository::post::update_comment_count::repository_decrement_comment_count;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn service_delete_comment<C>(

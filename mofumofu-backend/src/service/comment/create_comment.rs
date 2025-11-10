@@ -5,7 +5,7 @@ use crate::repository::comment::update_reply_count::repository_increment_reply_c
 use crate::repository::post::get_post_by_uuid::repository_get_post_by_uuid;
 use crate::repository::post::update_comment_count::repository_increment_comment_count;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn service_create_comment<C>(

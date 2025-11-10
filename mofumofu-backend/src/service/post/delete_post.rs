@@ -5,7 +5,7 @@ use crate::repository::post::delete_post::repository_delete_post;
 use crate::repository::post::get_post_by_user_and_slug::repository_get_post_by_user_and_slug;
 use crate::repository::system_events::log_event::repository_log_event;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use tracing::warn;
 use uuid::Uuid;
 

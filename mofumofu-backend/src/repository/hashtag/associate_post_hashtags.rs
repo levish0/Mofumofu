@@ -8,9 +8,7 @@ use crate::entity::post_hash_tags::{
 use crate::repository::system_events::log_event::repository_log_event;
 use crate::service::error::errors::Errors;
 use crate::utils::hashtag_normalizer::normalize_hashtag;
-use sea_orm::{
-    ActiveModelTrait, ColumnTrait, ConnectionTrait, EntityTrait, QueryFilter, Set, TransactionTrait,
-};
+use sea_orm::{ActiveModelTrait, ColumnTrait, ConnectionTrait, EntityTrait, QueryFilter, Set, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn repository_associate_post_hashtags<C>(

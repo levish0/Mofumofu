@@ -6,7 +6,7 @@ use crate::service::auth::jwt::decode_password_reset_token;
 use crate::service::error::errors::{Errors, ServiceResult};
 use crate::utils::crypto::hash_password;
 use chrono::Utc;
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use tracing::{error, info};
 
 pub async fn service_reset_password<C>(conn: &C, payload: ResetPasswordRequest) -> ServiceResult<()>

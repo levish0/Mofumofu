@@ -8,7 +8,7 @@ use crate::repository::user::update_follow_count::{
     repository_decrement_user_follower_count, repository_decrement_user_following_count,
 };
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::ConnectionTrait;
+use sea_orm::{ConnectionTrait, TransactionSession};
 use sea_orm::TransactionTrait;
 
 pub async fn service_delete_follow_by_handle<C>(

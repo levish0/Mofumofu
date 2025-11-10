@@ -4,7 +4,7 @@ use crate::repository::post::get_post_by_uuid::repository_get_post_by_uuid;
 use crate::repository::post::update_like_count::repository_decrement_post_like_count;
 use crate::repository::system_events::log_event::repository_log_event;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn service_delete_post_like<C>(

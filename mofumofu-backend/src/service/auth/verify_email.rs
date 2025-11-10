@@ -5,7 +5,7 @@ use crate::repository::user::update_user::repository_update_user;
 use crate::service::auth::jwt::decode_email_verification_token;
 use crate::service::error::errors::{Errors, ServiceResult};
 use chrono::Utc;
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use tracing::{error, info};
 
 pub async fn service_verify_email<C>(conn: &C, payload: VerifyEmailRequest) -> ServiceResult<()>

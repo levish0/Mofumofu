@@ -1,5 +1,5 @@
 use crate::entity::users::{Column as UsersColumn, Entity as UsersEntity};
-use sea_orm::{ColumnTrait, ConnectionTrait, EntityTrait, QueryFilter};
+use sea_orm::{ColumnTrait, ConnectionTrait, EntityTrait, ExprTrait, QueryFilter};
 use uuid::Uuid;
 
 pub async fn repository_increment_user_follower_count<C>(

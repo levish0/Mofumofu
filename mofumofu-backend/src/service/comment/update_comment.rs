@@ -2,7 +2,7 @@ use crate::dto::comment::request::UpdateCommentRequest;
 use crate::repository::comment::get_comment_by_id::repository_get_comment_by_id;
 use crate::repository::comment::update_comment::repository_update_comment;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn service_update_comment<C>(

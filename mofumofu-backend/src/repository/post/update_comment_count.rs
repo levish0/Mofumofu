@@ -1,7 +1,7 @@
 use crate::entity::posts::{Column as PostColumn, Entity as PostEntity};
 use sea_orm::sea_query::Func;
-use sea_orm::sea_query::SimpleExpr::FunctionCall;
-use sea_orm::{ColumnTrait, ConnectionTrait, EntityTrait, QueryFilter};
+use sea_orm::{ColumnTrait, ConnectionTrait, EntityTrait, ExprTrait, QueryFilter};
+use sea_orm::prelude::Expr::FunctionCall;
 use uuid::Uuid;
 
 pub async fn repository_increment_comment_count<C>(

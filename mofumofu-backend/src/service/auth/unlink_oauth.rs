@@ -3,7 +3,7 @@ use crate::repository::oauth::delete_oauth_connection::repository_delete_oauth_c
 use crate::repository::oauth::get_user_oauth_connections::repository_get_oauth_providers_by_user_id;
 use crate::repository::user::find_user_by_uuid::repository_find_user_by_uuid;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use tracing::info;
 use uuid::Uuid;
 

@@ -6,7 +6,7 @@ use crate::repository::user::find_user_by_uuid::repository_find_user_by_uuid;
 use crate::repository::user::update_user::repository_update_user;
 use crate::service::error::errors::{Errors, ServiceResult};
 use crate::utils::crypto::{hash_password, verify_password};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use uuid::Uuid;
 
 pub async fn service_update_user_profile<C>(

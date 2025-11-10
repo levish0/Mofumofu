@@ -7,7 +7,7 @@ use crate::repository::hashtag::associate_post_hashtags::repository_associate_po
 use crate::repository::post::create_post::repository_create_post;
 use crate::repository::system_events::log_event::repository_log_event;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use serde_json::json;
 use tracing::{info, warn};
 use uuid::Uuid;
