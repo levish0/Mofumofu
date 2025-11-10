@@ -1,7 +1,7 @@
 use crate::repository::draft::delete_draft::repository_delete_draft;
 use crate::repository::draft::get_draft_by_id::repository_get_draft_by_id;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, TransactionTrait};
+use sea_orm::{ConnectionTrait, TransactionSession, TransactionTrait};
 use tracing::info;
 use uuid::Uuid;
 

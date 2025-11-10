@@ -3,7 +3,7 @@ use crate::dto::draft::response::create_draft::CreateDraftResponse;
 use crate::repository::draft::create_draft::repository_create_draft;
 use crate::repository::draft::get_draft_count::repository_get_draft_count;
 use crate::service::error::errors::{Errors, ServiceResult};
-use sea_orm::{ConnectionTrait, DbErr, TransactionTrait};
+use sea_orm::{ConnectionTrait, DbErr, TransactionSession, TransactionTrait};
 use tracing::info;
 use uuid::Uuid;
 
