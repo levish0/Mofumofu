@@ -22,21 +22,20 @@ where
     let mut query = PostEntity::find();
 
     // 정렬 조건 적용
-    // SQL 문자열을 미리 생성하여 lifetime 보장
-    let two_weeks_ago = chrono::Utc::now() - chrono::Duration::weeks(2);
-    let sql = format!(
-        "(SELECT COUNT(*) FROM system_events WHERE target_id = posts.id AND action_type = 'post_viewed' AND target_type = 'post' AND created_at >= '{}')",
-        two_weeks_ago.format("%Y-%m-%d %H:%M:%S%.3f+00:00")
-    );
-
     match sort_order {
         PostSortOrder::Latest => {
             query = query.order_by_desc(Column::CreatedAt);
         }
         PostSortOrder::Popular => {
             // 최근 2주간 PostViewed 이벤트 수 기반으로 trending 정렬
+            let two_weeks_ago = chrono::Utc::now() - chrono::Duration::weeks(2);
+            let timestamp = two_weeks_ago.format("%Y-%m-%d %H:%M:%S%.3f+00:00").to_string();
+
             query = query
-                .order_by_desc(Expr::cust(&sql))
+                .order_by_desc(Expr::cust_with_values(
+                    "(SELECT COUNT(*) FROM system_events WHERE target_id = posts.id AND action_type = 'post_viewed' AND target_type = 'post' AND created_at >= $1)",
+                    [timestamp.into()]
+                ))
                 .order_by_desc(Column::CreatedAt); // 같은 view count일 때는 최신순
         }
         PostSortOrder::Oldest => {
