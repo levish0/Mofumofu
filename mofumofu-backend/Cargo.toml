@@ -37,4 +37,4 @@ meilisearch-sdk = "0.30.0"
 redis = { version = "0.32.7", features = ["tokio-comp", "tokio-native-tls-comp", "connection-manager"] }
 infer = "0.19.0"
 sha2 = "0.10.9"
-image = "0.25.8"
+image = "0.25.9"
