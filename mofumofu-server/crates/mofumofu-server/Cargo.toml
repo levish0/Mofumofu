@@ -1,4 +1,4 @@
-ckage]
+[package]
 name = "mofumofu_server"
 version.workspace = true
 edition.workspace = true
