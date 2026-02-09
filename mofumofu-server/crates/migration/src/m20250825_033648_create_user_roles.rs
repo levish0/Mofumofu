@@ -1,5 +1,7 @@
+use crate::common::UserRole;
 use crate::m20250825_033639_users::Users;
 use sea_orm_migration::prelude::*;
+use strum::IntoEnumIterator;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -10,65 +12,72 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(UserBans::Table)
+                    .table(UserRoles::Table)
                     .if_not_exists()
                     .col(
-                        ColumnDef::new(UserBans::Id)
+                        ColumnDef::new(UserRoles::Id)
                             .uuid()
                             .not_null()
                             .primary_key()
                             .default(Expr::cust("uuidv7()")),
                     )
-                    .col(ColumnDef::new(UserBans::UserId).uuid().not_null())
-                    .col(ColumnDef::new(UserBans::BannedBy).uuid().not_null())
-                    .col(ColumnDef::new(UserBans::Reason).text().not_null())
+                    .col(ColumnDef::new(UserRoles::UserId).uuid().not_null())
                     .col(
-                        ColumnDef::new(UserBans::ExpiresAt)
-                            .timestamp_with_time_zone()
-                            .null(),
+                        ColumnDef::new(UserRoles::Role)
+                            .enumeration(
+                                UserRole::Table,
+                                UserRole::iter()
+                                    .filter(|v| !matches!(v, UserRole::Table))
+                                    .collect::<Vec<_>>(),
+                            )
+                            .not_null()
+                            .default(Expr::cust("'user'::user_role")),
                     )
+                    .col(ColumnDef::new(UserRoles::GrantedBy).uuid().null())
                     .col(
-                        ColumnDef::new(UserBans::CreatedAt)
+                        ColumnDef::new(UserRoles::CreatedAt)
                             .timestamp_with_time_zone()
                             .not_null()
                             .default(Expr::cust("now()")),
                     )
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk_user_bans_user")
-                            .from(UserBans::Table, UserBans::UserId)
+                            .name("fk_user_roles_user")
+                            .from(UserRoles::Table, UserRoles::UserId)
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk_user_bans_banned_by")
-                            .from(UserBans::Table, UserBans::BannedBy)
+                            .name("fk_user_roles_granted_by")
+                            .from(UserRoles::Table, UserRoles::GrantedBy)
                             .to(Users::Table, Users::Id)
-                            .on_delete(ForeignKeyAction::Cascade),
+                            .on_delete(ForeignKeyAction::SetNull),
                     )
                     .to_owned(),
             )
             .await?;
 
-        // Index: User's bans
+        // Unique: one role per user per type
         manager
             .create_index(
                 Index::create()
-                    .name("idx_user_bans_user_id")
-                    .table(UserBans::Table)
-                    .col(UserBans::UserId)
+                    .name("uq_user_roles_user_role")
+                    .table(UserRoles::Table)
+                    .col(UserRoles::UserId)
+                    .col(UserRoles::Role)
+                    .unique()
                     .to_owned(),
             )
             .await?;
 
-        // Index: Active bans (expires_at filter)
+        // Index: User's roles
         manager
             .create_index(
                 Index::create()
-                    .name("idx_user_bans_expires_at")
-                    .table(UserBans::Table)
-                    .col(UserBans::ExpiresAt)
+                    .name("idx_user_roles_user_id")
+                    .table(UserRoles::Table)
+                    .col(UserRoles::UserId)
                     .to_owned(),
             )
             .await?;
@@ -78,19 +87,18 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table(UserBans::Table).to_owned())
+            .drop_table(Table::drop().table(UserRoles::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-pub enum UserBans {
-    #[sea_orm(iden = "user_bans")]
+pub enum UserRoles {
+    #[sea_orm(iden = "user_roles")]
     Table,
     Id,
     UserId,
-    BannedBy,
-    Reason,
-    ExpiresAt,
+    Role,
+    GrantedBy,
     CreatedAt,
 }

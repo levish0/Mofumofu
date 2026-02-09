@@ -1,4 +1,4 @@
-use crate::common::report::ReportStatus;
+use crate::common::UserRole;
 use crate::extension::postgres::Type;
 use sea_orm_migration::prelude::*;
 use strum::IntoEnumIterator;
@@ -12,10 +12,10 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(ReportStatus::Table)
+                    .as_enum(UserRole::Table)
                     .values(
-                        ReportStatus::iter()
-                            .filter(|v| !matches!(v, ReportStatus::Table))
+                        UserRole::iter()
+                            .filter(|v| !matches!(v, UserRole::Table))
                             .collect::<Vec<_>>(),
                     )
                     .to_owned(),
@@ -28,7 +28,7 @@ impl MigrationTrait for Migration {
             .drop_type(
                 Type::drop()
                     .if_exists()
-                    .name(ReportStatus::Table)
+                    .name(UserRole::Table)
                     .to_owned(),
             )
             .await

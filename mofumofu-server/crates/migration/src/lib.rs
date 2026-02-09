@@ -5,6 +5,8 @@ mod m20250825_033639_users;
 mod m20250825_033642_create_posts;
 mod m20250825_033645_oauth_providers;
 mod m20250825_033646_oauth_connections;
+mod m20250825_033647_create_user_role_enum;
+mod m20250825_033648_create_user_roles;
 mod m20251215_034351_action_resource_type_enum;
 mod m20251215_034415_create_action_logs;
 mod m20260209_171633_create_hashtags;
@@ -20,8 +22,6 @@ mod m20260209_171659_create_reports;
 mod m20260209_171659_create_user_bans;
 mod m20260209_171659_create_moderation_resource_type_enum;
 mod m20260209_171700_create_moderation_logs;
-mod m20260209_172007_create_user_role_enum;
-mod m20260209_172014_add_role_to_users;
 
 pub struct Migrator;
 
@@ -33,6 +33,8 @@ impl MigratorTrait for Migrator {
             Box::new(m20250825_033642_create_posts::Migration),
             Box::new(m20250825_033645_oauth_providers::Migration),
             Box::new(m20250825_033646_oauth_connections::Migration),
+            Box::new(m20250825_033647_create_user_role_enum::Migration),
+            Box::new(m20250825_033648_create_user_roles::Migration),
             Box::new(m20251215_034351_action_resource_type_enum::Migration),
             Box::new(m20251215_034415_create_action_logs::Migration),
             Box::new(m20260209_171633_create_hashtags::Migration),
@@ -48,8 +50,6 @@ impl MigratorTrait for Migrator {
             Box::new(m20260209_171659_create_user_bans::Migration),
             Box::new(m20260209_171659_create_moderation_resource_type_enum::Migration),
             Box::new(m20260209_171700_create_moderation_logs::Migration),
-            Box::new(m20260209_172007_create_user_role_enum::Migration),
-            Box::new(m20260209_172014_add_role_to_users::Migration),
         ]
     }
 }

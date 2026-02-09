@@ -1,4 +1,7 @@
-use sea_orm_migration::{prelude::*, schema::*};
+use crate::common::moderation::ModerationResourceType;
+use crate::m20250825_033639_users::Users;
+use sea_orm_migration::prelude::*;
+use strum::IntoEnumIterator;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -6,36 +9,104 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
-        // Replace the sample below with your own migration scripts
-        todo!();
-
         manager
             .create_table(
                 Table::create()
-                    .table(Post::Table)
+                    .table(ModerationLogs::Table)
                     .if_not_exists()
-                    .col(pk_auto(Post::Id))
-                    .col(string(Post::Title))
-                    .col(string(Post::Text))
+                    .col(
+                        ColumnDef::new(ModerationLogs::Id)
+                            .uuid()
+                            .not_null()
+                            .primary_key()
+                            .default(Expr::cust("uuidv7()")),
+                    )
+                    .col(ColumnDef::new(ModerationLogs::Action).text().not_null())
+                    .col(ColumnDef::new(ModerationLogs::ActorId).uuid().not_null())
+                    .col(
+                        ColumnDef::new(ModerationLogs::ResourceType)
+                            .enumeration(
+                                ModerationResourceType::Table,
+                                ModerationResourceType::iter()
+                                    .filter(|v| !matches!(v, ModerationResourceType::Table))
+                                    .collect::<Vec<_>>(),
+                            )
+                            .not_null(),
+                    )
+                    .col(ColumnDef::new(ModerationLogs::ResourceId).uuid().null())
+                    .col(ColumnDef::new(ModerationLogs::Reason).text().null())
+                    .col(ColumnDef::new(ModerationLogs::Metadata).json_binary().null())
+                    .col(
+                        ColumnDef::new(ModerationLogs::CreatedAt)
+                            .timestamp_with_time_zone()
+                            .not_null()
+                            .default(Expr::cust("now()")),
+                    )
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk_moderation_logs_actor")
+                            .from(ModerationLogs::Table, ModerationLogs::ActorId)
+                            .to(Users::Table, Users::Id)
+                            .on_delete(ForeignKeyAction::Cascade),
+                    )
                     .to_owned(),
             )
-            .await
+            .await?;
+
+        // Index: Actor's moderation actions
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_moderation_logs_actor_id")
+                    .table(ModerationLogs::Table)
+                    .col(ModerationLogs::ActorId)
+                    .to_owned(),
+            )
+            .await?;
+
+        // Index: Resource lookup
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_moderation_logs_resource")
+                    .table(ModerationLogs::Table)
+                    .col(ModerationLogs::ResourceType)
+                    .col(ModerationLogs::ResourceId)
+                    .to_owned(),
+            )
+            .await?;
+
+        // Index: Action type filter
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_moderation_logs_action")
+                    .table(ModerationLogs::Table)
+                    .col(ModerationLogs::Action)
+                    .to_owned(),
+            )
+            .await?;
+
+        Ok(())
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
-        // Replace the sample below with your own migration scripts
-        todo!();
-
         manager
-            .drop_table(Table::drop().table(Post::Table).to_owned())
+            .drop_table(Table::drop().table(ModerationLogs::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-enum Post {
+pub enum ModerationLogs {
+    #[sea_orm(iden = "moderation_logs")]
     Table,
     Id,
-    Title,
-    Text,
+    Action,
+    ActorId,
+    ResourceType,
+    ResourceId,
+    Reason,
+    Metadata,
+    CreatedAt,
 }
