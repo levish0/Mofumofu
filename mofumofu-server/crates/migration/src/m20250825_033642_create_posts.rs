@@ -46,6 +46,11 @@ impl MigrationTrait for Migration {
                             .default(0),
                     )
                     .col(
+                        ColumnDef::new(Posts::PublishedAt)
+                            .timestamp_with_time_zone()
+                            .null(),
+                    )
+                    .col(
                         ColumnDef::new(Posts::CreatedAt)
                             .timestamp_with_time_zone()
                             .not_null()
@@ -139,6 +144,7 @@ pub enum Posts {
     LikeCount,
     CommentCount,
     ViewCount,
+    PublishedAt,
     CreatedAt,
     UpdatedAt,
 }

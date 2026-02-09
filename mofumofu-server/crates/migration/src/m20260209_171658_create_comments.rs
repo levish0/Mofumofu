@@ -23,6 +23,12 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Comments::PostId).uuid().not_null())
                     .col(ColumnDef::new(Comments::UserId).uuid().not_null())
                     .col(ColumnDef::new(Comments::ParentId).uuid().null())
+                    .col(
+                        ColumnDef::new(Comments::Depth)
+                            .integer()
+                            .not_null()
+                            .default(0),
+                    )
                     .col(ColumnDef::new(Comments::Content).text().not_null())
                     .col(
                         ColumnDef::new(Comments::LikeCount)
@@ -122,6 +128,7 @@ pub enum Comments {
     PostId,
     UserId,
     ParentId,
+    Depth,
     Content,
     LikeCount,
     DeletedAt,
