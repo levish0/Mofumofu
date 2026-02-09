@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2025-02-10
+
+### Added
+
+#### Markdown Service (`markdown-service/`)
+- Bun + Elysia + unified.js markdown rendering microservice
+- `POST /render` — Markdown to HTML + TOC conversion
+- `GET /health` — Health check endpoint
+- Pipeline: remark-parse → remark-gfm → remark-breaks → remark-math → remark-emoji → remark-github-blockquote-alert → remark-rehype → rehype-raw → rehype-katex → rehype-highlight → rehype-slug → tocPlugin → rehype-sanitize → rehype-stringify
+- Supports: GFM, LaTeX (KaTeX), code syntax highlighting (highlight.js), emoji, GitHub alert blockquotes, SVG
+- XSS prevention: rehype-sanitize custom schema (style attribute blocked, javascript: URI blocked, protocol whitelist)
+- Dockerfile (multi-stage build)
+- Prettier config + CI workflow (`markdown-service-build.yml`)
+
+### Changed (vs V1 markdown-service)
+- Switch to top-level imports (removed per-call dynamic imports for better performance)
+- Remove `remark-toc` (replaced by custom tocPlugin, unnecessary dependency)
+- tocItems closure variable replaced with per-call array injection (eliminates side effects)
+- Return HTTP 500 on error (V1 returned 200)
+- Support `PORT` environment variable (default 6700)
+- Remove global `style` attribute allowance (XSS vector)
+- File separation: `processor.ts`, `sanitize-schema.ts`, `toc.ts` (separation of concerns)
+
 ## [2.1.0] - 2025-02-10
 
 ### Added

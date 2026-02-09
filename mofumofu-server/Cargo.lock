@@ -1845,7 +1845,7 @@ checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
 
 [[package]]
 name = "e2e"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -3410,7 +3410,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_config"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "axum",
  "dotenvy",
@@ -3427,7 +3427,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_dto"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "axum",
  "axum-extra",
@@ -3448,7 +3448,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_entity"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "sea-orm",
  "serde",
@@ -3458,7 +3458,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_errors"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "axum",
  "mofumofu_config",
@@ -3470,7 +3470,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_server"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "anyhow",
  "argon2",
@@ -3520,7 +3520,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_worker"
-version = "2.1.0"
+version = "2.1.1"
 dependencies = [
  "anyhow",
  "async-nats",
