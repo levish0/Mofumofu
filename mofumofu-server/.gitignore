@@ -27,4 +27,5 @@ docker.env
 docker_env/
 logs
 reference
+CLAUDE.md
 !docs/reference/
