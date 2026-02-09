@@ -57,18 +57,18 @@ pub enum Relation {
     Drafts,
     #[sea_orm(has_many = "CommentsEntity")]
     Comments,
+    #[sea_orm(has_many = "LikesEntity")]
+    Likes,
+    #[sea_orm(has_many = "ModerationLogsEntity")]
+    ModerationLogs,
     #[sea_orm(has_many = "UserRolesEntity")]
     UserRoles,
     #[sea_orm(has_many = "UserBansEntity")]
     UserBans,
     #[sea_orm(has_many = "FollowsEntity")]
     Follows,
-    #[sea_orm(has_many = "LikesEntity")]
-    Likes,
     #[sea_orm(has_many = "ReportsEntity")]
     Reports,
-    #[sea_orm(has_many = "ModerationLogsEntity")]
-    ModerationLogs,
 }
 
 impl Related<UserOAuthConnectionsEntity> for Entity {
@@ -95,6 +95,18 @@ impl Related<CommentsEntity> for Entity {
     }
 }
 
+impl Related<LikesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Likes.def()
+    }
+}
+
+impl Related<ModerationLogsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::ModerationLogs.def()
+    }
+}
+
 impl Related<UserRolesEntity> for Entity {
     fn to() -> RelationDef {
         Relation::UserRoles.def()
@@ -113,21 +125,9 @@ impl Related<FollowsEntity> for Entity {
     }
 }
 
-impl Related<LikesEntity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Likes.def()
-    }
-}
-
 impl Related<ReportsEntity> for Entity {
     fn to() -> RelationDef {
         Relation::Reports.def()
-    }
-}
-
-impl Related<ModerationLogsEntity> for Entity {
-    fn to() -> RelationDef {
-        Relation::ModerationLogs.def()
     }
 }
 

@@ -28,12 +28,16 @@ impl MigrationTrait for Migration {
                     )
                     .col(
                         ColumnDef::new(UserOAuthConnections::Provider)
-                            .enumeration(OAuthProvider::Table, OAuthProvider::iter().skip(1))
+                            .enumeration(
+                                OAuthProvider::Table,
+                                OAuthProvider::iter()
+                                    .filter(|v| !matches!(v, OAuthProvider::Table)),
+                            )
                             .not_null(),
                     )
                     .col(
                         ColumnDef::new(UserOAuthConnections::ProviderUserId)
-                            .string_len(255)
+                            .text()
                             .not_null(),
                     )
                     .col(

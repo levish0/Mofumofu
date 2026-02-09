@@ -27,6 +27,8 @@ where
         totp_secret: Set(None),
         totp_enabled_at: Set(None),
         totp_backup_codes: Set(None),
+        follower_count: Set(0),
+        following_count: Set(0),
         created_at: Default::default(),
     };
 

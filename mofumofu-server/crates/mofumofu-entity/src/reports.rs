@@ -47,4 +47,34 @@ pub enum Relation {
     Resolver,
 }
 
+impl Related<UsersEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Reporter.def()
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct ReporterLink;
+
+impl Linked for ReporterLink {
+    type FromEntity = Entity;
+    type ToEntity = super::users::Entity;
+
+    fn link(&self) -> Vec<RelationDef> {
+        vec![Relation::Reporter.def()]
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct ResolverLink;
+
+impl Linked for ResolverLink {
+    type FromEntity = Entity;
+    type ToEntity = super::users::Entity;
+
+    fn link(&self) -> Vec<RelationDef> {
+        vec![Relation::Resolver.def()]
+    }
+}
+
 impl ActiveModelBehavior for ActiveModel {}

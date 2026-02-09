@@ -51,7 +51,9 @@ pub enum Relation {
         to = "Column::Id",
         on_delete = "Cascade"
     )]
-    Parent,
+    ParentComment,
+    #[sea_orm(has_many = "Entity", from = "Column::Id", to = "Column::ParentId")]
+    ChildComments,
 }
 
 impl Related<PostsEntity> for Entity {
@@ -63,6 +65,12 @@ impl Related<PostsEntity> for Entity {
 impl Related<UsersEntity> for Entity {
     fn to() -> RelationDef {
         Relation::User.def()
+    }
+}
+
+impl Related<Entity> for Entity {
+    fn to() -> RelationDef {
+        Relation::ParentComment.def()
     }
 }
 

@@ -34,4 +34,10 @@ pub enum Relation {
     Followee,
 }
 
+impl Related<UsersEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Follower.def()
+    }
+}
+
 impl ActiveModelBehavior for ActiveModel {}

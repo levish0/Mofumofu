@@ -1,4 +1,15 @@
 pub mod action_logs;
+pub mod comments;
 pub mod common;
+pub mod drafts;
+pub mod follows;
+pub mod hashtags;
+pub mod likes;
+pub mod moderation_logs;
+pub mod post_hashtags;
+pub mod posts;
+pub mod reports;
+pub mod user_bans;
 pub mod user_oauth_connections;
+pub mod user_roles;
 pub mod users;

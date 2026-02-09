@@ -38,4 +38,10 @@ pub enum Relation {
     Banner,
 }
 
+impl Related<UsersEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::User.def()
+    }
+}
+
 impl ActiveModelBehavior for ActiveModel {}
