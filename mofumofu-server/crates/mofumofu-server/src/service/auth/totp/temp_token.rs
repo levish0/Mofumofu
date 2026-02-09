@@ -1,7 +1,7 @@
 use crate::utils::redis_cache::set_json_with_ttl;
 use chrono::{DateTime, Utc};
 use mofumofu_errors::errors::Errors;
-use rand::RngCore;
+use rand::Rng;
 use redis::AsyncCommands;
 use redis::aio::ConnectionManager as RedisClient;
 use serde::{Deserialize, Serialize};

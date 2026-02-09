@@ -1,10 +1,10 @@
 use super::common::ISSUER;
 use crate::repository::user::{
-    UserUpdateParams, repository_get_user_by_id, repository_update_user,
+    repository_get_user_by_id, repository_update_user, UserUpdateParams,
 };
 use mofumofu_dto::auth::response::TotpSetupResponse;
 use mofumofu_errors::errors::{Errors, ServiceResult};
-use rand::Rng;
+use rand::RngExt;
 use sea_orm::ConnectionTrait;
 use totp_rs::{Algorithm, Secret, TOTP};
 use uuid::Uuid;
