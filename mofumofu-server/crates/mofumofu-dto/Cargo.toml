@@ -1,0 +1,27 @@
+[package]
+name = "mofumofu_dto"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "mofumofu API Data Transfer Objects"
+
+[dependencies]
+# Internal crates
+mofumofu_config.workspace = true
+mofumofu_constants.workspace = true
+mofumofu_entity.workspace = true
+mofumofu_errors.workspace = true
+
+# External dependencies
+serde = { workspace = true, features = ["derive"] }
+chrono = { workspace = true, features = ["serde"] }
+uuid = { workspace = true, features = ["v7", "serde"] }
+validator = { workspace = true, features = ["derive"] }
+sea-orm.workspace = true
+utoipa.workspace = true
+axum.workspace = true
+axum-extra.workspace = true
+cookie.workspace = true
+serde_json.workspace = true
+tracing.workspace = true

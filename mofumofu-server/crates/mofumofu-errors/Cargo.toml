@@ -1,0 +1,17 @@
+[package]
+name = "mofumofu_errors"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+
+[dependencies]
+# Internal crates
+mofumofu_config = { workspace = true }
+
+# External dependencies
+serde = { workspace = true }
+sea-orm = { workspace = true }
+utoipa = { workspace = true }
+axum = { workspace = true }
+tracing = { workspace = true }
+
