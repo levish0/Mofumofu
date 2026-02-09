@@ -1,6 +1,6 @@
 use super::common::ISSUER;
 use crate::repository::user::{
-    repository_get_user_by_id, repository_update_user, UserUpdateParams,
+    UserUpdateParams, repository_get_user_by_id, repository_update_user,
 };
 use mofumofu_dto::auth::response::TotpSetupResponse;
 use mofumofu_errors::errors::{Errors, ServiceResult};

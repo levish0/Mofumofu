@@ -18,7 +18,12 @@ impl MigrationTrait for Migration {
                             .primary_key()
                             .default(Expr::cust("uuidv7()")),
                     )
-                    .col(ColumnDef::new(Hashtags::Name).text().not_null().unique_key())
+                    .col(
+                        ColumnDef::new(Hashtags::Name)
+                            .text()
+                            .not_null()
+                            .unique_key(),
+                    )
                     .col(
                         ColumnDef::new(Hashtags::UsageCount)
                             .integer()

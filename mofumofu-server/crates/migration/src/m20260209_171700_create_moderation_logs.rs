@@ -35,7 +35,11 @@ impl MigrationTrait for Migration {
                     )
                     .col(ColumnDef::new(ModerationLogs::ResourceId).uuid().null())
                     .col(ColumnDef::new(ModerationLogs::Reason).text().null())
-                    .col(ColumnDef::new(ModerationLogs::Metadata).json_binary().null())
+                    .col(
+                        ColumnDef::new(ModerationLogs::Metadata)
+                            .json_binary()
+                            .null(),
+                    )
                     .col(
                         ColumnDef::new(ModerationLogs::CreatedAt)
                             .timestamp_with_time_zone()

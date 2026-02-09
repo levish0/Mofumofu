@@ -4,6 +4,14 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme inline {
+	--max-width-8xl: 88rem;
+	--font-pretendard:
+		'Pretendard JP Variable', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui,
+		Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+}
+
 :root {
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
@@ -118,4 +126,23 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+}
+
+* {
+	scrollbar-width: thin;
+}
+
+.scrollbar-hidden {
+	scrollbar-width: none;
+}
+
+a,
+button {
+	cursor: pointer;
+}
+
+a:hover,
+button:not([data-slot]):hover {
+	transition: all 150ms;
+	/*background-color: var(--color-muted);*/
 }

@@ -1,7 +1,8 @@
 use crate::handlers::{
-    email_handler, eventstream_handler, file_handler, general_handler, meilisearch_handler,
-    oauth_handler, password_handler, rate_limit_handler, session_handler, system_handler,
-    token_handler, totp_handler, turnstile_handler, user_handler, worker_handler,
+    comment_handler, draft_handler, email_handler, eventstream_handler, file_handler,
+    general_handler, meilisearch_handler, oauth_handler, password_handler, post_handler,
+    rate_limit_handler, session_handler, system_handler, token_handler, totp_handler,
+    turnstile_handler, user_handler, worker_handler,
 };
 use axum::Json;
 use axum::http::StatusCode;
@@ -83,6 +84,15 @@ pub enum Errors {
     // Discussion
     DiscussionMessageNotFound,
     DiscussionClosed,
+
+    // Post
+    PostNotFound,
+
+    // Draft
+    DraftNotFound,
+
+    // Comment
+    CommentNotFound,
 
     // Report
     ReportNotFound,
@@ -177,6 +187,9 @@ impl IntoResponse for Errors {
     fn into_response(self) -> Response {
         // Central logging via domain handlers
         user_handler::log_error(&self);
+        post_handler::log_error(&self);
+        draft_handler::log_error(&self);
+        comment_handler::log_error(&self);
         oauth_handler::log_error(&self);
         session_handler::log_error(&self);
         password_handler::log_error(&self);
@@ -194,6 +207,9 @@ impl IntoResponse for Errors {
 
         // HTTP response mapping via domain handlers
         let (status, code, details) = user_handler::map_response(&self)
+            .or_else(|| post_handler::map_response(&self))
+            .or_else(|| draft_handler::map_response(&self))
+            .or_else(|| comment_handler::map_response(&self))
             .or_else(|| oauth_handler::map_response(&self))
             .or_else(|| session_handler::map_response(&self))
             .or_else(|| password_handler::map_response(&self))

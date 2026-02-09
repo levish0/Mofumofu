@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2025-02-10
+
+### Added
+
+#### Error Layer (`mofumofu-errors`)
+- `PostNotFound`, `DraftNotFound`, `CommentNotFound` error variants
+- `protocol.rs`: `post`, `draft`, `comment` error code modules
+- `post_handler.rs`, `draft_handler.rs`, `comment_handler.rs` error handlers (404 mapping)
+
+#### Repository Layer (`mofumofu-server`)
+- **posts/**: `create`, `find_by_id`, `get_by_id`, `find_by_user_id_and_slug`, `find_list` (cursor pagination + `PostFilter`), `update` (`PostUpdateParams`), `delete`
+- **drafts/**: `create`, `find_by_id`, `get_by_id`, `find_by_user_id`, `update` (`DraftUpdateParams`), `delete`
+- **hashtags/**: `find_by_name`, `find_or_create`
+- **post_hashtags/**: `create`, `delete`, `find_by_post_id`
+- **comments/**: `create`, `find_by_id`, `get_by_id`, `find_by_post_id` (cursor pagination), `update` (`CommentUpdateParams`), `soft_delete`
+- **follows/**: `create`, `delete`, `find_by_follower_and_followee`
+- **likes/**: `create`, `delete`, `find_by_user_and_target` (polymorphic via `LikeTargetType`)
+- **reports/**: `create`, `find_by_id`, `get_by_id`, `find_list` (cursor pagination + `ReportFilter`), `update` (`ReportUpdateParams`), `exists/newer`, `exists/older`
+- **user_roles/**: `create`, `delete`, `find`
+- **user_bans/**: `create`, `delete`, `find`
+- **moderation_logs/**: `create`, `find_list` (cursor pagination + `ModerationLogFilter`), `exists/newer`, `exists/older`
+
 ## [2.0.0] - 2025-02-10
 
 ### Added

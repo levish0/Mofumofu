@@ -34,6 +34,18 @@ pub mod oauth {
     pub const OAUTH_EMAIL_NOT_VERIFIED: &str = "oauth:email_not_verified";
 }
 
+pub mod post {
+    pub const POST_NOT_FOUND: &str = "post:not_found";
+}
+
+pub mod draft {
+    pub const DRAFT_NOT_FOUND: &str = "draft:not_found";
+}
+
+pub mod comment {
+    pub const COMMENT_NOT_FOUND: &str = "comment:not_found";
+}
+
 pub mod general {
     pub const BAD_REQUEST: &str = "general:bad_request";
     pub const VALIDATION_ERROR: &str = "general:validation_error";

@@ -16,11 +16,11 @@ mod m20260209_171658_create_comments;
 mod m20260209_171658_create_follows;
 mod m20260209_171658_create_like_target_type_enum;
 mod m20260209_171658_create_likes;
-mod m20260209_171659_create_report_target_type_enum;
+mod m20260209_171659_create_moderation_resource_type_enum;
 mod m20260209_171659_create_report_status_enum;
+mod m20260209_171659_create_report_target_type_enum;
 mod m20260209_171659_create_reports;
 mod m20260209_171659_create_user_bans;
-mod m20260209_171659_create_moderation_resource_type_enum;
 mod m20260209_171700_create_moderation_logs;
 
 pub struct Migrator;

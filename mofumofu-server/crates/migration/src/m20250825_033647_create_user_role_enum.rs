@@ -25,12 +25,7 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_type(
-                Type::drop()
-                    .if_exists()
-                    .name(UserRole::Table)
-                    .to_owned(),
-            )
+            .drop_type(Type::drop().if_exists().name(UserRole::Table).to_owned())
             .await
     }
 }

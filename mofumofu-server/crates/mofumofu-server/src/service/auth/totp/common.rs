@@ -1,5 +1,5 @@
 use mofumofu_errors::errors::{Errors, ServiceResult};
-use rand::{RngExt};
+use rand::RngExt;
 use totp_rs::{Algorithm, Secret, TOTP};
 
 pub const ISSUER: &str = "Sevenwiki";
