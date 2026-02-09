@@ -6,7 +6,7 @@ use mofumofu_dto::action_logs::ActionLogResponse;
 use mofumofu_server::api::routes::api_routes;
 use mofumofu_server::connection::{
     MeilisearchClient, create_http_client, establish_r2_connection, establish_read_connection,
-    establish_redis_connection, establish_seaweedfs_connection, establish_write_connection,
+    establish_redis_connection, establish_write_connection,
 };
 use mofumofu_server::eventstream::start_eventstream_subscriber;
 use mofumofu_server::middleware::anonymous_user::anonymous_user_middleware;
@@ -35,10 +35,6 @@ pub async fn run_server() -> anyhow::Result<()> {
     let r2_client = establish_r2_connection().await.map_err(|e| {
         error!("Failed to establish cloudflare_r2 connection: {}", e);
         anyhow::anyhow!("R2 connection failed: {}", e)
-    })?;
-    let seaweedfs_client = establish_seaweedfs_connection().await.map_err(|e| {
-        error!("Failed to establish SeaweedFS connection: {}", e);
-        anyhow::anyhow!("SeaweedFS connection failed: {}", e)
     })?;
     let redis_session = establish_redis_connection(
         &ServerConfig::get().redis_session_host,
@@ -102,7 +98,6 @@ pub async fn run_server() -> anyhow::Result<()> {
         write_db,
         read_db,
         r2_client,
-        seaweedfs_client,
         redis_session,
         redis_cache,
         worker,

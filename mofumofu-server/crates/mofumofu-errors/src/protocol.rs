@@ -16,10 +16,6 @@ pub mod user {
     pub const USER_INVALID_TOKEN: &str = "user:invalid_token";
 }
 
-pub mod post {
-    pub const POST_NOT_FOUND: &str = "post:not_found";
-}
-
 pub mod oauth {
     pub const OAUTH_INVALID_AUTH_URL: &str = "oauth:invalid_auth_url";
     pub const OAUTH_INVALID_TOKEN_URL: &str = "oauth:invalid_token_url";

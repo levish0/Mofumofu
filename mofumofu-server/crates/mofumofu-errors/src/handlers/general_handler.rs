@@ -1,17 +1,11 @@
 use crate::errors::Errors;
 use crate::protocol::general::*;
-use crate::protocol::post::*;
 use axum::http::StatusCode;
-use tracing::{debug, warn};
+use tracing::debug;
 
 /// 일반 에러 로깅 처리
 pub fn log_error(error: &Errors) {
     match error {
-        // 리소스 찾을 수 없음 - warn! 레벨
-        Errors::PostNotFound => {
-            warn!("Resource not found: {:?}", error);
-        }
-
         // 비즈니스 로직 에러 - debug! 레벨 (클라이언트 실수)
         Errors::ForbiddenError(_)
         | Errors::BadRequestError(_)
@@ -29,7 +23,6 @@ pub fn log_error(error: &Errors) {
 pub fn map_response(error: &Errors) -> Option<(StatusCode, &'static str, Option<String>)> {
     match error {
         Errors::ForbiddenError(msg) => Some((StatusCode::FORBIDDEN, FORBIDDEN, Some(msg.clone()))),
-        Errors::PostNotFound => Some((StatusCode::NOT_FOUND, POST_NOT_FOUND, None)),
         Errors::BadRequestError(msg) => {
             Some((StatusCode::BAD_REQUEST, BAD_REQUEST, Some(msg.clone())))
         }

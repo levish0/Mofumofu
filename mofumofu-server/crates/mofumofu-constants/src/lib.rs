@@ -12,6 +12,5 @@ pub use cache_keys::{
 };
 pub use nats_subjects::REALTIME_EVENTS_SUBJECT;
 pub use storage_keys::{
-    user_image_key, BANNER_IMAGE_MAX_SIZE, POST_CONTENT_PREFIX, PROFILE_IMAGE_MAX_SIZE,
-    USER_IMAGES_PREFIX,
+    user_image_key, BANNER_IMAGE_MAX_SIZE, PROFILE_IMAGE_MAX_SIZE, USER_IMAGES_PREFIX,
 };
