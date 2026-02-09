@@ -1,4 +1,4 @@
-name: mofumofu Backend
+name: Build mofumofu-server
 
 on:
   push:
@@ -12,24 +12,18 @@ jobs:
 
     defaults:
       run:
-        working-directory: mofumofu-backend
+        working-directory: mofumofu-server
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
 
-      - name: Cache Cargo dependencies
-        uses: actions/cache@v3
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            mofumofu-backend/target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('mofumofu-backend/**/Cargo.lock') }}
+          workspaces: "/mofumofu-server"
 
       - name: Release Build
         run: cargo build --release
