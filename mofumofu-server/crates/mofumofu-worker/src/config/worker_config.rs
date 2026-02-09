@@ -43,9 +43,6 @@ pub struct WorkerConfig {
     // Cron
     pub cron_timezone: String,
 
-    // SeaweedFS (revision content storage)
-    pub seaweedfs_endpoint: String,
-
     // R2 (Sitemap storage)
     pub r2_endpoint: String,
     pub r2_region: String,
@@ -84,7 +81,6 @@ static CONFIG: LazyLock<WorkerConfig> = LazyLock::new(|| {
     let db_write_name = require!("POSTGRES_WRITE_NAME");
     let db_write_user = require!("POSTGRES_WRITE_USER");
     let db_write_password = require!("POSTGRES_WRITE_PASSWORD");
-    let seaweedfs_endpoint = require!("SEAWEEDFS_ENDPOINT");
     let r2_endpoint = require!("R2_ENDPOINT");
     let r2_access_key_id = require!("R2_ACCESS_KEY_ID");
     let r2_secret_access_key = require!("R2_SECRET_ACCESS_KEY");
@@ -153,9 +149,6 @@ static CONFIG: LazyLock<WorkerConfig> = LazyLock::new(|| {
 
         // Cron
         cron_timezone: env::var("CRON_TIMEZONE").unwrap_or_else(|_| "UTC".into()),
-
-        // SeaweedFS
-        seaweedfs_endpoint,
 
         // R2
         r2_endpoint,

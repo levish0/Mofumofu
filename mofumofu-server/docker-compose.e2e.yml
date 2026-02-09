@@ -72,19 +72,6 @@ services:
       timeout: 3s
       retries: 10
 
-  seaweedfs:
-    image: chrislusf/seaweedfs:4.04
-    container_name: e2e-seaweedfs
-    command: "server -filer -s3"
-    networks:
-      - e2e-network
-    healthcheck:
-      test: ["CMD", "curl", "-s", "http://localhost:8333/"]
-      interval: 5s
-      timeout: 3s
-      retries: 15
-      start_period: 10s
-
   server:
     image: e2e-server:latest
     build:
@@ -131,7 +118,6 @@ services:
       AUTH_SESSION_SLIDING_TTL_HOURS: "168"
       AUTH_SESSION_REFRESH_THRESHOLD: "50"
       TURNSTILE_SECRET_KEY: 1x0000000000000000000000000000000AA
-      SEAWEEDFS_ENDPOINT: http://seaweedfs:8333
       GOOGLE_CLIENT_ID: mock
       GOOGLE_CLIENT_SECRET: mock
       GOOGLE_REDIRECT_URI: http://localhost:8000/auth/google/callback
@@ -154,8 +140,6 @@ services:
       meilisearch:
         condition: service_healthy
       nats:
-        condition: service_healthy
-      seaweedfs:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health-check"]
@@ -201,8 +185,6 @@ services:
       FRONTEND_PATH_VERIFY_EMAIL: /verify-email
       FRONTEND_PATH_RESET_PASSWORD: /reset-password
       FRONTEND_PATH_CONFIRM_EMAIL_CHANGE: /confirm-email-change
-      # SeaweedFS
-      SEAWEEDFS_ENDPOINT: http://seaweedfs:8333
       # R2 (mock)
       R2_ENDPOINT: http://seaweedfs:8333
       R2_REGION: us-east-1
@@ -220,6 +202,4 @@ services:
       meilisearch:
         condition: service_healthy
       redis-cache:
-        condition: service_healthy
-      seaweedfs:
         condition: service_healthy

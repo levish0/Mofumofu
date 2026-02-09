@@ -1,5 +1,4 @@
 use axum::error_handling::HandleErrorLayer;
-use axum::handler::Handler;
 use axum::{Router, extract::DefaultBodyLimit, middleware};
 use mofumofu_config::ServerConfig;
 use mofumofu_dto::action_logs::ActionLogResponse;

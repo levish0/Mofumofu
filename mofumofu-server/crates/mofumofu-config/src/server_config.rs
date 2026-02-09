@@ -73,9 +73,6 @@ pub struct ServerConfig {
     pub meilisearch_host: String,
     pub meilisearch_api_key: Option<String>,
 
-    // SeaweedFS (revision content storage)
-    pub seaweedfs_endpoint: String,
-
     pub cors_allowed_origins: Vec<HeaderValue>,
     pub cors_allowed_headers: Vec<HeaderName>,
     pub cors_max_age: Option<u64>,
@@ -204,8 +201,6 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
     let db_read_password = require!("POSTGRES_READ_PASSWORD");
     let server_host = require!("HOST");
     let server_port = require!("PORT");
-    let seaweedfs_endpoint = require!("SEAWEEDFS_ENDPOINT");
-
     // Required parsed vars
     let auth_session_max_lifetime_hours = require_parse!("AUTH_SESSION_MAX_LIFETIME_HOURS", i64);
     let auth_session_sliding_ttl_hours = require_parse!("AUTH_SESSION_SLIDING_TTL_HOURS", i64);
@@ -328,9 +323,6 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         cors_max_age: env::var("CORS_MAX_AGE").ok().and_then(|v| v.parse().ok()),
 
         cookie_domain: env::var("COOKIE_DOMAIN").ok().filter(|d| !d.is_empty()),
-
-        // SeaweedFS
-        seaweedfs_endpoint,
 
         // Stability Layer
         stability_concurrency_limit: env::var("STABILITY_CONCURRENCY_LIMIT")

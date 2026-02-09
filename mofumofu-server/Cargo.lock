@@ -1840,7 +1840,6 @@ dependencies = [
  "tokio-stream",
  "tracing",
  "tracing-subscriber",
- "urlencoding",
  "uuid",
 ]
 
@@ -3495,15 +3494,12 @@ dependencies = [
  "sea-orm",
  "serde",
  "serde_json",
- "sitemap-rs",
  "tokio",
  "tokio-cron-scheduler",
  "tracing",
  "tracing-appender",
  "tracing-subscriber",
- "urlencoding",
  "uuid",
- "zstd",
 ]
 
 [[package]]
@@ -5355,16 +5351,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2aa850e253778c88a04c3d7323b043aeda9d3e30d5971937c1855769763678e"
 
 [[package]]
-name = "sitemap-rs"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e79ce04e83d8fd0b20507cdee343806f3434d2450592cb7d5ad351a53b5b74f7"
-dependencies = [
- "chrono",
- "xml-builder",
-]
-
-[[package]]
 name = "slab"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6996,12 +6982,6 @@ checksum = "05f360fc0b24296329c78fda852a1e9ae82de9cf7b27dae4b7f62f118f77b9ed"
 dependencies = [
  "tap",
 ]
-
-[[package]]
-name = "xml-builder"
-version = "0.5.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1c023e38161c176b6ed516e2c398acd755cd19983661eff519b811c01646e10f"
 
 [[package]]
 name = "xmlparser"

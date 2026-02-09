@@ -5,6 +5,5 @@ use super::search_users::search_users;
 
 pub fn search_routes() -> Router<AppState> {
     // Public routes (no authentication required)
-    Router::new()
-        .route("/search/users", get(search_users))
+    Router::new().route("/search/users", get(search_users))
 }

@@ -1,6 +1,4 @@
-use mofumofu_dto::search::{
-    SearchUsersRequest, SearchUsersResponse, SortOrder, UserSearchItem,
-};
+use mofumofu_dto::search::{SearchUsersRequest, SearchUsersResponse, SortOrder, UserSearchItem};
 use utoipa::OpenApi;
 
 #[derive(OpenApi)]

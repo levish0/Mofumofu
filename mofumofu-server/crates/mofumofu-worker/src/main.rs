@@ -5,7 +5,7 @@ use mofumofu_worker::connection;
 use mofumofu_worker::jobs::{self, WorkerContext};
 use mofumofu_worker::nats::streams::initialize_all_streams;
 use mofumofu_worker::utils;
-use mofumofu_worker::{CacheClient, DbPool, StorageClient};
+use mofumofu_worker::{CacheClient, DbPool};
 use std::sync::Arc;
 use tracing::info;
 
@@ -40,12 +40,7 @@ async fn main() -> Result<()> {
     let redis_cache_conn = redis::aio::ConnectionManager::new(redis_cache_client).await?;
     let cache_client: CacheClient = Arc::new(redis_cache_conn);
 
-    // Connect to SeaweedFS (for revision content)
-    info!("Connecting to SeaweedFS...");
-    let seaweedfs_client = connection::establish_seaweedfs_connection(config).await?;
-    let storage_client: StorageClient = Arc::new(seaweedfs_client);
-
-    // Connect to R2 (for sitemap storage)
+    // Connect to R2
     info!("Connecting to R2...");
     let r2_client = connection::establish_r2_connection(config).await?;
 
@@ -65,7 +60,6 @@ async fn main() -> Result<()> {
         meili_client,
         db_pool,
         cache_client,
-        storage_client,
         r2_client,
         jetstream,
         config,
@@ -75,23 +69,14 @@ async fn main() -> Result<()> {
 
     // Spawn all job consumers
     let email_handle = tokio::spawn(jobs::email::run_consumer(ctx.clone()));
-    let index_post_handle = tokio::spawn(jobs::index::post::run_consumer(ctx.clone()));
     let index_user_handle = tokio::spawn(jobs::index::user::run_consumer(ctx.clone()));
-    let reindex_posts_handle = tokio::spawn(jobs::reindex::posts::run_consumer(ctx.clone()));
     let reindex_users_handle = tokio::spawn(jobs::reindex::users::run_consumer(ctx.clone()));
-    let delete_content_handle = tokio::spawn(jobs::storage::run_consumer(ctx.clone()));
 
     info!("Job consumers started");
 
     // Start cron scheduler (tokio-cron-scheduler)
     info!("Starting cron scheduler...");
-    let _cron_scheduler = jobs::cron::start_scheduler(
-        ctx.db_pool.clone(),
-        ctx.r2_client.clone(),
-        ctx.storage_client.as_ref().clone(),
-        config,
-    )
-    .await?;
+    let _cron_scheduler = jobs::cron::start_scheduler(ctx.db_pool.clone(), config).await?;
 
     info!("All workers running");
 
@@ -102,29 +87,14 @@ async fn main() -> Result<()> {
                 tracing::error!("Email consumer panicked: {:?}", e);
             }
         }
-        result = index_post_handle => {
-            if let Err(e) = result {
-                tracing::error!("Index post consumer panicked: {:?}", e);
-            }
-        }
         result = index_user_handle => {
             if let Err(e) = result {
                 tracing::error!("Index user consumer panicked: {:?}", e);
             }
         }
-        result = reindex_posts_handle => {
-            if let Err(e) = result {
-                tracing::error!("Reindex posts consumer panicked: {:?}", e);
-            }
-        }
         result = reindex_users_handle => {
             if let Err(e) = result {
                 tracing::error!("Reindex users consumer panicked: {:?}", e);
-            }
-        }
-        result = delete_content_handle => {
-            if let Err(e) = result {
-                tracing::error!("Delete content consumer panicked: {:?}", e);
             }
         }
     }
