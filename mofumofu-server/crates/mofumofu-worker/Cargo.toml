@@ -1,4 +1,4 @@
-ckage]
+[package]
 name = "mofumofu_worker"
 version.workspace = true
 edition.workspace = true
