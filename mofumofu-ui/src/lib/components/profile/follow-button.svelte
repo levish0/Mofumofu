@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { Button } from '$lib/components/ui/button';
+	import PillButton from '$lib/components/pill-button/pill-button.svelte';
 	import { createFollow, deleteFollow, checkFollowStatus } from '$lib/api/follows';
 
 	interface Props {
@@ -57,7 +57,7 @@
 </script>
 
 {#if isLoading}
-	<div class="h-9 w-20 animate-pulse rounded-md bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
+	<div class="h-9 w-20 animate-pulse rounded-full bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
 {:else}
 	<Button
 		onclick={handleToggle}

@@ -14,6 +14,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { logout } from '$lib/api/auth';
 	import { Button } from '$lib/components/ui/button';
+	import PillButton from '$lib/components/pill-button/pill-button.svelte';
 	import { cn } from '$lib/utils';
 	import { fly } from 'svelte/transition';
 	import { toast } from 'svelte-sonner';
@@ -94,7 +95,7 @@
 					<Icon src={MagnifyingGlass} solid size="20" class="text-black dark:text-white" />
 				</Button>
 
-				<Button href="/write" variant="outline" class="bg-transparent px-3 py-0">New Post</Button>
+				<PillButton href="/write" variant="outline" class="px-3 py-0">New Post</PillButton>
 
 				<!-- Profile dropdown -->
 				<div class="relative" bind:this={dropdownEl}>
@@ -166,7 +167,7 @@
 				<Button variant="ghost" class="p-2" aria-label="settings" onclick={onOpenSettings}>
 					<Icon src={Cog6Tooth} solid size="20" class="text-black dark:text-white" />
 				</Button>
-				<Button href="/account/signin" class="py-0">Sign in</Button>
+				<PillButton href="/account/signin" class="py-0">Sign in</PillButton>
 			{/if}
 		</div>
 	</div>

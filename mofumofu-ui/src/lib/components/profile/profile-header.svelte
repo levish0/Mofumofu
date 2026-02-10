@@ -3,7 +3,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
 	import { Icon, Photo } from 'svelte-hero-icons';
-	import { Button } from '$lib/components/ui/button';
+	import PillButton from '$lib/components/pill-button/pill-button.svelte';
 	import * as FileDropZone from '$lib/components/ui/file-drop-zone';
 	import * as ImageCropper from '$lib/components/ui/image-cropper';
 	import { uploadBannerImage, uploadProfileImage } from '$lib/api/user';
@@ -103,9 +103,9 @@
 			<!-- Action button -->
 			<div class="absolute right-4 -bottom-12 z-20">
 				{#if isOwnProfile}
-					<Button variant="outline" onclick={openSettings} class="bg-transparent px-3">
+					<PillButton variant="outline" onclick={openSettings} class="px-3">
 						Edit Profile
-					</Button>
+					</PillButton>
 				{:else}
 					<FollowButton followeeId={profile.id} {isAuthenticated} />
 				{/if}
