@@ -1,0 +1,10 @@
+your-domain.com {
+	encode zstd gzip
+
+	reverse_proxy localhost:8000 {
+		transport http {
+			keepalive 90s
+			keepalive_idle_conns 50
+		}
+	}
+}

@@ -1,0 +1,219 @@
+services:
+  # ── Infrastructure (Stateful) ──────────────────────────
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: mofumofu-postgres
+    network_mode: host
+    restart: unless-stopped
+    env_file: env/postgres.env
+    command:
+      - "postgres"
+      - "-c" # NVMe SSD tuning
+      - "shared_buffers=4GB"
+      - "-c"
+      - "effective_cache_size=12GB"
+      - "-c"
+      - "work_mem=64MB"
+      - "-c"
+      - "maintenance_work_mem=512MB"
+      - "-c"
+      - "max_connections=200"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "effective_io_concurrency=200"
+      - "-c"
+      - "max_wal_size=2GB"
+      - "-c"
+      - "checkpoint_completion_target=0.9"
+      - "-c"
+      - "wal_buffers=64MB"
+      - "-c"
+      - "default_statistics_target=100"
+      - "-c"
+      - "max_parallel_workers_per_gather=4"
+      - "-c"
+      - "max_parallel_workers=8"
+      - "-c"
+      - "max_worker_processes=8"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mofumofu -d mofumofu"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis-session:
+    image: redis:8-alpine
+    container_name: mofumofu-redis-session
+    network_mode: host
+    restart: unless-stopped
+    command: redis-server --port 6379 --appendonly yes --maxmemory 512mb --maxmemory-policy volatile-ttl
+    volumes:
+      - redis-session-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "6379", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  redis-cache:
+    image: redis:8-alpine
+    container_name: mofumofu-redis-cache
+    network_mode: host
+    restart: unless-stopped
+    command: redis-server --port 6380 --maxmemory 1gb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-cache-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-p", "6380", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  nats:
+    image: nats:2.12.4-alpine
+    container_name: mofumofu-nats
+    network_mode: host
+    restart: unless-stopped
+    command: ["--jetstream", "--store_dir=/data", "-m", "8222"]
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8222/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.34.3
+    container_name: mofumofu-meilisearch
+    network_mode: host
+    restart: unless-stopped
+    env_file: env/meilisearch.env
+    volumes:
+      - meili-data:/meili_data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:7700/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  markdown-service:
+    image: ghcr.io/shiueo/mofumofu-markdown:latest
+    container_name: mofumofu-markdown
+    network_mode: host
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:6700/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # ── Application (Stateless) ────────────────────────────
+
+  migration:
+    image: ghcr.io/shiueo/mofumofu:latest
+    container_name: mofumofu-migration
+    network_mode: host
+    restart: "no"
+    env_file: env/server.env
+    command: ["./migration", "up"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  server:
+    image: ghcr.io/shiueo/mofumofu:latest
+    container_name: mofumofu-server
+    network_mode: host
+    restart: unless-stopped
+    env_file: env/server.env
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+      redis-session:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
+      nats:
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health-check"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+  worker:
+    image: ghcr.io/shiueo/mofumofu-worker:latest
+    container_name: mofumofu-worker
+    network_mode: host
+    restart: unless-stopped
+    env_file: env/worker.env
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+      nats:
+        condition: service_healthy
+      meilisearch:
+        condition: service_healthy
+      redis-cache:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "3"
+
+volumes:
+  postgres-data:
+  redis-session-data:
+  redis-cache-data:
+  nats-data:
+  meili-data:
