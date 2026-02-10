@@ -35,6 +35,7 @@ pub async fn update_post(
     let response = service_update_post(
         &state.write_db,
         &state.http_client,
+        &state.worker,
         session_context.user_id,
         path.post_id,
         payload,

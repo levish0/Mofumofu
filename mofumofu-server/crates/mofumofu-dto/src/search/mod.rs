@@ -1,5 +1,5 @@
 pub mod request;
 pub mod response;
 
-pub use request::{SearchUsersRequest, SortOrder};
-pub use response::{SearchUsersResponse, UserSearchItem};
+pub use request::{PostSortField, SearchPostsRequest, SearchUsersRequest, SortOrder};
+pub use response::{PostSearchItem, SearchPostsResponse, SearchUsersResponse, UserSearchItem};

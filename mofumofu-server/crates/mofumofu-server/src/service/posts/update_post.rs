@@ -1,4 +1,5 @@
 use crate::bridge::markdown_client::render_markdown;
+use crate::bridge::worker_client::index_post;
 use crate::repository::hashtags::{
     repository_decrement_hashtag_usage_count, repository_find_or_create_hashtag,
     repository_increment_hashtag_usage_count,
@@ -10,7 +11,9 @@ use crate::repository::post_hashtags::{
 use crate::repository::posts::{
     PostUpdateParams, repository_get_post_by_id, repository_update_post,
 };
-use mofumofu_dto::posts::{PostResponse, UpdatePostRequest};
+use crate::repository::user::repository_get_user_by_id;
+use crate::state::WorkerClient;
+use mofumofu_dto::posts::{PostAuthor, PostResponse, UpdatePostRequest};
 use mofumofu_entity::hashtags::Entity as HashtagEntity;
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use reqwest::Client as HttpClient;
@@ -20,6 +23,7 @@ use uuid::Uuid;
 pub async fn service_update_post(
     conn: &DatabaseConnection,
     http_client: &HttpClient,
+    worker: &WorkerClient,
     user_id: Uuid,
     post_id: Uuid,
     payload: UpdatePostRequest,
@@ -90,5 +94,36 @@ pub async fn service_update_post(
 
     txn.commit().await?;
 
-    Ok(PostResponse::from_model(updated_post, hashtag_names))
+    // Queue search index job (best-effort, don't fail the request)
+    if let Err(e) = index_post(worker, post_id).await {
+        tracing::warn!("Failed to queue post index job for {}: {:?}", post_id, e);
+    }
+
+    let user = repository_get_user_by_id(conn, user_id).await?;
+    let author = PostAuthor {
+        id: user.id,
+        handle: user.handle,
+        display_name: user.display_name,
+        profile_image: user.profile_image,
+    };
+
+    Ok(PostResponse {
+        id: updated_post.id,
+        user_id: updated_post.user_id,
+        author,
+        title: updated_post.title,
+        slug: updated_post.slug,
+        thumbnail_image: updated_post.thumbnail_image,
+        summary: updated_post.summary,
+        content: updated_post.content,
+        render: updated_post.render,
+        toc: updated_post.toc,
+        like_count: updated_post.like_count,
+        comment_count: updated_post.comment_count,
+        view_count: updated_post.view_count,
+        hashtags: hashtag_names,
+        published_at: updated_post.published_at,
+        created_at: updated_post.created_at,
+        updated_at: updated_post.updated_at,
+    })
 }

@@ -28,6 +28,12 @@ pub async fn delete_post(
     RequiredSession(session_context): RequiredSession,
     ValidatedPath(path): ValidatedPath<PostIdPath>,
 ) -> Result<StatusCode, Errors> {
-    service_delete_post(&state.write_db, session_context.user_id, path.post_id).await?;
+    service_delete_post(
+        &state.write_db,
+        &state.worker,
+        session_context.user_id,
+        path.post_id,
+    )
+    .await?;
     Ok(StatusCode::NO_CONTENT)
 }

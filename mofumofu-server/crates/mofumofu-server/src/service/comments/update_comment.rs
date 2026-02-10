@@ -1,7 +1,8 @@
 use crate::repository::comments::{
     CommentUpdateParams, repository_get_comment_by_id, repository_update_comment,
 };
-use mofumofu_dto::comments::{CommentResponse, UpdateCommentRequest};
+use crate::repository::user::repository_get_user_by_id;
+use mofumofu_dto::comments::{CommentAuthor, CommentResponse, UpdateCommentRequest};
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use sea_orm::{DatabaseConnection, TransactionTrait};
 use uuid::Uuid;
@@ -34,5 +35,25 @@ pub async fn service_update_comment(
 
     txn.commit().await?;
 
-    Ok(CommentResponse::from(updated))
+    let user = repository_get_user_by_id(conn, user_id).await?;
+    let author = CommentAuthor {
+        id: user.id,
+        handle: user.handle,
+        display_name: user.display_name,
+        profile_image: user.profile_image,
+    };
+
+    Ok(CommentResponse {
+        id: updated.id,
+        post_id: updated.post_id,
+        user_id: updated.user_id,
+        author,
+        parent_id: updated.parent_id,
+        depth: updated.depth,
+        content: updated.content,
+        like_count: updated.like_count,
+        deleted_at: updated.deleted_at,
+        created_at: updated.created_at,
+        updated_at: updated.updated_at,
+    })
 }

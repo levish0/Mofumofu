@@ -2,7 +2,8 @@ use crate::repository::comments::{repository_create_comment, repository_get_comm
 use crate::repository::posts::{
     repository_get_post_by_id, repository_increment_post_comment_count,
 };
-use mofumofu_dto::comments::{CommentResponse, CreateCommentRequest};
+use crate::repository::user::repository_get_user_by_id;
+use mofumofu_dto::comments::{CommentAuthor, CommentResponse, CreateCommentRequest};
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use sea_orm::{DatabaseConnection, TransactionTrait};
 use uuid::Uuid;
@@ -44,5 +45,25 @@ pub async fn service_create_comment(
 
     txn.commit().await?;
 
-    Ok(CommentResponse::from(comment))
+    let user = repository_get_user_by_id(conn, user_id).await?;
+    let author = CommentAuthor {
+        id: user.id,
+        handle: user.handle,
+        display_name: user.display_name,
+        profile_image: user.profile_image,
+    };
+
+    Ok(CommentResponse {
+        id: comment.id,
+        post_id: comment.post_id,
+        user_id: comment.user_id,
+        author,
+        parent_id: comment.parent_id,
+        depth: comment.depth,
+        content: comment.content,
+        like_count: comment.like_count,
+        deleted_at: comment.deleted_at,
+        created_at: comment.created_at,
+        updated_at: comment.updated_at,
+    })
 }

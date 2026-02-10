@@ -1,6 +1,7 @@
 use mofumofu_dto::posts::{
-    CreatePostRequest, GetPostsRequest, PostIdPath, PostListResponse, PostResponse,
-    UpdatePostRequest, UploadPostImageRequest, UploadPostImageResponse,
+    CreatePostRequest, GetPostBySlugRequest, GetPostsRequest, PostAuthor, PostIdPath,
+    PostListResponse, PostResponse, UpdatePostRequest, UploadPostImageRequest,
+    UploadPostImageResponse,
 };
 use utoipa::OpenApi;
 
@@ -9,6 +10,7 @@ use utoipa::OpenApi;
     paths(
         super::create_post::create_post,
         super::get_post::get_post,
+        super::get_post_by_slug::get_post_by_slug,
         super::get_posts::get_posts,
         super::update_post::update_post,
         super::delete_post::delete_post,
@@ -17,9 +19,11 @@ use utoipa::OpenApi;
     ),
     components(
         schemas(
+            PostAuthor,
             PostResponse,
             PostListResponse,
             CreatePostRequest,
+            GetPostBySlugRequest,
             GetPostsRequest,
             UpdatePostRequest,
             UploadPostImageRequest,

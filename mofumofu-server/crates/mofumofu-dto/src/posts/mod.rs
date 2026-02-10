@@ -2,6 +2,7 @@ pub mod request;
 pub mod response;
 
 pub use request::{
-    CreatePostRequest, GetPostsRequest, PostIdPath, UpdatePostRequest, UploadPostImageRequest,
+    CreatePostRequest, GetPostBySlugRequest, GetPostsRequest, PostIdPath, UpdatePostRequest,
+    UploadPostImageRequest,
 };
-pub use response::{PostListResponse, PostResponse, UploadPostImageResponse};
+pub use response::{PostAuthor, PostListResponse, PostResponse, UploadPostImageResponse};

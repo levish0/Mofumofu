@@ -10,7 +10,7 @@
     "license": {
       "name": ""
     },
-    "version": "2.4.1"
+    "version": "2.4.5"
   },
   "paths": {
     "/health-check": {
@@ -3326,6 +3326,32 @@
           }
         }
       },
+      "CommentAuthor": {
+        "type": "object",
+        "required": [
+          "id",
+          "handle",
+          "display_name"
+        ],
+        "properties": {
+          "display_name": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "profile_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
       "CommentIdPath": {
         "type": "object",
         "required": [
@@ -3366,6 +3392,7 @@
           "id",
           "post_id",
           "user_id",
+          "author",
           "depth",
           "content",
           "like_count",
@@ -3373,6 +3400,9 @@
           "updated_at"
         ],
         "properties": {
+          "author": {
+            "$ref": "#/components/schemas/CommentAuthor"
+          },
           "content": {
             "type": "string"
           },
@@ -4341,6 +4371,32 @@
           }
         }
       },
+      "PostAuthor": {
+        "type": "object",
+        "required": [
+          "id",
+          "handle",
+          "display_name"
+        ],
+        "properties": {
+          "display_name": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "profile_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
       "PostIdPath": {
         "type": "object",
         "required": [
@@ -4380,6 +4436,7 @@
         "required": [
           "id",
           "user_id",
+          "author",
           "title",
           "slug",
           "content",
@@ -4391,6 +4448,9 @@
           "updated_at"
         ],
         "properties": {
+          "author": {
+            "$ref": "#/components/schemas/PostAuthor"
+          },
           "comment_count": {
             "type": "integer",
             "format": "int32"

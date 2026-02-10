@@ -4,6 +4,7 @@ pub mod index;
 pub mod reindex;
 
 // Re-exports for backward compatibility with mofumofu_server
+pub use index::post as post_index;
 pub use index::user as user_index;
 
 use crate::config::WorkerConfig;

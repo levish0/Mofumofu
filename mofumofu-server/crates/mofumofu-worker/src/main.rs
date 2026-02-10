@@ -70,7 +70,9 @@ async fn main() -> Result<()> {
     // Spawn all job consumers
     let email_handle = tokio::spawn(jobs::email::run_consumer(ctx.clone()));
     let index_user_handle = tokio::spawn(jobs::index::user::run_consumer(ctx.clone()));
+    let index_post_handle = tokio::spawn(jobs::index::post::run_consumer(ctx.clone()));
     let reindex_users_handle = tokio::spawn(jobs::reindex::users::run_consumer(ctx.clone()));
+    let reindex_posts_handle = tokio::spawn(jobs::reindex::posts::run_consumer(ctx.clone()));
 
     info!("Job consumers started");
 
@@ -92,9 +94,19 @@ async fn main() -> Result<()> {
                 tracing::error!("Index user consumer panicked: {:?}", e);
             }
         }
+        result = index_post_handle => {
+            if let Err(e) = result {
+                tracing::error!("Index post consumer panicked: {:?}", e);
+            }
+        }
         result = reindex_users_handle => {
             if let Err(e) = result {
                 tracing::error!("Reindex users consumer panicked: {:?}", e);
+            }
+        }
+        result = reindex_posts_handle => {
+            if let Err(e) = result {
+                tracing::error!("Reindex posts consumer panicked: {:?}", e);
             }
         }
     }

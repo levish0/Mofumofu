@@ -1,9 +1,15 @@
+pub mod post;
 pub mod user;
 
 // Re-export job types and handlers for external use
 pub use user::{
     IndexUserJob, USERS_INDEX, UserIndexAction, build_user_search_json,
     ensure_index_settings as ensure_user_index_settings,
+};
+
+pub use post::{
+    IndexPostJob, POSTS_INDEX, PostIndexAction, build_post_search_json,
+    ensure_index_settings as ensure_post_index_settings,
 };
 
 /// Initialize all MeiliSearch indexes on worker startup.
@@ -15,6 +21,9 @@ pub async fn initialize_all_indexes(
 
     ensure_user_index_settings(client).await?;
     tracing::info!("Users index ready");
+
+    ensure_post_index_settings(client).await?;
+    tracing::info!("Posts index ready");
 
     tracing::info!("All MeiliSearch indexes initialized");
     Ok(())

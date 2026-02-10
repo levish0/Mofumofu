@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.5] - 2025-02-10
+
+### Added
+
+#### Worker (`mofumofu-worker`)
+- **Post indexing**: `IndexPostJob` / `PostIndexAction` — indexes posts to MeiliSearch with title, summary, author, hashtags, and counter caches
+- **Post reindexing**: `ReindexPostsJob` — batch reindex all posts with UUID v7 cursor pagination and self-enqueue
+- Post index settings: searchable (title, summary, author_handle, author_display_name, hashtags), filterable (user_id, hashtags, published_at), sortable (created_at, like_count, view_count, comment_count), ranking rules include `sort`
+- NATS streams: `INDEX_POST_STREAM`, `INDEX_POST_SUBJECT`, `INDEX_POST_CONSUMER`, `REINDEX_POSTS_STREAM`, `REINDEX_POSTS_SUBJECT`, `REINDEX_POSTS_CONSUMER`
+
+#### Bridge (`mofumofu-server`)
+- `index_post(worker, post_id)` — queue post index job
+- `delete_post_from_index(worker, post_id)` — queue post deletion from index
+- `start_reindex_posts(worker, batch_size)` — start full post reindex
+
+#### DTOs (`mofumofu-dto`)
+- **search/request**: `PostSortField` enum (CreatedAt, LikeCount, ViewCount, CommentCount), `SearchPostsRequest` (query, user_id, page, page_size, sort_by, sort_order)
+- **search/response**: `PostSearchItem`, `SearchPostsResponse` (with IntoResponse impl)
+- **posts/request**: `GetPostBySlugRequest` (handle + slug query params)
+
+#### Service Layer (`mofumofu-server`)
+- `service_search_posts` — MeiliSearch post search with filter (published_at IS NOT NULL, optional user_id), sort, and pagination
+- `service_get_post_by_slug` — resolve handle → user, then user_id + slug → post with full PostResponse
+
+#### Handler / Router Layer (`mofumofu-server`)
+- `GET /v0/search/posts` — public post search endpoint
+- `GET /v0/posts/by-slug?handle={handle}&slug={slug}` — slug-based post lookup
+
+### Changed
+- `service_create_post`, `service_update_post`, `service_delete_post`, `service_publish_draft`: added `worker: &WorkerClient` parameter, queue MeiliSearch index/delete jobs after transaction commit (best-effort, non-blocking)
+- API handlers for create_post, update_post, delete_post, publish_draft: pass `state.worker` to service layer
+- Search OpenAPI doc: added post search schemas and path
+
 ## [2.4.1] - 2025-02-10
 
 ### Added

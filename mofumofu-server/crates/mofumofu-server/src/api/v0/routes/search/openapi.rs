@@ -1,10 +1,14 @@
-use mofumofu_dto::search::{SearchUsersRequest, SearchUsersResponse, SortOrder, UserSearchItem};
+use mofumofu_dto::search::{
+    PostSearchItem, PostSortField, SearchPostsRequest, SearchPostsResponse, SearchUsersRequest,
+    SearchUsersResponse, SortOrder, UserSearchItem,
+};
 use utoipa::OpenApi;
 
 #[derive(OpenApi)]
 #[openapi(
     paths(
         super::search_users::search_users,
+        super::search_posts::search_posts,
     ),
     components(
         schemas(
@@ -12,6 +16,10 @@ use utoipa::OpenApi;
             SearchUsersRequest,
             SearchUsersResponse,
             UserSearchItem,
+            PostSortField,
+            SearchPostsRequest,
+            SearchPostsResponse,
+            PostSearchItem,
         )
     ),
     tags(

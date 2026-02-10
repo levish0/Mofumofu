@@ -1,6 +1,6 @@
 use mofumofu_dto::comments::{
-    CommentIdPath, CommentListResponse, CommentResponse, CreateCommentRequest, GetCommentsRequest,
-    UpdateCommentRequest,
+    CommentAuthor, CommentIdPath, CommentListResponse, CommentResponse, CreateCommentRequest,
+    GetCommentsRequest, UpdateCommentRequest,
 };
 use utoipa::OpenApi;
 
@@ -14,6 +14,7 @@ use utoipa::OpenApi;
     ),
     components(
         schemas(
+            CommentAuthor,
             CommentResponse,
             CommentListResponse,
             CreateCommentRequest,

@@ -1,6 +1,7 @@
 pub mod create_post;
 pub mod delete_post;
 pub mod get_post;
+pub mod get_post_by_slug;
 pub mod get_posts;
 pub mod increment_view;
 pub mod openapi;

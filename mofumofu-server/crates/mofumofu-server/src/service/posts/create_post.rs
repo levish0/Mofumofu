@@ -1,10 +1,13 @@
 use crate::bridge::markdown_client::render_markdown;
+use crate::bridge::worker_client::index_post;
 use crate::repository::hashtags::{
     repository_find_or_create_hashtag, repository_increment_hashtag_usage_count,
 };
 use crate::repository::post_hashtags::repository_create_post_hashtag;
 use crate::repository::posts::{PostUpdateParams, repository_create_post, repository_update_post};
-use mofumofu_dto::posts::{CreatePostRequest, PostResponse};
+use crate::repository::user::repository_get_user_by_id;
+use crate::state::WorkerClient;
+use mofumofu_dto::posts::{CreatePostRequest, PostAuthor, PostResponse};
 use mofumofu_errors::errors::ServiceResult;
 use reqwest::Client as HttpClient;
 use sea_orm::{DatabaseConnection, TransactionTrait};
@@ -13,6 +16,7 @@ use uuid::Uuid;
 pub async fn service_create_post(
     conn: &DatabaseConnection,
     http_client: &HttpClient,
+    worker: &WorkerClient,
     user_id: Uuid,
     payload: CreatePostRequest,
 ) -> ServiceResult<PostResponse> {
@@ -56,5 +60,36 @@ pub async fn service_create_post(
 
     txn.commit().await?;
 
-    Ok(PostResponse::from_model(post, hashtag_names))
+    // Queue search index job (best-effort, don't fail the request)
+    if let Err(e) = index_post(worker, post.id).await {
+        tracing::warn!("Failed to queue post index job for {}: {:?}", post.id, e);
+    }
+
+    let user = repository_get_user_by_id(conn, user_id).await?;
+    let author = PostAuthor {
+        id: user.id,
+        handle: user.handle,
+        display_name: user.display_name,
+        profile_image: user.profile_image,
+    };
+
+    Ok(PostResponse {
+        id: post.id,
+        user_id: post.user_id,
+        author,
+        title: post.title,
+        slug: post.slug,
+        thumbnail_image: post.thumbnail_image,
+        summary: post.summary,
+        content: post.content,
+        render: post.render,
+        toc: post.toc,
+        like_count: post.like_count,
+        comment_count: post.comment_count,
+        view_count: post.view_count,
+        hashtags: hashtag_names,
+        published_at: post.published_at,
+        created_at: post.created_at,
+        updated_at: post.updated_at,
+    })
 }

@@ -1,19 +1,24 @@
 use crate::repository::post_hashtags::repository_find_post_hashtags_by_post_id;
-use crate::repository::posts::repository_get_post_by_id;
-use crate::repository::user::repository_get_user_by_id;
+use crate::repository::posts::repository_find_post_by_user_id_and_slug;
+use crate::repository::user::repository_find_user_by_handle;
 use mofumofu_dto::posts::{PostAuthor, PostResponse};
 use mofumofu_entity::hashtags::Entity as HashtagEntity;
-use mofumofu_errors::errors::ServiceResult;
+use mofumofu_errors::errors::{Errors, ServiceResult};
 use sea_orm::{DatabaseConnection, EntityTrait};
-use uuid::Uuid;
 
-pub async fn service_get_post(
+pub async fn service_get_post_by_slug(
     conn: &DatabaseConnection,
-    post_id: Uuid,
+    handle: String,
+    slug: String,
 ) -> ServiceResult<PostResponse> {
-    let post = repository_get_post_by_id(conn, post_id).await?;
+    let user = repository_find_user_by_handle(conn, handle)
+        .await?
+        .ok_or(Errors::UserNotFound)?;
 
-    let user = repository_get_user_by_id(conn, post.user_id).await?;
+    let post = repository_find_post_by_user_id_and_slug(conn, user.id, slug)
+        .await?
+        .ok_or(Errors::PostNotFound)?;
+
     let author = PostAuthor {
         id: user.id,
         handle: user.handle,
@@ -21,7 +26,7 @@ pub async fn service_get_post(
         profile_image: user.profile_image,
     };
 
-    let post_hashtags = repository_find_post_hashtags_by_post_id(conn, post_id).await?;
+    let post_hashtags = repository_find_post_hashtags_by_post_id(conn, post.id).await?;
     let mut hashtag_names = Vec::with_capacity(post_hashtags.len());
     for ph in &post_hashtags {
         if let Some(hashtag) = HashtagEntity::find_by_id(ph.hashtag_id).one(conn).await? {

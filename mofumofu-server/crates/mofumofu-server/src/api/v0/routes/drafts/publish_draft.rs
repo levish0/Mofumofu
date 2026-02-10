@@ -36,6 +36,7 @@ pub async fn publish_draft(
     let response = service_publish_draft(
         &state.write_db,
         &state.http_client,
+        &state.worker,
         session_context.user_id,
         path.draft_id,
         payload,

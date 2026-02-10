@@ -32,6 +32,7 @@ pub async fn create_post(
     let response = service_create_post(
         &state.write_db,
         &state.http_client,
+        &state.worker,
         session_context.user_id,
         payload,
     )
