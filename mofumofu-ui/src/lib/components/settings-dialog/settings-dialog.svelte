@@ -97,7 +97,7 @@
 
 	<!-- Dialog -->
 	<div
-		class="fixed inset-2 z-[60] mx-auto hidden max-h-[calc(100vh-1rem)] overflow-hidden rounded-xl border bg-mofu-light-950 shadow-2xl sm:inset-4 sm:max-h-[calc(100vh-2rem)] dark:bg-mofu-dark-950 lg:inset-12 lg:flex lg:max-h-[calc(100vh-6rem)] lg:max-w-7xl"
+		class="fixed inset-2 z-[60] mx-auto hidden max-h-[calc(100vh-1rem)] overflow-hidden rounded-xl border bg-mofu-light-950 shadow-2xl sm:inset-4 sm:max-h-[calc(100vh-2rem)] lg:inset-12 lg:flex lg:max-h-[calc(100vh-6rem)] lg:max-w-7xl dark:bg-mofu-dark-950"
 		transition:scale={{ duration: 150, start: 0.95, opacity: 0 }}
 		role="dialog"
 		aria-modal="true"
