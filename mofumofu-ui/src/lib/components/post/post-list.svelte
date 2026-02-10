@@ -16,23 +16,29 @@
 		skeletonCount?: number;
 	} = $props();
 
-	let sentinel = $state<HTMLDivElement | null>(null);
+	let rafId: number | null = null;
+
+	function handleScroll() {
+		if (rafId) return;
+
+		rafId = requestAnimationFrame(() => {
+			rafId = null;
+
+			if (loading || !hasMore || !onLoadMore) return;
+
+			const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+			if (scrollTop + clientHeight >= scrollHeight - 200) {
+				onLoadMore();
+			}
+		});
+	}
 
 	$effect(() => {
-		if (!sentinel) return;
-
-		const observer = new IntersectionObserver(
-			(entries) => {
-				if (entries[0].isIntersecting && hasMore && !loading && onLoadMore) {
-					onLoadMore();
-				}
-			},
-			{ rootMargin: '200px' }
-		);
-
-		observer.observe(sentinel);
-
-		return () => observer.disconnect();
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			if (rafId) cancelAnimationFrame(rafId);
+		};
 	});
 </script>
 
@@ -47,7 +53,3 @@
 		{/each}
 	{/if}
 </div>
-
-{#if hasMore && !loading}
-	<div bind:this={sentinel} class="h-1"></div>
-{/if}

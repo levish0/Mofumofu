@@ -125,7 +125,7 @@
 						>
 							<div class="py-1">
 								<a
-									href="/@{user.handle}/profile"
+									href="/@{user.handle}"
 									class="flex items-center px-4 py-2 text-mofu-light-200 hover:text-mofu dark:text-mofu-dark-200"
 								>
 									<Icon src={User} solid size="16" class="mr-3" />

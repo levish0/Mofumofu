@@ -66,6 +66,10 @@ pub async fn service_search_posts(
         filters.push(format!("user_id = \"{}\"", user_id));
     }
 
+    if let Some(after) = request.published_at_after {
+        filters.push(format!("published_at >= {}", after.timestamp()));
+    }
+
     let filter_str = filters.join(" AND ");
     search_query.with_filter(&filter_str);
 

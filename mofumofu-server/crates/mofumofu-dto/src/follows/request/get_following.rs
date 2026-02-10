@@ -1,0 +1,15 @@
+use crate::pagination::CursorDirection;
+use serde::Deserialize;
+use utoipa::{IntoParams, ToSchema};
+use uuid::Uuid;
+use validator::Validate;
+
+#[derive(Debug, Deserialize, Validate, ToSchema, IntoParams)]
+#[into_params(parameter_in = Query)]
+pub struct GetFollowingRequest {
+    pub user_id: Uuid,
+    pub cursor_id: Option<Uuid>,
+    pub cursor_direction: Option<CursorDirection>,
+    #[validate(range(min = 1, max = 100, message = "Limit must be between 1 and 100."))]
+    pub limit: u64,
+}

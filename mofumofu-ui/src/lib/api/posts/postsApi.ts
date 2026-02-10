@@ -16,6 +16,7 @@ export async function searchPosts(
 	params: {
 		query?: string;
 		user_id?: string;
+		published_at_after?: string;
 		page: number;
 		page_size: number;
 		sort_by?: PostSortField;

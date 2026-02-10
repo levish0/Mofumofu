@@ -205,8 +205,22 @@
 	{isEditMode ? 'Update' : 'Publish'}
 </Button>
 
-<Dialog.Root bind:open={isOpen}>
-	<Dialog.Content class="sm:max-w-lg">
+<Dialog.Root bind:open={isOpen} onOpenChange={(open) => { if (isLoading) return; isOpen = open; }}>
+	<Dialog.Content class="relative sm:max-w-lg">
+		{#if isLoading}
+			<div
+				class="absolute inset-0 z-50 flex items-center justify-center rounded-xl bg-background/80"
+			>
+				<div class="flex flex-col items-center gap-2">
+					<div
+						class="h-8 w-8 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-primary"
+					></div>
+					<span class="text-sm font-medium text-muted-foreground">
+						{isEditMode ? 'Updating...' : 'Publishing...'}
+					</span>
+				</div>
+			</div>
+		{/if}
 		<div class="px-2 pt-4">
 			<Dialog.Header class="mb-2 p-0">
 				<Dialog.Title>{isEditMode ? 'Update Post' : 'Publish Post'}</Dialog.Title>

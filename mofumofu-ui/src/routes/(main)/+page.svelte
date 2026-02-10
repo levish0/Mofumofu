@@ -11,6 +11,12 @@
 	let loading = $state(true);
 	let hasMore = $derived(page < totalPages);
 
+	function getWeekAgo(): string {
+		const d = new Date();
+		d.setDate(d.getDate() - 14);
+		return d.toISOString();
+	}
+
 	async function loadPosts(pageNum: number) {
 		loading = true;
 		try {
@@ -18,7 +24,8 @@
 				page: pageNum,
 				page_size: PAGE_SIZE,
 				sort_by: 'LikeCount',
-				sort_order: 'Desc'
+				sort_order: 'Desc',
+				published_at_after: getWeekAgo()
 			});
 			posts = pageNum === 1 ? res.posts : [...posts, ...res.posts];
 			totalPages = res.total_pages;

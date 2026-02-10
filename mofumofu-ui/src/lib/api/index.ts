@@ -8,3 +8,4 @@ export * as userApi from './user';
 export * as postsApi from './posts';
 export * as draftsApi from './drafts';
 export * as likesApi from './likes';
+export * as followsApi from './follows';

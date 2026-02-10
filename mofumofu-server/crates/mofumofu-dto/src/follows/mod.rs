@@ -1,5 +1,5 @@
 pub mod request;
 pub mod response;
 
-pub use request::FollowRequest;
-pub use response::FollowStatusResponse;
+pub use request::{FollowRequest, GetFollowersRequest, GetFollowingRequest};
+pub use response::{FollowListResponse, FollowStatusResponse, FollowUserItem};

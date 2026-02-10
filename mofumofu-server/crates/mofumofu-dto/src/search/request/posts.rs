@@ -1,5 +1,6 @@
 use crate::search::request::common::SortOrder;
 use crate::validator::string_validator::validate_not_blank;
+use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use utoipa::{IntoParams, ToSchema};
 use uuid::Uuid;
@@ -24,6 +25,9 @@ pub struct SearchPostsRequest {
 
     /// Filter by author user ID
     pub user_id: Option<Uuid>,
+
+    /// Only include posts published after this timestamp (for trending: e.g. 7 days ago)
+    pub published_at_after: Option<DateTime<Utc>>,
 
     #[validate(range(min = 1, message = "Page must be greater than 0"))]
     pub page: u32,

@@ -29,7 +29,7 @@
 			<div class="shimmer h-3 w-10 rounded"></div>
 		</div>
 	{:else}
-		<a href="/@{authorHandle}/profile" class="flex items-center gap-2 overflow-hidden">
+		<a href="/@{authorHandle}" class="flex items-center gap-2 overflow-hidden">
 			<div class="h-6 w-6 shrink-0 overflow-hidden rounded-full">
 				{#if authorAvatar}
 					<img
@@ -52,11 +52,11 @@
 
 		<div class="flex items-center gap-3 text-xs text-mofu-light-500 dark:text-mofu-dark-400">
 			<span class="flex items-center gap-1">
-				<Icon src={Eye} size="14" />
+				<Icon src={Eye} solid size="14" />
 				{views}
 			</span>
 			<span class="flex items-center gap-1">
-				<Icon src={Heart} size="14" />
+				<Icon src={Heart} solid size="14" />
 				{likes}
 			</span>
 		</div>

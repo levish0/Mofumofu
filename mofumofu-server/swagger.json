@@ -10,7 +10,7 @@
     "license": {
       "name": ""
     },
-    "version": "2.4.6"
+    "version": "2.4.7"
   },
   "paths": {
     "/health-check": {
@@ -1594,6 +1594,134 @@
         ]
       }
     },
+    "/v0/follows/followers": {
+      "get": {
+        "tags": [
+          "Follows"
+        ],
+        "operationId": "get_followers",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Followers retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v0/follows/following": {
+      "get": {
+        "tags": [
+          "Follows"
+        ],
+        "operationId": "get_following",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Following list retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/v0/follows/status": {
       "get": {
         "tags": [
@@ -2508,6 +2636,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "published_at_after",
+            "in": "query",
+            "description": "Only include posts published after this timestamp (for trending: e.g. 7 days ago)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
             }
           },
           {
@@ -3848,6 +3986,28 @@
           }
         }
       },
+      "FollowListResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "has_newer",
+          "has_older"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FollowUserItem"
+            }
+          },
+          "has_newer": {
+            "type": "boolean"
+          },
+          "has_older": {
+            "type": "boolean"
+          }
+        }
+      },
       "FollowRequest": {
         "type": "object",
         "required": [
@@ -3868,6 +4028,37 @@
         "properties": {
           "following": {
             "type": "boolean"
+          }
+        }
+      },
+      "FollowUserItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "handle",
+          "display_name",
+          "followed_at"
+        ],
+        "properties": {
+          "display_name": {
+            "type": "string"
+          },
+          "followed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "profile_image": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },
@@ -3983,6 +4174,76 @@
             "minimum": 0
           },
           "post_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "GetFollowersRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "limit"
+        ],
+        "properties": {
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "GetFollowingRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "limit"
+        ],
+        "properties": {
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "user_id": {
             "type": "string",
             "format": "uuid"
           }
@@ -4772,6 +5033,8 @@
           "id",
           "handle",
           "display_name",
+          "follower_count",
+          "following_count",
           "is_verified",
           "created_at"
         ],
@@ -4794,6 +5057,14 @@
           },
           "display_name": {
             "type": "string"
+          },
+          "follower_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "following_count": {
+            "type": "integer",
+            "format": "int32"
           },
           "handle": {
             "type": "string"
@@ -5010,6 +5281,14 @@
             "type": "integer",
             "format": "int32",
             "minimum": 0
+          },
+          "published_at_after": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Only include posts published after this timestamp (for trending: e.g. 7 days ago)"
           },
           "query": {
             "type": [
@@ -5599,6 +5878,8 @@
           "email",
           "handle",
           "display_name",
+          "follower_count",
+          "following_count",
           "is_verified",
           "created_at"
         ],
@@ -5624,6 +5905,14 @@
           },
           "email": {
             "type": "string"
+          },
+          "follower_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "following_count": {
+            "type": "integer",
+            "format": "int32"
           },
           "handle": {
             "type": "string"

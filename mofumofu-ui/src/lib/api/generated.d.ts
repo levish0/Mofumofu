@@ -553,6 +553,38 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v0/follows/followers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get_followers"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/v0/follows/following": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get_following"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v0/follows/status": {
         parameters: {
             query?: never;
@@ -1158,12 +1190,26 @@ export interface components {
             /** Format: int32 */
             status: number;
         };
+        FollowListResponse: {
+            data: components["schemas"]["FollowUserItem"][];
+            has_newer: boolean;
+            has_older: boolean;
+        };
         FollowRequest: {
             /** Format: uuid */
             followee_id: string;
         };
         FollowStatusResponse: {
             following: boolean;
+        };
+        FollowUserItem: {
+            display_name: string;
+            /** Format: date-time */
+            followed_at: string;
+            handle: string;
+            /** Format: uuid */
+            id: string;
+            profile_image?: string | null;
         };
         ForgotPasswordRequest: {
             /** @description 비밀번호 재설정을 요청할 이메일 주소 */
@@ -1203,6 +1249,24 @@ export interface components {
             limit: number;
             /** Format: uuid */
             post_id: string;
+        };
+        GetFollowersRequest: {
+            cursor_direction?: null | components["schemas"]["CursorDirection"];
+            /** Format: uuid */
+            cursor_id?: string | null;
+            /** Format: int64 */
+            limit: number;
+            /** Format: uuid */
+            user_id: string;
+        };
+        GetFollowingRequest: {
+            cursor_direction?: null | components["schemas"]["CursorDirection"];
+            /** Format: uuid */
+            cursor_id?: string | null;
+            /** Format: int64 */
+            limit: number;
+            /** Format: uuid */
+            user_id: string;
         };
         GetModerationLogsRequest: {
             /** Format: uuid */
@@ -1438,6 +1502,10 @@ export interface components {
             /** Format: date-time */
             created_at: string;
             display_name: string;
+            /** Format: int32 */
+            follower_count: number;
+            /** Format: int32 */
+            following_count: number;
             handle: string;
             /** Format: uuid */
             id: string;
@@ -1498,6 +1566,11 @@ export interface components {
             page: number;
             /** Format: int32 */
             page_size: number;
+            /**
+             * Format: date-time
+             * @description Only include posts published after this timestamp (for trending: e.g. 7 days ago)
+             */
+            published_at_after?: string | null;
             /** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
             query?: string | null;
             sort_by?: null | components["schemas"]["PostSortField"];
@@ -1681,6 +1754,10 @@ export interface components {
             created_at: string;
             display_name: string;
             email: string;
+            /** Format: int32 */
+            follower_count: number;
+            /** Format: int32 */
+            following_count: number;
             handle: string;
             /** Format: uuid */
             id: string;
@@ -3424,6 +3501,84 @@ export interface operations {
             };
         };
     };
+    get_followers: {
+        parameters: {
+            query: {
+                user_id: string;
+                cursor_id?: string;
+                cursor_direction?: components["schemas"]["CursorDirection"];
+                limit: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Followers retrieved successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowListResponse"];
+                };
+            };
+            /** @description Bad request - Invalid query parameters */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_following: {
+        parameters: {
+            query: {
+                user_id: string;
+                cursor_id?: string;
+                cursor_direction?: components["schemas"]["CursorDirection"];
+                limit: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Following list retrieved successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FollowListResponse"];
+                };
+            };
+            /** @description Bad request - Invalid query parameters */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     check_follow_status: {
         parameters: {
             query?: never;
@@ -4234,6 +4389,8 @@ export interface operations {
                 query?: string;
                 /** @description Filter by author user ID */
                 user_id?: string;
+                /** @description Only include posts published after this timestamp (for trending: e.g. 7 days ago) */
+                published_at_after?: string;
                 page: number;
                 page_size: number;
                 sort_by?: components["schemas"]["PostSortField"];
