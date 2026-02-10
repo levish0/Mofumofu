@@ -3,12 +3,13 @@
 	import { login, totpVerify } from '$lib/api/auth';
 	import { getGoogleAuthUrl, getGithubAuthUrl } from '$lib/api/auth';
 	import { isApiError } from '$lib/api';
-	import { validateField, emailSchema, totpCodeSchema } from '$lib/schemas/auth';
+	import { validateField, emailSchema } from '$lib/schemas/auth';
 	import { Button } from '$lib/components/ui/button';
 	import { FlatInput, FLAT_INPUT_CLASS } from '$lib/components/flat-input';
 	import { Label } from '$lib/components/ui/label';
 	import { Separator } from '$lib/components/ui/separator';
 	import * as Password from '$lib/components/ui/password';
+	import * as InputOTP from '$lib/components/ui/input-otp';
 	import { toast } from 'svelte-sonner';
 
 	let email = $state('');
@@ -25,8 +26,7 @@
 	let totpStep = $state(false);
 	let totpCode = $state('');
 	let tempToken = $state('');
-	let totpTouched = $state(false);
-	let totpError = $derived(totpTouched ? validateField(totpCodeSchema, totpCode) : null);
+	let useBackupCode = $state(false);
 
 	async function handleLogin(e: SubmitEvent) {
 		e.preventDefault();
@@ -59,11 +59,8 @@
 		}
 	}
 
-	async function handleTotpVerify(e: SubmitEvent) {
-		e.preventDefault();
-		totpTouched = true;
-		if (totpError) return;
-
+	async function handleTotpVerify() {
+		if (!totpCode) return;
 		error = '';
 		loading = true;
 
@@ -72,8 +69,9 @@
 			await invalidateAll();
 			goto('/');
 		} catch (e) {
+			totpCode = '';
 			if (isApiError(e)) {
-				error = e.status === 400 ? 'Invalid TOTP code.' : (e.details ?? 'Verification failed.');
+				error = e.status === 400 ? 'Invalid code.' : (e.details ?? 'Verification failed.');
 			} else {
 				error = 'An unexpected error occurred.';
 			}
@@ -224,36 +222,64 @@
 				<div>
 					<h2 class="text-2xl font-bold tracking-tight">Two-factor authentication</h2>
 					<p class="mt-2 text-sm text-muted-foreground">
-						Enter the 6-digit code from your authenticator app, or an 8-character backup code.
+						{useBackupCode
+							? 'Enter one of your 8-character backup codes.'
+							: 'Enter the 6-digit code from your authenticator app.'}
 					</p>
 				</div>
 
-				<form onsubmit={handleTotpVerify} class="mt-8 space-y-4">
+				<div class="mt-8 space-y-4">
 					{#if error}
 						<div class="rounded-lg border border-red-500/20 bg-red-900/20 p-3">
 							<p class="text-xs text-rose-400">{error}</p>
 						</div>
 					{/if}
 
-					<div class="space-y-2">
-						<Label for="totp-code">Code</Label>
-						<FlatInput
-							id="totp-code"
-							type="text"
-							bind:value={totpCode}
-							required
-							autocomplete="one-time-code"
-							placeholder="000000"
-							onblur={() => (totpTouched = true)}
-						/>
-						{#if totpError}
-							<p class="text-xs text-rose-400">{totpError}</p>
-						{/if}
-					</div>
+					{#if useBackupCode}
+						<div class="space-y-2">
+							<Label for="backup-code">Backup Code</Label>
+							<FlatInput
+								id="backup-code"
+								type="text"
+								bind:value={totpCode}
+								autocomplete="one-time-code"
+								placeholder="xxxxxxxx"
+							/>
+						</div>
+						<Button class="w-full" disabled={loading || !totpCode} onclick={handleTotpVerify}>
+							{loading ? 'Verifying...' : 'Verify'}
+						</Button>
+					{:else}
+						<div class="flex flex-col items-center space-y-2">
+							<InputOTP.Root maxlength={6} bind:value={totpCode} onComplete={handleTotpVerify}>
+								{#snippet children({ cells })}
+									<InputOTP.Group>
+										{#each cells.slice(0, 3) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+									<InputOTP.Separator />
+									<InputOTP.Group>
+										{#each cells.slice(3, 6) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+								{/snippet}
+							</InputOTP.Root>
+						</div>
+					{/if}
 
-					<Button type="submit" class="w-full" disabled={loading}>
-						{loading ? 'Verifying...' : 'Verify'}
-					</Button>
+					<button
+						type="button"
+						class="w-full text-center text-sm text-muted-foreground hover:underline"
+						onclick={() => {
+							useBackupCode = !useBackupCode;
+							totpCode = '';
+							error = '';
+						}}
+					>
+						{useBackupCode ? 'Use authenticator code' : 'Use a backup code'}
+					</button>
 
 					<button
 						type="button"
@@ -262,13 +288,13 @@
 							totpStep = false;
 							totpCode = '';
 							tempToken = '';
-							totpTouched = false;
+							useBackupCode = false;
 							error = '';
 						}}
 					>
 						Back to login
 					</button>
-				</form>
+				</div>
 			{/if}
 		</div>
 	</div>

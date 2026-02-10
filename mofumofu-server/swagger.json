@@ -10,7 +10,7 @@
     "license": {
       "name": ""
     },
-    "version": "2.1.1"
+    "version": "2.4.1"
   },
   "paths": {
     "/health-check": {
@@ -979,6 +979,470 @@
         }
       }
     },
+    "/v0/comments": {
+      "get": {
+        "tags": [
+          "Comments"
+        ],
+        "operationId": "get_comments",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comments retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Comments"
+        ],
+        "operationId": "create_comment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Comment created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Post or parent comment does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/comments/{comment_id}": {
+      "delete": {
+        "tags": [
+          "Comments"
+        ],
+        "operationId": "delete_comment",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Comment deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Not the comment author"
+          },
+          "404": {
+            "description": "Not Found - Comment does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Comments"
+        ],
+        "operationId": "update_comment",
+        "parameters": [
+          {
+            "name": "comment_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCommentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommentResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Not the comment author"
+          },
+          "404": {
+            "description": "Not Found - Comment does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/drafts": {
+      "get": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "get_drafts",
+        "responses": {
+          "200": {
+            "description": "Drafts retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "create_draft",
+        "responses": {
+          "201": {
+            "description": "Draft created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/drafts/{draft_id}": {
+      "get": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "get_draft",
+        "parameters": [
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Draft retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Draft does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "delete_draft",
+        "parameters": [
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Draft deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Draft does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "update_draft",
+        "parameters": [
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Draft updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DraftResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Draft does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/drafts/{draft_id}/publish": {
+      "post": {
+        "tags": [
+          "Drafts"
+        ],
+        "operationId": "publish_draft",
+        "parameters": [
+          {
+            "name": "draft_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishDraftRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Draft published as post successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Draft does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
     "/v0/eventstream/actions": {
       "get": {
         "tags": [
@@ -1036,6 +1500,941 @@
             }
           }
         }
+      }
+    },
+    "/v0/follows": {
+      "post": {
+        "tags": [
+          "Follows"
+        ],
+        "operationId": "create_follow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Follow created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "409": {
+            "description": "Conflict - Already following"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Follows"
+        ],
+        "operationId": "delete_follow",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FollowRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Follow removed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Follow does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/follows/status": {
+      "get": {
+        "tags": [
+          "Follows"
+        ],
+        "operationId": "check_follow_status",
+        "parameters": [
+          {
+            "name": "followee_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Follow status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/hashtags/trending": {
+      "get": {
+        "tags": [
+          "Hashtags"
+        ],
+        "operationId": "get_trending",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "format": "int64",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trending hashtags retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrendingHashtagsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v0/likes": {
+      "post": {
+        "tags": [
+          "Likes"
+        ],
+        "operationId": "create_like",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LikeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Like created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Target does not exist"
+          },
+          "409": {
+            "description": "Conflict - Already liked"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Likes"
+        ],
+        "operationId": "delete_like",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LikeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Like removed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Like does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/likes/status": {
+      "get": {
+        "tags": [
+          "Likes"
+        ],
+        "operationId": "check_like_status",
+        "parameters": [
+          {
+            "name": "target_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LikeTargetType"
+            }
+          },
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Like status retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LikeStatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/moderation-logs": {
+      "get": {
+        "tags": [
+          "Moderation Logs"
+        ],
+        "operationId": "get_moderation_logs",
+        "parameters": [
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "actor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "resource_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ModerationResourceType"
+            }
+          },
+          {
+            "name": "resource_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Moderation logs retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModerationLogListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/posts": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "get_posts",
+        "parameters": [
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "published_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Posts retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "create_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Post created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/posts/images": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "upload_post_image",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadPostImageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Post image uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadPostImageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid image or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "413": {
+            "description": "Payload Too Large - Image exceeds size limit"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/posts/{post_id}": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "get_post",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid path parameter"
+          },
+          "404": {
+            "description": "Not Found - Post does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "delete_post",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Post deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Not the post author"
+          },
+          "404": {
+            "description": "Not Found - Post does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "update_post",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Post updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Not the post author"
+          },
+          "404": {
+            "description": "Not Found - Post does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/posts/{post_id}/view": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "increment_view",
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "View count incremented"
+          },
+          "400": {
+            "description": "Bad request - Invalid path parameter"
+          },
+          "404": {
+            "description": "Not Found - Post does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/v0/reports": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "operationId": "get_reports",
+        "parameters": [
+          {
+            "name": "cursor_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "cursor_direction",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/CursorDirection"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "reporter_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "target_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ReportTargetType"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/ReportStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reports retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportListResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Reports"
+        ],
+        "operationId": "create_report",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Report created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/reports/{report_id}": {
+      "patch": {
+        "tags": [
+          "Reports"
+        ],
+        "operationId": "update_report",
+        "parameters": [
+          {
+            "name": "report_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Report updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "404": {
+            "description": "Not Found - Report does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
       }
     },
     "/v0/search/users": {
@@ -1357,6 +2756,53 @@
         }
       }
     },
+    "/v0/users/ban": {
+      "post": {
+        "tags": [
+          "User Bans"
+        ],
+        "operationId": "ban_user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BanUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "User banned successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserBanResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Insufficient privileges"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
     "/v0/users/handle/{handle}/available": {
       "get": {
         "tags": [
@@ -1471,6 +2917,230 @@
           }
         }
       }
+    },
+    "/v0/users/roles/grant": {
+      "post": {
+        "tags": [
+          "User Roles"
+        ],
+        "operationId": "grant_role",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GrantRoleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Role granted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Insufficient privileges"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/users/roles/revoke": {
+      "post": {
+        "tags": [
+          "User Roles"
+        ],
+        "operationId": "revoke_role",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevokeRoleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Role revoked successfully"
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Insufficient privileges"
+          },
+          "404": {
+            "description": "Not Found - User does not have this role"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/users/unban": {
+      "post": {
+        "tags": [
+          "User Bans"
+        ],
+        "operationId": "unban_user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnbanUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "User unbanned successfully"
+          },
+          "400": {
+            "description": "Bad request - Invalid JSON or validation error"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "403": {
+            "description": "Forbidden - Insufficient privileges"
+          },
+          "404": {
+            "description": "Not Found - No active ban"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/users/{user_id}/bans": {
+      "get": {
+        "tags": [
+          "User Bans"
+        ],
+        "operationId": "get_user_bans",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User bans retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserBanResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid path parameter"
+          },
+          "401": {
+            "description": "Unauthorized - Invalid or expired session"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "session_id_cookie": []
+          }
+        ]
+      }
+    },
+    "/v0/users/{user_id}/roles": {
+      "get": {
+        "tags": [
+          "User Roles"
+        ],
+        "operationId": "get_user_roles",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User roles retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserRoleResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid path parameter"
+          },
+          "404": {
+            "description": "Not Found - User does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1577,6 +3247,29 @@
           "Post"
         ]
       },
+      "BanUserRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "reason"
+        ],
+        "properties": {
+          "expires_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
       "ChangeEmailRequest": {
         "type": "object",
         "required": [
@@ -1633,6 +3326,100 @@
           }
         }
       },
+      "CommentIdPath": {
+        "type": "object",
+        "required": [
+          "comment_id"
+        ],
+        "properties": {
+          "comment_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "CommentListResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "has_newer",
+          "has_older"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CommentResponse"
+            }
+          },
+          "has_newer": {
+            "type": "boolean"
+          },
+          "has_older": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CommentResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "post_id",
+          "user_id",
+          "depth",
+          "content",
+          "like_count",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deleted_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "depth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "like_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "post_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
       "CompleteSignupRequest": {
         "type": "object",
         "description": "OAuth pending signup 완료 요청",
@@ -1660,6 +3447,101 @@
           "token": {
             "type": "string",
             "description": "이메일 변경 토큰 (이메일 링크의 ?token= 값)"
+          }
+        }
+      },
+      "CreateCommentRequest": {
+        "type": "object",
+        "required": [
+          "post_id",
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "post_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "CreatePostRequest": {
+        "type": "object",
+        "required": [
+          "title",
+          "slug",
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "hashtags": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "publish": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "slug": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateReportRequest": {
+        "type": "object",
+        "required": [
+          "target_type",
+          "target_id",
+          "reason"
+        ],
+        "properties": {
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "target_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_type": {
+            "$ref": "#/components/schemas/ReportTargetType"
           }
         }
       },
@@ -1706,6 +3588,83 @@
           "Newer"
         ]
       },
+      "DraftIdPath": {
+        "type": "object",
+        "required": [
+          "draft_id"
+        ],
+        "properties": {
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "DraftListResponse": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DraftResponse"
+            }
+          }
+        }
+      },
+      "DraftResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
       "ErrorResponse": {
         "type": "object",
         "required": [
@@ -1726,6 +3685,29 @@
             "type": "integer",
             "format": "int32",
             "minimum": 0
+          }
+        }
+      },
+      "FollowRequest": {
+        "type": "object",
+        "required": [
+          "followee_id"
+        ],
+        "properties": {
+          "followee_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "FollowStatusResponse": {
+        "type": "object",
+        "required": [
+          "following"
+        ],
+        "properties": {
+          "following": {
+            "type": "boolean"
           }
         }
       },
@@ -1808,6 +3790,195 @@
             ],
             "format": "uuid",
             "description": "Filter by user ID (for contributions)"
+          }
+        }
+      },
+      "GetCommentsRequest": {
+        "type": "object",
+        "required": [
+          "post_id",
+          "limit"
+        ],
+        "properties": {
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "post_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "GetModerationLogsRequest": {
+        "type": "object",
+        "required": [
+          "limit"
+        ],
+        "properties": {
+          "actor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "resource_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "resource_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ModerationResourceType"
+              }
+            ]
+          }
+        }
+      },
+      "GetPostsRequest": {
+        "type": "object",
+        "required": [
+          "limit"
+        ],
+        "properties": {
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "published_only": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "user_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          }
+        }
+      },
+      "GetReportsRequest": {
+        "type": "object",
+        "required": [
+          "limit"
+        ],
+        "properties": {
+          "cursor_direction": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CursorDirection"
+              }
+            ]
+          },
+          "cursor_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "reporter_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ReportStatus"
+              }
+            ]
+          },
+          "target_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ReportTargetType"
+              }
+            ]
           }
         }
       },
@@ -1906,6 +4077,89 @@
           }
         }
       },
+      "GrantRoleRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "$ref": "#/components/schemas/UserRole"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "HashtagResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "usage_count",
+          "created_at"
+        ],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "last_used_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "name": {
+            "type": "string"
+          },
+          "usage_count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "LikeRequest": {
+        "type": "object",
+        "required": [
+          "target_type",
+          "target_id"
+        ],
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_type": {
+            "$ref": "#/components/schemas/LikeTargetType"
+          }
+        }
+      },
+      "LikeStatusResponse": {
+        "type": "object",
+        "required": [
+          "liked"
+        ],
+        "properties": {
+          "liked": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LikeTargetType": {
+        "type": "string",
+        "enum": [
+          "Post",
+          "Comment"
+        ]
+      },
       "LoginRequest": {
         "type": "object",
         "required": [
@@ -1926,6 +4180,86 @@
             "example": false
           }
         }
+      },
+      "ModerationLogListResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "has_newer",
+          "has_older"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModerationLogResponse"
+            }
+          },
+          "has_newer": {
+            "type": "boolean"
+          },
+          "has_older": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ModerationLogResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "action",
+          "actor_id",
+          "resource_type",
+          "created_at"
+        ],
+        "properties": {
+          "action": {
+            "type": "string"
+          },
+          "actor_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "metadata": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "resource_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "resource_type": {
+            "$ref": "#/components/schemas/ModerationResourceType"
+          }
+        }
+      },
+      "ModerationResourceType": {
+        "type": "string",
+        "enum": [
+          "User",
+          "Post",
+          "Comment",
+          "System"
+        ]
       },
       "OAuthConnectionListResponse": {
         "type": "object",
@@ -2007,6 +4341,132 @@
           }
         }
       },
+      "PostIdPath": {
+        "type": "object",
+        "required": [
+          "post_id"
+        ],
+        "properties": {
+          "post_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PostListResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "has_newer",
+          "has_older"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostResponse"
+            }
+          },
+          "has_newer": {
+            "type": "boolean"
+          },
+          "has_older": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PostResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "title",
+          "slug",
+          "content",
+          "like_count",
+          "comment_count",
+          "view_count",
+          "hashtags",
+          "created_at",
+          "updated_at"
+        ],
+        "properties": {
+          "comment_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "hashtags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "like_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "published_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "render": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "slug": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "toc": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "view_count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "PublicUserProfile": {
         "type": "object",
         "required": [
@@ -2054,6 +4514,154 @@
           }
         }
       },
+      "PublishDraftRequest": {
+        "type": "object",
+        "properties": {
+          "delete_draft": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "hashtags": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "ReportIdPath": {
+        "type": "object",
+        "required": [
+          "report_id"
+        ],
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ReportListResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "has_newer",
+          "has_older"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportResponse"
+            }
+          },
+          "has_newer": {
+            "type": "boolean"
+          },
+          "has_older": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ReportResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "reporter_id",
+          "target_type",
+          "target_id",
+          "reason",
+          "status",
+          "created_at"
+        ],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "reporter_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resolved_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "resolved_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ReportStatus"
+          },
+          "target_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "target_type": {
+            "$ref": "#/components/schemas/ReportTargetType"
+          }
+        }
+      },
+      "ReportStatus": {
+        "type": "string",
+        "enum": [
+          "Pending",
+          "Reviewing",
+          "Resolved",
+          "Dismissed"
+        ]
+      },
+      "ReportTargetType": {
+        "type": "string",
+        "enum": [
+          "User",
+          "Post",
+          "Comment"
+        ]
+      },
       "ResetPasswordRequest": {
         "type": "object",
         "required": [
@@ -2068,6 +4676,22 @@
           "token": {
             "type": "string",
             "description": "비밀번호 재설정 토큰 (이메일 링크의 ?token= 값)"
+          }
+        }
+      },
+      "RevokeRoleRequest": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "$ref": "#/components/schemas/UserRole"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -2291,6 +4915,45 @@
           }
         }
       },
+      "TrendingHashtagsResponse": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HashtagResponse"
+            }
+          }
+        }
+      },
+      "TrendingQuery": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
+      "UnbanUserRequest": {
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
       "UnlinkOAuthRequest": {
         "type": "object",
         "description": "OAuth 연결 해제 요청",
@@ -2301,6 +4964,46 @@
           "provider": {
             "$ref": "#/components/schemas/OAuthProvider",
             "description": "OAuth provider to unlink (Google or Github)"
+          }
+        }
+      },
+      "UpdateCommentRequest": {
+        "type": "object",
+        "required": [
+          "content"
+        ],
+        "properties": {
+          "content": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateDraftRequest": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "metadata": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         }
       },
@@ -2318,6 +5021,107 @@
               "string",
               "null"
             ]
+          }
+        }
+      },
+      "UpdatePostRequest": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "hashtags": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "publish": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "unpublish": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      },
+      "UpdateReportRequest": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "status": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ReportStatus"
+              }
+            ]
+          }
+        }
+      },
+      "UploadPostImageRequest": {
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "contentMediaType": "image/*"
+          }
+        }
+      },
+      "UploadPostImageResponse": {
+        "type": "object",
+        "required": [
+          "image_url"
+        ],
+        "properties": {
+          "image_url": {
+            "type": "string"
           }
         }
       },
@@ -2344,6 +5148,56 @@
           "image_url": {
             "type": "string",
             "description": "URL of the uploaded image"
+          }
+        }
+      },
+      "UserBanResponse": {
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "banned_by",
+          "reason",
+          "created_at"
+        ],
+        "properties": {
+          "banned_by": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expires_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "UserIdPath": {
+        "type": "object",
+        "required": [
+          "user_id"
+        ],
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -2395,6 +5249,42 @@
               "string",
               "null"
             ]
+          }
+        }
+      },
+      "UserRole": {
+        "type": "string",
+        "enum": [
+          "User",
+          "Moderator",
+          "Admin"
+        ]
+      },
+      "UserRoleResponse": {
+        "type": "object",
+        "required": [
+          "user_id",
+          "role",
+          "created_at"
+        ],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "granted_by": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid"
+          },
+          "role": {
+            "$ref": "#/components/schemas/UserRole"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -2476,6 +5366,46 @@
     {
       "name": "Action Logs",
       "description": "User activity logs"
+    },
+    {
+      "name": "Posts",
+      "description": "Post endpoints"
+    },
+    {
+      "name": "Drafts",
+      "description": "Draft endpoints"
+    },
+    {
+      "name": "Comments",
+      "description": "Comment endpoints"
+    },
+    {
+      "name": "Likes",
+      "description": "Like endpoints"
+    },
+    {
+      "name": "Follows",
+      "description": "Follow endpoints"
+    },
+    {
+      "name": "Hashtags",
+      "description": "Hashtag endpoints"
+    },
+    {
+      "name": "Reports",
+      "description": "Report endpoints"
+    },
+    {
+      "name": "User Roles",
+      "description": "User role management endpoints"
+    },
+    {
+      "name": "User Bans",
+      "description": "User ban management endpoints"
+    },
+    {
+      "name": "Moderation Logs",
+      "description": "Moderation log endpoints"
     }
   ]
 }

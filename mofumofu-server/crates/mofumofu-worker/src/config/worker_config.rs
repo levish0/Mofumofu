@@ -109,7 +109,7 @@ static CONFIG: LazyLock<WorkerConfig> = LazyLock::new(|| {
             .map(|v| v.to_lowercase() == "true")
             .unwrap_or(true),
         emails_from_email,
-        emails_from_name: env::var("EMAILS_FROM_NAME").unwrap_or_else(|_| "SevenWiki".into()),
+        emails_from_name: env::var("EMAILS_FROM_NAME").unwrap_or_else(|_| "Mofumofu".into()),
 
         // MeiliSearch
         meilisearch_host: env::var("MEILISEARCH_HOST")

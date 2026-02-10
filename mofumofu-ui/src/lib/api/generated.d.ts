@@ -441,6 +441,86 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	'/v0/comments': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_comments'];
+		put?: never;
+		post: operations['create_comment'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/comments/{comment_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post?: never;
+		delete: operations['delete_comment'];
+		options?: never;
+		head?: never;
+		patch: operations['update_comment'];
+		trace?: never;
+	};
+	'/v0/drafts': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_drafts'];
+		put?: never;
+		post: operations['create_draft'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/drafts/{draft_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_draft'];
+		put?: never;
+		post?: never;
+		delete: operations['delete_draft'];
+		options?: never;
+		head?: never;
+		patch: operations['update_draft'];
+		trace?: never;
+	};
+	'/v0/drafts/{draft_id}/publish': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['publish_draft'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	'/v0/eventstream/actions': {
 		parameters: {
 			query?: never;
@@ -455,6 +535,198 @@ export interface paths {
 		options?: never;
 		head?: never;
 		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['create_follow'];
+		delete: operations['delete_follow'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows/status': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['check_follow_status'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/hashtags/trending': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_trending'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/likes': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['create_like'];
+		delete: operations['delete_like'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/likes/status': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['check_like_status'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/moderation-logs': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_moderation_logs'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_posts'];
+		put?: never;
+		post: operations['create_post'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/images': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['upload_post_image'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/{post_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_post'];
+		put?: never;
+		post?: never;
+		delete: operations['delete_post'];
+		options?: never;
+		head?: never;
+		patch: operations['update_post'];
+		trace?: never;
+	};
+	'/v0/posts/{post_id}/view': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['increment_view'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/reports': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_reports'];
+		put?: never;
+		post: operations['create_report'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/reports/{report_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch: operations['update_report'];
 		trace?: never;
 	};
 	'/v0/search/users': {
@@ -537,6 +809,22 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	'/v0/users/ban': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['ban_user'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	'/v0/users/handle/{handle}/available': {
 		parameters: {
 			query?: never;
@@ -577,6 +865,86 @@ export interface paths {
 			cookie?: never;
 		};
 		get: operations['get_user_profile_by_id'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/roles/grant': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['grant_role'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/roles/revoke': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['revoke_role'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/unban': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['unban_user'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/{user_id}/bans': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_bans'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/{user_id}/roles': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_roles'];
 		put?: never;
 		post?: never;
 		delete?: never;
@@ -629,6 +997,13 @@ export interface components {
 		};
 		/** @enum {string} */
 		ActionResourceType: 'User' | 'Post';
+		BanUserRequest: {
+			/** Format: date-time */
+			expires_at?: string | null;
+			reason: string;
+			/** Format: uuid */
+			user_id: string;
+		};
 		ChangeEmailRequest: {
 			/** @description 새 이메일 주소 */
 			new_email: string;
@@ -647,6 +1022,36 @@ export interface components {
 		CheckHandleAvailableResponse: {
 			available: boolean;
 		};
+		CommentIdPath: {
+			/** Format: uuid */
+			comment_id: string;
+		};
+		CommentListResponse: {
+			data: components['schemas']['CommentResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		CommentResponse: {
+			content: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			deleted_at?: string | null;
+			/** Format: int32 */
+			depth: number;
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: uuid */
+			parent_id?: string | null;
+			/** Format: uuid */
+			post_id: string;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+		};
 		/** @description OAuth pending signup 완료 요청 */
 		CompleteSignupRequest: {
 			/** @description 사용자 핸들 (고유 식별자) */
@@ -657,6 +1062,29 @@ export interface components {
 		ConfirmEmailChangeRequest: {
 			/** @description 이메일 변경 토큰 (이메일 링크의 ?token= 값) */
 			token: string;
+		};
+		CreateCommentRequest: {
+			content: string;
+			/** Format: uuid */
+			parent_id?: string | null;
+			/** Format: uuid */
+			post_id: string;
+		};
+		CreatePostRequest: {
+			content: string;
+			hashtags?: string[] | null;
+			publish?: boolean | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+		};
+		CreateReportRequest: {
+			description?: string | null;
+			reason: string;
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['ReportTargetType'];
 		};
 		CreateUserRequest: {
 			display_name: string;
@@ -673,11 +1101,39 @@ export interface components {
 		 * @enum {string}
 		 */
 		CursorDirection: 'Older' | 'Newer';
+		DraftIdPath: {
+			/** Format: uuid */
+			draft_id: string;
+		};
+		DraftListResponse: {
+			data: components['schemas']['DraftResponse'][];
+		};
+		DraftResponse: {
+			content?: string | null;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			metadata?: Record<string, never> | null;
+			slug?: string | null;
+			title?: string | null;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+		};
 		ErrorResponse: {
 			code: string;
 			details?: string | null;
 			/** Format: int32 */
 			status: number;
+		};
+		FollowRequest: {
+			/** Format: uuid */
+			followee_id: string;
+		};
+		FollowStatusResponse: {
+			following: boolean;
 		};
 		ForgotPasswordRequest: {
 			/** @description 비밀번호 재설정을 요청할 이메일 주소 */
@@ -708,6 +1164,48 @@ export interface components {
 			 * @description Filter by user ID (for contributions)
 			 */
 			user_id?: string | null;
+		};
+		GetCommentsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			post_id: string;
+		};
+		GetModerationLogsRequest: {
+			/** Format: uuid */
+			actor_id?: string | null;
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			resource_id?: string | null;
+			resource_type?: null | components['schemas']['ModerationResourceType'];
+		};
+		GetPostsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			published_only?: boolean | null;
+			/** Format: uuid */
+			user_id?: string | null;
+		};
+		GetReportsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			reporter_id?: string | null;
+			status?: null | components['schemas']['ReportStatus'];
+			target_type?: null | components['schemas']['ReportTargetType'];
 		};
 		GetUserProfileByIdRequest: {
 			/** Format: uuid */
@@ -744,6 +1242,32 @@ export interface components {
 			/** @description State parameter for CSRF protection */
 			state: string;
 		};
+		GrantRoleRequest: {
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
+		};
+		HashtagResponse: {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			/** Format: date-time */
+			last_used_at?: string | null;
+			name: string;
+			/** Format: int32 */
+			usage_count: number;
+		};
+		LikeRequest: {
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['LikeTargetType'];
+		};
+		LikeStatusResponse: {
+			liked: boolean;
+		};
+		/** @enum {string} */
+		LikeTargetType: 'Post' | 'Comment';
 		LoginRequest: {
 			/** @example user@example.com */
 			email: string;
@@ -754,6 +1278,27 @@ export interface components {
 			 */
 			remember_me?: boolean;
 		};
+		ModerationLogListResponse: {
+			data: components['schemas']['ModerationLogResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		ModerationLogResponse: {
+			action: string;
+			/** Format: uuid */
+			actor_id: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			metadata?: Record<string, never> | null;
+			reason?: string | null;
+			/** Format: uuid */
+			resource_id?: string | null;
+			resource_type: components['schemas']['ModerationResourceType'];
+		};
+		/** @enum {string} */
+		ModerationResourceType: 'User' | 'Post' | 'Comment' | 'System';
 		/** @description OAuth 연결 목록 응답 */
 		OAuthConnectionListResponse: {
 			connections: components['schemas']['OAuthConnectionResponse'][];
@@ -784,6 +1329,41 @@ export interface components {
 			/** @description Google/GitHub OAuth authorization URL (state parameter 포함) */
 			auth_url: string;
 		};
+		PostIdPath: {
+			/** Format: uuid */
+			post_id: string;
+		};
+		PostListResponse: {
+			data: components['schemas']['PostResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		PostResponse: {
+			/** Format: int32 */
+			comment_count: number;
+			content: string;
+			/** Format: date-time */
+			created_at: string;
+			hashtags: string[];
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: date-time */
+			published_at?: string | null;
+			render?: string | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+			toc?: Record<string, never> | null;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+			/** Format: int32 */
+			view_count: number;
+		};
 		PublicUserProfile: {
 			banner_image?: string | null;
 			bio?: string | null;
@@ -796,11 +1376,54 @@ export interface components {
 			is_verified: boolean;
 			profile_image?: string | null;
 		};
+		PublishDraftRequest: {
+			delete_draft?: boolean | null;
+			hashtags?: string[] | null;
+			slug?: string | null;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+		};
+		ReportIdPath: {
+			/** Format: uuid */
+			report_id: string;
+		};
+		ReportListResponse: {
+			data: components['schemas']['ReportResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		ReportResponse: {
+			/** Format: date-time */
+			created_at: string;
+			description?: string | null;
+			/** Format: uuid */
+			id: string;
+			reason: string;
+			/** Format: uuid */
+			reporter_id: string;
+			/** Format: date-time */
+			resolved_at?: string | null;
+			/** Format: uuid */
+			resolved_by?: string | null;
+			status: components['schemas']['ReportStatus'];
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['ReportTargetType'];
+		};
+		/** @enum {string} */
+		ReportStatus: 'Pending' | 'Reviewing' | 'Resolved' | 'Dismissed';
+		/** @enum {string} */
+		ReportTargetType: 'User' | 'Post' | 'Comment';
 		ResetPasswordRequest: {
 			/** @description 새 비밀번호 */
 			new_password: string;
 			/** @description 비밀번호 재설정 토큰 (이메일 링크의 ?token= 값) */
 			token: string;
+		};
+		RevokeRoleRequest: {
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
 		};
 		SearchUsersRequest: {
 			/** Format: int32 */
@@ -879,14 +1502,55 @@ export interface components {
 			/** @description 로그인 시 받은 임시 토큰 */
 			temp_token: string;
 		};
+		TrendingHashtagsResponse: {
+			data: components['schemas']['HashtagResponse'][];
+		};
+		TrendingQuery: {
+			/** Format: int64 */
+			limit?: number | null;
+		};
+		UnbanUserRequest: {
+			/** Format: uuid */
+			user_id: string;
+		};
 		/** @description OAuth 연결 해제 요청 */
 		UnlinkOAuthRequest: {
 			/** @description OAuth provider to unlink (Google or Github) */
 			provider: components['schemas']['OAuthProvider'];
 		};
+		UpdateCommentRequest: {
+			content: string;
+		};
+		UpdateDraftRequest: {
+			content?: string | null;
+			metadata?: Record<string, never> | null;
+			slug?: string | null;
+			title?: string | null;
+		};
 		UpdateMyProfileRequest: {
 			bio?: string | null;
 			display_name?: string | null;
+		};
+		UpdatePostRequest: {
+			content?: string | null;
+			hashtags?: string[] | null;
+			publish?: boolean | null;
+			slug?: string | null;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title?: string | null;
+			unpublish?: boolean | null;
+		};
+		UpdateReportRequest: {
+			reason?: string | null;
+			status?: null | components['schemas']['ReportStatus'];
+		};
+		UploadPostImageRequest: {
+			/** Format: binary */
+			file: string;
+		};
+		UploadPostImageResponse: {
+			image_url: string;
 		};
 		UploadUserImageRequest: {
 			/**
@@ -898,6 +1562,23 @@ export interface components {
 		UploadUserImageResponse: {
 			/** @description URL of the uploaded image */
 			image_url: string;
+		};
+		UserBanResponse: {
+			/** Format: uuid */
+			banned_by: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			expires_at?: string | null;
+			/** Format: uuid */
+			id: string;
+			reason: string;
+			/** Format: uuid */
+			user_id: string;
+		};
+		UserIdPath: {
+			/** Format: uuid */
+			user_id: string;
 		};
 		UserResponse: {
 			banner_image?: string | null;
@@ -911,6 +1592,17 @@ export interface components {
 			id: string;
 			is_verified: boolean;
 			profile_image?: string | null;
+		};
+		/** @enum {string} */
+		UserRole: 'User' | 'Moderator' | 'Admin';
+		UserRoleResponse: {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			granted_by?: string | null;
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
 		};
 		UserSearchItem: {
 			bio?: string | null;
@@ -2045,6 +2737,466 @@ export interface operations {
 			};
 		};
 	};
+	get_comments: {
+		parameters: {
+			query: {
+				post_id: string;
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Comments retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreateCommentRequest'];
+			};
+		};
+		responses: {
+			/** @description Comment created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post or parent comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				comment_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Comment deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the comment author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				comment_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateCommentRequest'];
+			};
+		};
+		responses: {
+			/** @description Comment updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the comment author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_drafts: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Drafts retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftListResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateDraftRequest'];
+			};
+		};
+		responses: {
+			/** @description Draft updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	publish_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['PublishDraftRequest'];
+			};
+		};
+		responses: {
+			/** @description Draft published as post successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
 	stream_actions: {
 		parameters: {
 			query?: {
@@ -2071,6 +3223,869 @@ export interface operations {
 				content: {
 					'text/event-stream': unknown;
 				};
+			};
+		};
+	};
+	create_follow: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FollowRequest'];
+			};
+		};
+		responses: {
+			/** @description Follow created successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Already following */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_follow: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FollowRequest'];
+			};
+		};
+		responses: {
+			/** @description Follow removed successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Follow does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	check_follow_status: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				followee_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Follow status retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_trending: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				limit: number | null;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Trending hashtags retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TrendingHashtagsResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_like: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LikeRequest'];
+			};
+		};
+		responses: {
+			/** @description Like created successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Target does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Already liked */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_like: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LikeRequest'];
+			};
+		};
+		responses: {
+			/** @description Like removed successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Like does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	check_like_status: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				target_type: components['schemas']['LikeTargetType'];
+				target_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Like status retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_moderation_logs: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				actor_id?: string;
+				resource_type?: components['schemas']['ModerationResourceType'];
+				resource_id?: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Moderation logs retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ModerationLogListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_posts: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				user_id?: string;
+				published_only?: boolean;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Posts retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreatePostRequest'];
+			};
+		};
+		responses: {
+			/** @description Post created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	upload_post_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'multipart/form-data': components['schemas']['UploadPostImageRequest'];
+			};
+		};
+		responses: {
+			/** @description Post image uploaded successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UploadPostImageResponse'];
+				};
+			};
+			/** @description Bad Request - Invalid image or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Payload Too Large - Image exceeds size limit */
+			413: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the post author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdatePostRequest'];
+			};
+		};
+		responses: {
+			/** @description Post updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the post author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	increment_view: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description View count incremented */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_reports: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				reporter_id?: string;
+				target_type?: components['schemas']['ReportTargetType'];
+				status?: components['schemas']['ReportStatus'];
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Reports retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_report: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreateReportRequest'];
+			};
+		};
+		responses: {
+			/** @description Report created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_report: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				report_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateReportRequest'];
+			};
+		};
+		responses: {
+			/** @description Report updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Report does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
 			};
 		};
 	};
@@ -2433,6 +4448,58 @@ export interface operations {
 			};
 		};
 	};
+	ban_user: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['BanUserRequest'];
+			};
+		};
+		responses: {
+			/** @description User banned successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserBanResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
 	check_handle_available: {
 		parameters: {
 			query?: never;
@@ -2547,6 +4614,258 @@ export interface operations {
 				content?: never;
 			};
 			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	grant_role: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GrantRoleRequest'];
+			};
+		};
+		responses: {
+			/** @description Role granted successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserRoleResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	revoke_role: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['RevokeRoleRequest'];
+			};
+		};
+		responses: {
+			/** @description Role revoked successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User does not have this role */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	unban_user: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UnbanUserRequest'];
+			};
+		};
+		responses: {
+			/** @description User unbanned successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - No active ban */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_bans: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				user_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User bans retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserBanResponse'][];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_roles: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				user_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User roles retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserRoleResponse'][];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
 			500: {
 				headers: {
 					[name: string]: unknown;

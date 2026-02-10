@@ -20,10 +20,8 @@
 		OAuthConnectionListResponse,
 		OAuthProvider
 	} from '$lib/api/types';
-	import { validateField, totpCodeSchema } from '$lib/schemas/auth';
-	import { FlatInput } from '$lib/components/flat-input';
-	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
+	import * as InputOTP from '$lib/components/ui/input-otp';
 	import { CopyButton } from '$lib/components/ui/copy-button';
 	import { toast } from 'svelte-sonner';
 
@@ -34,25 +32,17 @@
 	// Setup flow
 	let setupData = $state<TotpSetupResponse | null>(null);
 	let setupCode = $state('');
-	let setupCodeTouched = $state(false);
-	let setupCodeError = $derived(setupCodeTouched ? validateField(totpCodeSchema, setupCode) : null);
 	let setupLoading = $state(false);
 	let backupCodes = $state<string[] | null>(null);
 
 	// Disable flow
 	let disableMode = $state(false);
 	let disableCode = $state('');
-	let disableCodeTouched = $state(false);
-	let disableCodeError = $derived(
-		disableCodeTouched ? validateField(totpCodeSchema, disableCode) : null
-	);
 	let disableLoading = $state(false);
 
 	// Regenerate flow
 	let regenMode = $state(false);
 	let regenCode = $state('');
-	let regenCodeTouched = $state(false);
-	let regenCodeError = $derived(regenCodeTouched ? validateField(totpCodeSchema, regenCode) : null);
 	let regenLoading = $state(false);
 
 	// --- OAuth ---
@@ -90,19 +80,17 @@
 	}
 
 	async function handleSetupEnable() {
-		setupCodeTouched = true;
-		if (setupCodeError) return;
-
+		if (setupCode.length !== 6) return;
 		setupLoading = true;
 		try {
 			const result = await totpEnable(setupCode);
 			backupCodes = result.backup_codes;
 			setupData = null;
 			setupCode = '';
-			setupCodeTouched = false;
 			totpState = await totpStatus();
 			toast.success('Two-factor authentication enabled.');
 		} catch (err) {
+			setupCode = '';
 			if (isApiError(err)) toast.error(err.details ?? 'Invalid code.');
 			else toast.error('Invalid code.');
 		} finally {
@@ -111,18 +99,16 @@
 	}
 
 	async function handleDisable() {
-		disableCodeTouched = true;
-		if (disableCodeError) return;
-
+		if (disableCode.length !== 6) return;
 		disableLoading = true;
 		try {
 			await totpDisable(disableCode);
 			totpState = await totpStatus();
 			disableMode = false;
 			disableCode = '';
-			disableCodeTouched = false;
 			toast.success('Two-factor authentication disabled.');
 		} catch (err) {
+			disableCode = '';
 			if (isApiError(err)) toast.error(err.details ?? 'Invalid code.');
 			else toast.error('Invalid code.');
 		} finally {
@@ -131,19 +117,17 @@
 	}
 
 	async function handleRegenerate() {
-		regenCodeTouched = true;
-		if (regenCodeError) return;
-
+		if (regenCode.length !== 6) return;
 		regenLoading = true;
 		try {
 			const result = await totpRegenerateBackupCodes(regenCode);
 			backupCodes = result.backup_codes;
 			regenMode = false;
 			regenCode = '';
-			regenCodeTouched = false;
 			totpState = await totpStatus();
 			toast.success('Backup codes regenerated.');
 		} catch (err) {
+			regenCode = '';
 			if (isApiError(err)) toast.error(err.details ?? 'Invalid code.');
 			else toast.error('Invalid code.');
 		} finally {
@@ -181,7 +165,7 @@
 	<!-- TOTP Section -->
 	<section class="space-y-4">
 		<h4 class="text-base font-semibold">Two-Factor Authentication</h4>
-		<div class="rounded-lg border p-6">
+		<div>
 			{#if totpLoading}
 				<p class="text-sm text-muted-foreground">Loading...</p>
 			{:else if backupCodes}
@@ -222,33 +206,37 @@
 							<span class="truncate font-mono">{setupData.qr_code_uri}</span>
 							<CopyButton text={setupData.qr_code_uri} variant="ghost" size="icon" />
 						</div>
-						<div class="space-y-2">
-							<Label for="totp-setup-code">Verification Code</Label>
-							<FlatInput
-								id="totp-setup-code"
-								bind:value={setupCode}
-								placeholder="000000"
-								autocomplete="one-time-code"
-								onblur={() => (setupCodeTouched = true)}
-							/>
-							{#if setupCodeError}
-								<p class="text-xs text-rose-400">{setupCodeError}</p>
-							{/if}
+						<div class="flex flex-col items-center space-y-2">
+							<p class="text-sm font-medium">Verification Code</p>
+							<InputOTP.Root maxlength={6} bind:value={setupCode} onComplete={handleSetupEnable}>
+								{#snippet children({ cells })}
+									<InputOTP.Group>
+										{#each cells.slice(0, 3) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+									<InputOTP.Separator />
+									<InputOTP.Group>
+										{#each cells.slice(3, 6) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+								{/snippet}
+							</InputOTP.Root>
 						</div>
-						<div class="flex gap-2">
-							<Button size="sm" disabled={setupLoading} onclick={handleSetupEnable}>
-								{setupLoading ? 'Verifying...' : 'Enable'}
-							</Button>
+						<div class="flex justify-end gap-2">
 							<Button
 								variant="ghost"
 								size="sm"
 								onclick={() => {
 									setupData = null;
 									setupCode = '';
-									setupCodeTouched = false;
 								}}
 							>
 								Cancel
+							</Button>
+							<Button size="sm" disabled={setupLoading} onclick={handleSetupEnable}>
+								{setupLoading ? 'Verifying...' : 'Enable'}
 							</Button>
 						</div>
 					</div>
@@ -276,29 +264,32 @@
 					{/if}
 
 					{#if regenMode}
-						<div class="space-y-2">
-							<Label for="regen-code">Enter TOTP code to regenerate backup codes</Label>
-							<FlatInput
-								id="regen-code"
-								bind:value={regenCode}
-								placeholder="000000"
-								autocomplete="one-time-code"
-								onblur={() => (regenCodeTouched = true)}
-							/>
-							{#if regenCodeError}
-								<p class="text-xs text-rose-400">{regenCodeError}</p>
-							{/if}
-							<div class="flex gap-2">
-								<Button size="sm" disabled={regenLoading} onclick={handleRegenerate}>
-									{regenLoading ? 'Regenerating...' : 'Regenerate'}
-								</Button>
+						<div class="flex flex-col items-center space-y-3">
+							<p class="text-sm text-muted-foreground">
+								Enter TOTP code to regenerate backup codes
+							</p>
+							<InputOTP.Root maxlength={6} bind:value={regenCode} onComplete={handleRegenerate}>
+								{#snippet children({ cells })}
+									<InputOTP.Group>
+										{#each cells.slice(0, 3) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+									<InputOTP.Separator />
+									<InputOTP.Group>
+										{#each cells.slice(3, 6) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+								{/snippet}
+							</InputOTP.Root>
+							<div class="flex w-full justify-end">
 								<Button
 									variant="ghost"
 									size="sm"
 									onclick={() => {
 										regenMode = false;
 										regenCode = '';
-										regenCodeTouched = false;
 									}}
 								>
 									Cancel
@@ -306,34 +297,30 @@
 							</div>
 						</div>
 					{:else if disableMode}
-						<div class="space-y-2">
-							<Label for="disable-code">Enter TOTP code to disable 2FA</Label>
-							<FlatInput
-								id="disable-code"
-								bind:value={disableCode}
-								placeholder="000000"
-								autocomplete="one-time-code"
-								onblur={() => (disableCodeTouched = true)}
-							/>
-							{#if disableCodeError}
-								<p class="text-xs text-rose-400">{disableCodeError}</p>
-							{/if}
-							<div class="flex gap-2">
-								<Button
-									variant="destructive"
-									size="sm"
-									disabled={disableLoading}
-									onclick={handleDisable}
-								>
-									{disableLoading ? 'Disabling...' : 'Disable 2FA'}
-								</Button>
+						<div class="flex flex-col items-center space-y-3">
+							<p class="text-sm text-muted-foreground">Enter TOTP code to disable 2FA</p>
+							<InputOTP.Root maxlength={6} bind:value={disableCode} onComplete={handleDisable}>
+								{#snippet children({ cells })}
+									<InputOTP.Group>
+										{#each cells.slice(0, 3) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+									<InputOTP.Separator />
+									<InputOTP.Group>
+										{#each cells.slice(3, 6) as cell (cell)}
+											<InputOTP.Slot {cell} />
+										{/each}
+									</InputOTP.Group>
+								{/snippet}
+							</InputOTP.Root>
+							<div class="flex w-full justify-end">
 								<Button
 									variant="ghost"
 									size="sm"
 									onclick={() => {
 										disableMode = false;
 										disableCode = '';
-										disableCodeTouched = false;
 									}}
 								>
 									Cancel
@@ -358,7 +345,7 @@
 	<!-- OAuth Section -->
 	<section class="space-y-4">
 		<h4 class="text-base font-semibold">Connected Accounts</h4>
-		<div class="rounded-lg border p-6">
+		<div>
 			{#if oauthLoading}
 				<p class="text-sm text-muted-foreground">Loading...</p>
 			{:else}
