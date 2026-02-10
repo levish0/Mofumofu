@@ -65,6 +65,15 @@ pub async fn set_json_compressed<T: Serialize>(
     Ok(())
 }
 
+/// Delete a key from Redis
+pub async fn delete_key(redis_client: &RedisClient, key: &str) -> Result<(), Errors> {
+    let mut conn = redis_client.clone();
+    conn.del::<_, ()>(key).await.map_err(|e| {
+        Errors::SysInternalError(format!("Redis delete failed for key '{}': {}", key, e))
+    })?;
+    Ok(())
+}
+
 /// Retrieve a compressed JSON value from Redis
 pub async fn get_json_compressed<T: DeserializeOwned>(
     redis_client: &RedisClient,

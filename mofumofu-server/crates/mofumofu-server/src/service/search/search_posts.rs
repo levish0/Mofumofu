@@ -1,4 +1,5 @@
 use crate::connection::MeilisearchClient;
+use crate::utils::r2_url::build_r2_public_url;
 use chrono::DateTime;
 use mofumofu_dto::search::{
     PostSearchItem, PostSortField, SearchPostsRequest, SearchPostsResponse, SortOrder,
@@ -120,7 +121,7 @@ pub async fn service_search_posts(
                 user_id,
                 author_handle: p.author_handle,
                 author_display_name: p.author_display_name,
-                author_profile_image: p.author_profile_image,
+                author_profile_image: p.author_profile_image.as_deref().map(build_r2_public_url),
                 title: p.title,
                 slug: p.slug,
                 summary: p.summary,

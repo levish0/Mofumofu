@@ -1,4 +1,5 @@
 <script lang="ts">
+	import '$lib/styles/markdown.css';
 	import { onMount } from 'svelte';
 	import { mode } from 'mode-watcher';
 

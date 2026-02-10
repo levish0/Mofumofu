@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.7] - 2025-02-10
+
+### Added
+
+#### Rendered Post Cache (`mofumofu-server`)
+- **zstd-compressed render cache**: rendered HTML + TOC cached in Redis (`post:render:{post_id}`) with 30-day TTL, compressed via zstd level 3
+- `CachedPostRender` struct in `mofumofu-dto` for cache serialization
+- `delete_key` utility in `redis_cache.rs` for cache invalidation
+- Cache key constants: `POST_RENDER_PREFIX`, `POST_RENDER_CACHE_TTL_SECONDS`, `post_render_key()` in `mofumofu-constants`
+
+#### Post Post-Commit Utils (`mofumofu-server`)
+- `service/posts/utils/post_commit.rs` — V7-style post-commit processing module
+  - `post_process_post`: invalidate old cache → cache render → index in MeiliSearch (used by create, update, publish)
+  - `post_process_post_delete`: invalidate cache → remove from MeiliSearch index (used by delete)
+- All post-commit side effects (cache + search index) consolidated into single function calls
+
+### Changed
+- `service_create_post`, `service_update_post`, `service_delete_post`, `service_publish_draft`: added `redis_cache: &RedisClient` parameter for render caching
+- `service_get_post`, `service_get_post_by_slug`: added `redis_cache: &RedisClient` parameter; check cache first, backfill on miss
+- All API handlers updated to pass `state.redis_cache` to service functions
+- **R2 public URL fix**: `profile_image` and `banner_image` now return full Cloudflare R2 URLs (`build_r2_public_url`) instead of raw storage keys — fixed in all post, comment, user, and search service files (12 files)
+
 ## [2.4.5] - 2025-02-10
 
 ### Added

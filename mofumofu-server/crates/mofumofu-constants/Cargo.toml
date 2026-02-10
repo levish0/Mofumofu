@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 serde = { workspace = true }
 utoipa = { workspace = true }
+uuid = {workspace = true}

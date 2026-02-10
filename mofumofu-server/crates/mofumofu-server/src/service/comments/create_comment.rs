@@ -3,6 +3,7 @@ use crate::repository::posts::{
     repository_get_post_by_id, repository_increment_post_comment_count,
 };
 use crate::repository::user::repository_get_user_by_id;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::comments::{CommentAuthor, CommentResponse, CreateCommentRequest};
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use sea_orm::{DatabaseConnection, TransactionTrait};
@@ -50,7 +51,7 @@ pub async fn service_create_comment(
         id: user.id,
         handle: user.handle,
         display_name: user.display_name,
-        profile_image: user.profile_image,
+        profile_image: user.profile_image.as_deref().map(build_r2_public_url),
     };
 
     Ok(CommentResponse {

@@ -56,7 +56,6 @@
 			onValueChange={onTagsChange}
 			validate={validateTag}
 			placeholder={tags.length < 8 ? 'Add tag...' : ''}
-			disabled={tags.length >= 8}
 			class="border-none bg-transparent px-0"
 		/>
 		<div class="mt-1 text-xs {tags.length >= 8 ? 'text-destructive' : 'text-muted-foreground'}">

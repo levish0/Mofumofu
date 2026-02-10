@@ -1,5 +1,4 @@
 use crate::bridge::markdown_client::render_markdown;
-use crate::bridge::worker_client::index_post;
 use crate::repository::drafts::{repository_delete_draft, repository_get_draft_by_id};
 use crate::repository::hashtags::{
     repository_find_or_create_hashtag, repository_increment_hashtag_usage_count,
@@ -7,10 +6,13 @@ use crate::repository::hashtags::{
 use crate::repository::post_hashtags::repository_create_post_hashtag;
 use crate::repository::posts::{PostUpdateParams, repository_create_post, repository_update_post};
 use crate::repository::user::repository_get_user_by_id;
+use crate::service::posts::utils::post_process_post;
 use crate::state::WorkerClient;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::drafts::PublishDraftRequest;
 use mofumofu_dto::posts::{PostAuthor, PostResponse};
 use mofumofu_errors::errors::{Errors, ServiceResult};
+use redis::aio::ConnectionManager as RedisClient;
 use reqwest::Client as HttpClient;
 use sea_orm::{DatabaseConnection, TransactionTrait};
 use uuid::Uuid;
@@ -19,6 +21,7 @@ pub async fn service_publish_draft(
     conn: &DatabaseConnection,
     http_client: &HttpClient,
     worker: &WorkerClient,
+    redis_cache: &RedisClient,
     user_id: Uuid,
     draft_id: Uuid,
     payload: PublishDraftRequest,
@@ -58,8 +61,8 @@ pub async fn service_publish_draft(
     .await?;
 
     let update_params = PostUpdateParams {
-        render: Some(Some(html)),
-        toc: Some(Some(toc)),
+        render: Some(Some(html.clone())),
+        toc: Some(Some(toc.clone())),
         published_at: Some(Some(chrono::Utc::now())),
         ..Default::default()
     };
@@ -78,17 +81,15 @@ pub async fn service_publish_draft(
 
     txn.commit().await?;
 
-    // Queue search index job (best-effort, don't fail the request)
-    if let Err(e) = index_post(worker, post.id).await {
-        tracing::warn!("Failed to queue post index job for {}: {:?}", post.id, e);
-    }
+    // Post-commit: cache render + index (best-effort)
+    post_process_post(worker, redis_cache, post.id, &html, &toc).await;
 
     let user = repository_get_user_by_id(conn, user_id).await?;
     let author = PostAuthor {
         id: user.id,
         handle: user.handle,
         display_name: user.display_name,
-        profile_image: user.profile_image,
+        profile_image: user.profile_image.as_deref().map(build_r2_public_url),
     };
 
     Ok(PostResponse {

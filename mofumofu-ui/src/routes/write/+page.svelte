@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
-	import { onDestroy } from 'svelte';
 	import { toast } from 'svelte-sonner';
 	import { WriteEditor, WritePreview } from '$lib/components/write';
 	import { processMarkdown } from '$lib/utils/markdown';
@@ -41,23 +40,15 @@
 		maxRatio: 0.7
 	});
 
-	// Process markdown on content change (debounced)
-	let processTimer: ReturnType<typeof setTimeout> | null = null;
-
+	// Process markdown on content change
 	$effect(() => {
-		// Track content changes
-		const currentContent = content;
-
-		if (processTimer) clearTimeout(processTimer);
-
-		processTimer = setTimeout(async () => {
-			if (currentContent.trim()) {
-				const result = await processMarkdown(currentContent);
+		if (content.trim()) {
+			processMarkdown(content).then((result) => {
 				htmlOutput = result.htmlContent;
-			} else {
-				htmlOutput = '';
-			}
-		}, 300);
+			});
+		} else {
+			htmlOutput = '';
+		}
 	});
 
 	// Load draft from URL param
@@ -142,10 +133,6 @@
 		// (handled silently, don't block the redirect)
 	}
 
-	onDestroy(() => {
-		if (autoSaveTimer) clearInterval(autoSaveTimer);
-		if (processTimer) clearTimeout(processTimer);
-	});
 </script>
 
 {#if user}

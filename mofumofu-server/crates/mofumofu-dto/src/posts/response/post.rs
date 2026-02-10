@@ -4,6 +4,13 @@ use serde_json::Value as JsonValue;
 use utoipa::ToSchema;
 use uuid::Uuid;
 
+/// Cached rendered post content (HTML + TOC), stored compressed in Redis
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct CachedPostRender {
+    pub render: String,
+    pub toc: JsonValue,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, ToSchema)]
 pub struct PostAuthor {
     pub id: Uuid,

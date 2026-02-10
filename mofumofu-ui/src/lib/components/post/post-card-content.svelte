@@ -60,19 +60,21 @@
 			</p>
 		{/if}
 
-		{#if visibleTags.length > 0}
-			<div class="mt-auto flex flex-wrap gap-1.5">
-				{#each visibleTags as tag}
-					<Badge variant="secondary" class="text-xs">{tag}</Badge>
-				{/each}
-				{#if extraCount > 0}
-					<Badge variant="outline" class="text-xs">+{extraCount}</Badge>
-				{/if}
-			</div>
-		{/if}
+		<div class="mt-auto py-2">
+			{#if visibleTags.length > 0}
+				<div class="mb-3 flex flex-wrap gap-1.5">
+					{#each visibleTags as tag}
+						<Badge variant="secondary" class="text-xs">{tag}</Badge>
+					{/each}
+					{#if extraCount > 0}
+						<Badge variant="outline" class="text-xs">+{extraCount}</Badge>
+					{/if}
+				</div>
+			{/if}
 
-		<p class="text-xs text-mofu-light-500 dark:text-mofu-dark-400">
-			{formattedDate}{#if comments > 0}<span class="mx-1">&middot;</span>{comments} comment{comments !== 1 ? 's' : ''}{/if}
-		</p>
+			<p class="text-xs text-mofu-light-500 dark:text-mofu-dark-400">
+				{formattedDate}{#if comments > 0}<span class="mx-1">&middot;</span>{comments} comment{comments !== 1 ? 's' : ''}{/if}
+			</p>
+		</div>
 	{/if}
 </div>

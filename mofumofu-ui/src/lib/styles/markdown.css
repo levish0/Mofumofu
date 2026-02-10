@@ -1,0 +1,292 @@
+/* Markdown content styles */
+@import url('https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css');
+@import url(remark-github-blockquote-alert/alert.css);
+
+.prose pre {
+	background-color: var(--color-mofu-light-800) !important;
+	border-radius: 0.5rem;
+	padding: 1rem !important;
+}
+
+.prose:where(.dark, .dark *) pre {
+	background-color: var(--color-mofu-dark-800) !important;
+}
+
+/* Override highlight.js background to use our theme colors */
+.prose .hljs {
+	background: transparent !important;
+}
+
+.prose code {
+	background-color: var(--color-mofu-light-800) !important;
+	color: var(--color-mofu-light-100) !important;
+	padding: 0.125rem 0.25rem !important;
+	border-radius: 0.25rem;
+}
+
+.prose:where(.dark, .dark *) code {
+	background-color: var(--color-mofu-dark-800) !important;
+	color: var(--color-mofu-dark-100) !important;
+}
+
+/* Heading sizes and colors */
+.prose h1 {
+	font-size: 2rem !important;
+	line-height: 2.5rem !important;
+	color: inherit !important;
+	margin-top: 1.5rem !important;
+	margin-bottom: 1rem !important;
+}
+
+.prose h2 {
+	font-size: 1.75rem !important;
+	line-height: 2rem !important;
+	color: inherit !important;
+	margin-top: 1.25rem !important;
+	margin-bottom: 0.75rem !important;
+}
+
+.prose h3 {
+	font-size: 1.5rem !important;
+	line-height: 1.75rem !important;
+	color: inherit !important;
+	margin-top: 1rem !important;
+	margin-bottom: 0.5rem !important;
+}
+
+.prose h4 {
+	font-size: 1.25rem !important;
+	line-height: 1.5rem !important;
+	color: inherit !important;
+	margin-top: 0.75rem !important;
+	margin-bottom: 0.5rem !important;
+}
+
+.prose h5 {
+	color: inherit !important;
+}
+
+.prose h6 {
+	color: inherit !important;
+}
+
+/* Blockquote styling */
+.prose blockquote {
+	border-left: 4px solid var(--color-mofu) !important;
+	margin: 1rem 0 !important;
+	padding: 0.75rem 1rem !important;
+	background-color: var(--color-mofu-light-950) !important;
+	border-radius: 0 0.5rem 0.5rem 0 !important;
+	font-style: italic !important;
+	position: relative !important;
+}
+
+.prose:where(.dark, .dark *) blockquote {
+	background-color: var(--color-mofu-dark-900) !important;
+}
+
+.prose blockquote p {
+	margin: 0 !important;
+	color: var(--color-mofu-light-300) !important;
+}
+
+.prose:where(.dark, .dark *) blockquote p {
+	color: var(--color-mofu-dark-300) !important;
+}
+
+/* Link styling */
+.prose a {
+	margin: 0 !important;
+	padding: 0 !important;
+	color: var(--color-mofu) !important;
+}
+
+/* Image inside links */
+.prose a img {
+	margin: 0 !important;
+	padding: 0 !important;
+	display: inline !important;
+	vertical-align: middle !important;
+}
+
+/* Paragraph and line break styling */
+.prose p {
+	line-height: 1.6 !important;
+	margin-top: 0.9rem !important;
+	margin-bottom: 0.9rem !important;
+}
+
+.prose br {
+	margin: 0 !important;
+	line-height: 1 !important;
+}
+
+/* Horizontal rule styling */
+.prose hr {
+	border-color: var(--color-mofu-light-700) !important;
+	margin-top: 1rem !important;
+	margin-bottom: 1rem !important;
+}
+
+.prose:where(.dark, .dark *) hr {
+	border-color: var(--color-mofu-dark-700) !important;
+}
+
+/* List styling */
+.prose ul li::marker {
+	color: var(--color-mofu-light-200) !important;
+}
+
+.prose:where(.dark, .dark *) ul li::marker {
+	color: var(--color-mofu-dark-200) !important;
+}
+
+.prose ol li::marker {
+	color: var(--color-mofu-light-200) !important;
+	font-weight: 600 !important;
+}
+
+.prose:where(.dark, .dark *) ol li::marker {
+	color: var(--color-mofu-dark-200) !important;
+}
+
+/* Nested list spacing */
+.prose ul ul,
+.prose ol ol,
+.prose ul ol,
+.prose ol ul {
+	margin-top: 0.25rem !important;
+	margin-bottom: 0.25rem !important;
+}
+
+.prose li {
+	margin-top: 0.25rem !important;
+	margin-bottom: 0.25rem !important;
+}
+
+/* Bold text styling */
+.prose strong {
+	color: var(--color-mofu-light-50) !important;
+	font-weight: 700 !important;
+}
+
+.prose:where(.dark, .dark *) strong {
+	color: var(--color-mofu-dark-100) !important;
+}
+
+/* Italic text styling */
+.prose em {
+	color: var(--color-mofu-light-300) !important;
+	font-style: italic !important;
+}
+
+.prose:where(.dark, .dark *) em {
+	color: var(--color-mofu-dark-300) !important;
+}
+
+/* Image styling */
+.prose img {
+	margin-top: 1rem !important;
+	margin-bottom: 1rem !important;
+	display: block !important;
+}
+
+.prose p img {
+	margin-top: 0.5rem !important;
+	margin-bottom: 0.5rem !important;
+}
+
+/* Fix line breaks after images */
+.prose img + br {
+	display: none !important;
+}
+
+.prose p:has(img) br {
+	display: none !important;
+}
+
+/* Table styling */
+.prose table {
+	border-collapse: collapse !important;
+	width: 100% !important;
+	margin-top: 1rem !important;
+	margin-bottom: 1rem !important;
+	border: 1px solid var(--color-mofu-light-700) !important;
+	border-radius: 0.5rem !important;
+	overflow: hidden !important;
+}
+
+.prose:where(.dark, .dark *) table {
+	border-color: var(--color-mofu-dark-700) !important;
+}
+
+.prose th {
+	background-color: var(--color-mofu-light-900) !important;
+	color: var(--color-mofu-light-200) !important;
+	font-weight: 600 !important;
+	padding: 0.75rem 1rem !important;
+	text-align: left !important;
+	border-bottom: 1px solid var(--color-mofu-light-700) !important;
+}
+
+.prose:where(.dark, .dark *) th {
+	background-color: var(--color-mofu-dark-800) !important;
+	color: var(--color-mofu-dark-200) !important;
+	border-bottom-color: var(--color-mofu-dark-700) !important;
+}
+
+.prose td {
+	padding: 0.75rem 1rem !important;
+	border-bottom: 1px solid var(--color-mofu-light-800) !important;
+	color: inherit !important;
+}
+
+.prose:where(.dark, .dark *) td {
+	border-bottom-color: var(--color-mofu-dark-600) !important;
+}
+
+.prose tr:last-child td {
+	border-bottom: none !important;
+}
+
+.prose tr:nth-child(even) {
+	background-color: var(--color-mofu-light-950) !important;
+}
+
+.prose:where(.dark, .dark *) tr:nth-child(even) {
+	background-color: var(--color-mofu-dark-900) !important;
+}
+
+/* Heading anchor links */
+.prose h1 a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+	color: inherit !important;
+	text-decoration: none !important;
+	opacity: 0 !important;
+	transition: opacity 0.2s ease !important;
+	margin-left: 0.5rem !important;
+	font-weight: normal !important;
+}
+
+.prose h1:hover a,
+.prose h2:hover a,
+.prose h3:hover a,
+.prose h4:hover a,
+.prose h5:hover a,
+.prose h6:hover a {
+	opacity: 0.7 !important;
+}
+
+.prose h1 a:hover,
+.prose h2 a:hover,
+.prose h3 a:hover,
+.prose h4 a:hover,
+.prose h5 a:hover,
+.prose h6 a:hover {
+	opacity: 1 !important;
+	color: var(--color-mofu) !important;
+}

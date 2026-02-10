@@ -1,4 +1,5 @@
 use crate::connection::MeilisearchClient;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::search::{SearchUsersRequest, SearchUsersResponse, UserSearchItem};
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use serde::Deserialize;
@@ -53,7 +54,7 @@ pub async fn service_search_users(
                     handle: user.handle,
                     display_name: user.display_name,
                     bio: user.bio,
-                    profile_image: user.profile_image,
+                    profile_image: user.profile_image.as_deref().map(build_r2_public_url),
                 }),
                 Err(e) => {
                     warn!(

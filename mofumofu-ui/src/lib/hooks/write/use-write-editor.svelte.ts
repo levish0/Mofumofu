@@ -1,4 +1,4 @@
-import { onMount, onDestroy } from 'svelte';
+import { onMount } from 'svelte';
 
 interface WriteEditorOptions {
 	lineThreshold?: number;
@@ -47,12 +47,12 @@ export function useWriteEditor(
 
 		textareaElement.addEventListener('input', updateToolbarVisibility, { passive: true });
 		textareaElement.addEventListener('scroll', handleScroll, { passive: true });
-	});
 
-	onDestroy(() => {
-		textareaElement.removeEventListener('input', updateToolbarVisibility);
-		textareaElement.removeEventListener('scroll', handleScroll);
-		if (rafId) cancelAnimationFrame(rafId);
+		return () => {
+			textareaElement.removeEventListener('input', updateToolbarVisibility);
+			textareaElement.removeEventListener('scroll', handleScroll);
+			if (rafId) cancelAnimationFrame(rafId);
+		};
 	});
 
 	return {

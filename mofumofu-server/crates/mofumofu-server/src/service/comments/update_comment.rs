@@ -2,6 +2,7 @@ use crate::repository::comments::{
     CommentUpdateParams, repository_get_comment_by_id, repository_update_comment,
 };
 use crate::repository::user::repository_get_user_by_id;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::comments::{CommentAuthor, CommentResponse, UpdateCommentRequest};
 use mofumofu_errors::errors::{Errors, ServiceResult};
 use sea_orm::{DatabaseConnection, TransactionTrait};
@@ -40,7 +41,7 @@ pub async fn service_update_comment(
         id: user.id,
         handle: user.handle,
         display_name: user.display_name,
-        profile_image: user.profile_image,
+        profile_image: user.profile_image.as_deref().map(build_r2_public_url),
     };
 
     Ok(CommentResponse {

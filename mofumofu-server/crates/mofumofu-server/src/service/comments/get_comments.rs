@@ -5,6 +5,7 @@ use crate::repository::comments::{
     repository_find_comments_by_post_id,
 };
 use crate::repository::user::repository_find_users_by_ids;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::comments::{
     CommentAuthor, CommentListResponse, CommentResponse, GetCommentsRequest,
 };
@@ -63,7 +64,7 @@ pub async fn service_get_comments(
                     id: u.id,
                     handle: u.handle.clone(),
                     display_name: u.display_name.clone(),
-                    profile_image: u.profile_image.clone(),
+                    profile_image: u.profile_image.as_deref().map(build_r2_public_url),
                 })
                 .unwrap_or_else(|| CommentAuthor {
                     id: comment.user_id,

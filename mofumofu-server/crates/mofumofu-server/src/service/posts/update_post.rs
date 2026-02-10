@@ -1,5 +1,4 @@
 use crate::bridge::markdown_client::render_markdown;
-use crate::bridge::worker_client::index_post;
 use crate::repository::hashtags::{
     repository_decrement_hashtag_usage_count, repository_find_or_create_hashtag,
     repository_increment_hashtag_usage_count,
@@ -13,17 +12,22 @@ use crate::repository::posts::{
 };
 use crate::repository::user::repository_get_user_by_id;
 use crate::state::WorkerClient;
+use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::posts::{PostAuthor, PostResponse, UpdatePostRequest};
 use mofumofu_entity::hashtags::Entity as HashtagEntity;
 use mofumofu_errors::errors::{Errors, ServiceResult};
+use redis::aio::ConnectionManager as RedisClient;
 use reqwest::Client as HttpClient;
 use sea_orm::{DatabaseConnection, EntityTrait, TransactionTrait};
 use uuid::Uuid;
+
+use super::utils::post_process_post;
 
 pub async fn service_update_post(
     conn: &DatabaseConnection,
     http_client: &HttpClient,
     worker: &WorkerClient,
+    redis_cache: &RedisClient,
     user_id: Uuid,
     post_id: Uuid,
     payload: UpdatePostRequest,
@@ -54,9 +58,9 @@ pub async fn service_update_post(
         ..Default::default()
     };
 
-    if let Some((html, toc)) = render_result {
-        update_params.render = Some(Some(html));
-        update_params.toc = Some(Some(toc));
+    if let Some((ref html, ref toc)) = render_result {
+        update_params.render = Some(Some(html.clone()));
+        update_params.toc = Some(Some(toc.clone()));
     }
 
     if payload.publish == Some(true) && post.published_at.is_none() {
@@ -94,9 +98,9 @@ pub async fn service_update_post(
 
     txn.commit().await?;
 
-    // Queue search index job (best-effort, don't fail the request)
-    if let Err(e) = index_post(worker, post_id).await {
-        tracing::warn!("Failed to queue post index job for {}: {:?}", post_id, e);
+    // Post-commit: invalidate old cache, cache new render, index (best-effort)
+    if let Some((html, toc)) = render_result {
+        post_process_post(worker, redis_cache, post_id, &html, &toc).await;
     }
 
     let user = repository_get_user_by_id(conn, user_id).await?;
@@ -104,7 +108,7 @@ pub async fn service_update_post(
         id: user.id,
         handle: user.handle,
         display_name: user.display_name,
-        profile_image: user.profile_image,
+        profile_image: user.profile_image.as_deref().map(build_r2_public_url),
     };
 
     Ok(PostResponse {

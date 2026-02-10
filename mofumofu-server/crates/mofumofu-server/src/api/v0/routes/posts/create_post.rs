@@ -33,6 +33,7 @@ pub async fn create_post(
         &state.write_db,
         &state.http_client,
         &state.worker,
+        &state.redis_cache,
         session_context.user_id,
         payload,
     )

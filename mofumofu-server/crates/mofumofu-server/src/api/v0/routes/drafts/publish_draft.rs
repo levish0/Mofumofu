@@ -37,6 +37,7 @@ pub async fn publish_draft(
         &state.write_db,
         &state.http_client,
         &state.worker,
+        &state.redis_cache,
         session_context.user_id,
         path.draft_id,
         payload,

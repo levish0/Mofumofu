@@ -6,6 +6,7 @@ mod get_posts;
 mod increment_view;
 mod update_post;
 mod upload_post_image;
+pub mod utils;
 
 pub use create_post::service_create_post;
 pub use delete_post::service_delete_post;

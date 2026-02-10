@@ -23,6 +23,6 @@ pub async fn get_post(
     State(state): State<AppState>,
     ValidatedPath(path): ValidatedPath<PostIdPath>,
 ) -> Result<Json<PostResponse>, Errors> {
-    let response = service_get_post(&state.read_db, path.post_id).await?;
+    let response = service_get_post(&state.read_db, &state.redis_cache, path.post_id).await?;
     Ok(Json(response))
 }

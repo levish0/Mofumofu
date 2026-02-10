@@ -1,4 +1,4 @@
-import { onMount, onDestroy } from 'svelte';
+import { onMount } from 'svelte';
 
 interface ResizableOptions {
 	initialRatio?: number;
@@ -15,7 +15,6 @@ export function useResizable(options: ResizableOptions = {}): {
 
 	let leftRatio = $state(initialRatio);
 	let isDragging = $state(false);
-	let containerWidth = 0;
 	let startX = 0;
 	let startRatio = 0;
 
@@ -32,11 +31,10 @@ export function useResizable(options: ResizableOptions = {}): {
 		const container = document.getElementById('resizable-container');
 		if (!container) return;
 
-		containerWidth = container.getBoundingClientRect().width;
+		const containerWidth = container.getBoundingClientRect().width;
 		const deltaX = e.clientX - startX;
 		const deltaRatio = deltaX / containerWidth;
-		const newRatio = Math.min(maxRatio, Math.max(minRatio, startRatio + deltaRatio));
-		leftRatio = newRatio;
+		leftRatio = Math.min(maxRatio, Math.max(minRatio, startRatio + deltaRatio));
 	};
 
 	const handleMouseUp = () => {
@@ -46,11 +44,11 @@ export function useResizable(options: ResizableOptions = {}): {
 	onMount(() => {
 		window.addEventListener('mousemove', handleMouseMove);
 		window.addEventListener('mouseup', handleMouseUp);
-	});
 
-	onDestroy(() => {
-		window.removeEventListener('mousemove', handleMouseMove);
-		window.removeEventListener('mouseup', handleMouseUp);
+		return () => {
+			window.removeEventListener('mousemove', handleMouseMove);
+			window.removeEventListener('mouseup', handleMouseUp);
+		};
 	});
 
 	return {

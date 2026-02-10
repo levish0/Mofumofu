@@ -43,7 +43,6 @@
 		onValueChange={handleChange}
 		validate={validateTag}
 		placeholder={value.length < 8 ? 'Add tag and press Enter...' : ''}
-		disabled={value.length >= 8}
 	/>
 	<div class="mt-1 flex items-center justify-between">
 		{#if validationError}

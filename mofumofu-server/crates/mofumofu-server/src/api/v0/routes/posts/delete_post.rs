@@ -31,6 +31,7 @@ pub async fn delete_post(
     service_delete_post(
         &state.write_db,
         &state.worker,
+        &state.redis_cache,
         session_context.user_id,
         path.post_id,
     )
