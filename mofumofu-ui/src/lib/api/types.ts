@@ -50,6 +50,18 @@ export type UpdatePostRequest = components['schemas']['UpdatePostRequest'];
 export type UploadPostImageResponse = components['schemas']['UploadPostImageResponse'];
 export type CursorDirection = components['schemas']['CursorDirection'];
 
+// Like types
+export type LikeRequest = components['schemas']['LikeRequest'];
+export type LikeStatusResponse = components['schemas']['LikeStatusResponse'];
+export type LikeTargetType = components['schemas']['LikeTargetType'];
+
+// TOC item (server returns as JSON array, typed as Record in OpenAPI)
+export interface TocItem {
+	id: string;
+	text: string;
+	level: number;
+}
+
 // Draft types
 export type DraftResponse = components['schemas']['DraftResponse'];
 export type DraftListResponse = components['schemas']['DraftListResponse'];
