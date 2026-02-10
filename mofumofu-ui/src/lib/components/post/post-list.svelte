@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PostSearchItem } from '$lib/api/types';
+	import type { PostSearchItem, PostFeedItem } from '$lib/api/types';
 	import PostCard from './post-card.svelte';
 
 	let {
@@ -9,7 +9,7 @@
 		onLoadMore,
 		skeletonCount = 8
 	}: {
-		posts?: PostSearchItem[];
+		posts?: (PostSearchItem | PostFeedItem)[];
 		loading?: boolean;
 		hasMore?: boolean;
 		onLoadMore?: () => void;

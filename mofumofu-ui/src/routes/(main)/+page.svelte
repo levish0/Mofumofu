@@ -1,15 +1,14 @@
 <script lang="ts">
 	import { PostList } from '$lib/components/post';
-	import { searchPosts } from '$lib/api/posts';
-	import type { PostSearchItem } from '$lib/api/types';
+	import { getPostFeed } from '$lib/api/posts';
+	import type { PostFeedItem } from '$lib/api/types';
 
 	const PAGE_SIZE = 15;
 
-	let posts = $state<PostSearchItem[]>([]);
+	let posts = $state<PostFeedItem[]>([]);
 	let page = $state(1);
-	let totalPages = $state(1);
+	let hasMore = $state(false);
 	let loading = $state(true);
-	let hasMore = $derived(page < totalPages);
 
 	function getWeekAgo(): string {
 		const d = new Date();
@@ -20,15 +19,14 @@
 	async function loadPosts(pageNum: number) {
 		loading = true;
 		try {
-			const res = await searchPosts({
+			const res = await getPostFeed({
+				sort: 'Popular',
+				published_at_after: getWeekAgo(),
 				page: pageNum,
-				page_size: PAGE_SIZE,
-				sort_by: 'LikeCount',
-				sort_order: 'Desc',
-				published_at_after: getWeekAgo()
+				page_size: PAGE_SIZE
 			});
-			posts = pageNum === 1 ? res.posts : [...posts, ...res.posts];
-			totalPages = res.total_pages;
+			posts = pageNum === 1 ? res.data : [...posts, ...res.data];
+			hasMore = res.has_more;
 		} finally {
 			loading = false;
 		}

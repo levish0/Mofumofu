@@ -4908,6 +4908,91 @@
           }
         }
       },
+      "PostFeedItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "author_handle",
+          "author_display_name",
+          "title",
+          "slug",
+          "hashtags",
+          "like_count",
+          "comment_count",
+          "view_count",
+          "created_at"
+        ],
+        "properties": {
+          "author_display_name": {
+            "type": "string"
+          },
+          "author_handle": {
+            "type": "string"
+          },
+          "author_profile_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "comment_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "hashtags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "like_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "published_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "view_count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "PostFeedResponse": {
         "type": "object",
         "required": [
@@ -4921,7 +5006,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/PostResponse"
+              "$ref": "#/components/schemas/PostFeedItem"
             }
           },
           "has_more": {

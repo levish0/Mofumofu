@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { PostSearchItem } from '$lib/api/types';
+	import type { PostSearchItem, PostFeedItem } from '$lib/api/types';
 	import PostCardImage from './post-card-image.svelte';
 	import PostCardContent from './post-card-content.svelte';
 	import PostCardFooter from './post-card-footer.svelte';
 	import PostCardSkeleton from './post-card-skeleton.svelte';
 
-	let { post }: { post?: PostSearchItem } = $props();
+	let { post }: { post?: PostSearchItem | PostFeedItem } = $props();
 </script>
 
 {#if !post}

@@ -1462,8 +1462,32 @@ export interface components {
             id: string;
             profile_image?: string | null;
         };
+        PostFeedItem: {
+            author_display_name: string;
+            author_handle: string;
+            author_profile_image?: string | null;
+            /** Format: int32 */
+            comment_count: number;
+            /** Format: date-time */
+            created_at: string;
+            hashtags: string[];
+            /** Format: uuid */
+            id: string;
+            /** Format: int32 */
+            like_count: number;
+            /** Format: date-time */
+            published_at?: string | null;
+            slug: string;
+            summary?: string | null;
+            thumbnail_image?: string | null;
+            title: string;
+            /** Format: uuid */
+            user_id: string;
+            /** Format: int32 */
+            view_count: number;
+        };
         PostFeedResponse: {
-            data: components["schemas"]["PostResponse"][];
+            data: components["schemas"]["PostFeedItem"][];
             has_more: boolean;
             /** Format: int32 */
             page: number;
