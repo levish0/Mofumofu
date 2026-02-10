@@ -1,3 +1,4 @@
+use crate::validator::string_validator::validate_not_blank;
 use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use utoipa::ToSchema;
@@ -12,6 +13,7 @@ pub struct BanUserRequest {
         max = 1000,
         message = "Reason must be between 1 and 1000 characters."
     ))]
+    #[validate(custom(function = "validate_not_blank"))]
     pub reason: String,
     pub expires_at: Option<DateTime<Utc>>,
 }
