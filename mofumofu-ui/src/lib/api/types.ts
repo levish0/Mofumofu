@@ -37,6 +37,19 @@ export type GoogleLinkRequest = components['schemas']['GoogleLinkRequest'];
 export type GithubLinkRequest = components['schemas']['GithubLinkRequest'];
 export type UnlinkOAuthRequest = components['schemas']['UnlinkOAuthRequest'];
 
+// Post types
+export type PostResponse = components['schemas']['PostResponse'];
+export type PostAuthor = components['schemas']['PostAuthor'];
+export type PostListResponse = components['schemas']['PostListResponse'];
+export type PostSearchItem = components['schemas']['PostSearchItem'];
+export type SearchPostsResponse = components['schemas']['SearchPostsResponse'];
+export type PostSortField = components['schemas']['PostSortField'];
+export type SortOrder = components['schemas']['SortOrder'];
+export type CreatePostRequest = components['schemas']['CreatePostRequest'];
+export type UpdatePostRequest = components['schemas']['UpdatePostRequest'];
+export type UploadPostImageResponse = components['schemas']['UploadPostImageResponse'];
+export type CursorDirection = components['schemas']['CursorDirection'];
+
 // Discriminated unions for multi-status responses
 export type LoginResult = { kind: 'success' } | { kind: 'totp_required'; temp_token: string };
 

@@ -1,0 +1,44 @@
+{
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "autocompletes",
+        "autocompleting",
+        "bot's",
+        "cmds",
+        "cooldown",
+        "cooldowns",
+        "datas",
+        "descs",
+        "discordbotlist",
+        "discordjs",
+        "discordlabs",
+        "discordlist",
+        "disforge",
+        "filesize",
+        "luxon",
+        "millis",
+        "Novak",
+        "ondiscord",
+        "parens",
+        "pino",
+        "regexes",
+        "respawn",
+        "respawned",
+        "restjson",
+        "unescapes",
+        "varchar"
+    ],
+    "typescript.preferences.importModuleSpecifierEnding": "js"
+}

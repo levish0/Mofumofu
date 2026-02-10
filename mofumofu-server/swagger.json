@@ -10,7 +10,7 @@
     "license": {
       "name": ""
     },
-    "version": "2.4.5"
+    "version": "2.4.6"
   },
   "paths": {
     "/health-check": {
@@ -4694,13 +4694,19 @@
           "author_handle": {
             "type": "string"
           },
+          "author_profile_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "comment_count": {
             "type": "integer",
             "format": "int32"
           },
           "created_at": {
-            "type": "integer",
-            "format": "int64"
+            "type": "string",
+            "format": "date-time"
           },
           "hashtags": {
             "type": "array",
@@ -4718,10 +4724,10 @@
           },
           "published_at": {
             "type": [
-              "integer",
+              "string",
               "null"
             ],
-            "format": "int64"
+            "format": "date-time"
           },
           "slug": {
             "type": "string"

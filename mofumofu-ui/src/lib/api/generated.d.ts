@@ -1409,17 +1409,18 @@ export interface components {
         PostSearchItem: {
             author_display_name: string;
             author_handle: string;
+            author_profile_image?: string | null;
             /** Format: int32 */
             comment_count: number;
-            /** Format: int64 */
-            created_at: number;
+            /** Format: date-time */
+            created_at: string;
             hashtags: string[];
             /** Format: uuid */
             id: string;
             /** Format: int32 */
             like_count: number;
-            /** Format: int64 */
-            published_at?: number | null;
+            /** Format: date-time */
+            published_at?: string | null;
             slug: string;
             summary?: string | null;
             thumbnail_image?: string | null;
