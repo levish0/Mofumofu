@@ -8,6 +8,7 @@
 	import { FlatInput, FLAT_INPUT_CLASS } from '$lib/components/flat-input';
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
+	import * as FieldSet from '$lib/components/ui/field-set';
 	import * as Password from '$lib/components/ui/password';
 	import * as ImageCropper from '$lib/components/ui/image-cropper';
 	import { toast } from 'svelte-sonner';
@@ -147,212 +148,255 @@
 	}
 </script>
 
-<div class="mx-auto max-w-2xl space-y-8">
+<div class="mx-auto max-w-2xl space-y-6">
 	<!-- Profile -->
-	<section class="space-y-4">
+	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Profile</h4>
-		<ImageCropper.Root
-			bind:src={cropperSrc}
-			onCropped={handleCropped}
-			accept="image/png, image/jpeg, image/webp"
-			onUnsupportedFile={() => toast.error('Unsupported file type.')}
-		>
-			<div class="flex items-start gap-6">
-				<ImageCropper.UploadTrigger>
-					<ImageCropper.Preview class="size-20 rounded-xl ring-0 ring-offset-0" />
-				</ImageCropper.UploadTrigger>
-				<div class="flex-1 space-y-4">
-					<div>
-						<p class="font-medium">Profile picture</p>
-						<p class="text-sm text-muted-foreground">PNG, JPG, WebP up to 4MB</p>
-					</div>
-					<div class="flex gap-2">
+		<FieldSet.Root>
+			<FieldSet.Content>
+				<ImageCropper.Root
+					bind:src={cropperSrc}
+					onCropped={handleCropped}
+					accept="image/png, image/jpeg, image/webp"
+					onUnsupportedFile={() => toast.error('Unsupported file type.')}
+				>
+					<div class="flex items-start gap-6">
 						<ImageCropper.UploadTrigger>
-							<Button
-								variant="outline"
-								size="sm"
-								disabled={imageUploading}
-								type="button"
-								class="pointer-events-none"
-							>
-								Upload
-							</Button>
+							<ImageCropper.Preview class="size-20 ring-0 ring-offset-0" />
 						</ImageCropper.UploadTrigger>
-						{#if user.profile_image}
-							<Button
-								variant="ghost"
-								size="sm"
-								class="text-red-600 hover:text-red-700"
-								disabled={imageUploading}
-								onclick={handleImageDelete}
-							>
-								Remove
-							</Button>
-						{/if}
+						<div class="flex-1 space-y-4">
+							<div>
+								<p class="font-medium">Profile picture</p>
+								<p class="text-sm text-muted-foreground">PNG, JPG, WebP up to 4MB</p>
+							</div>
+							<div class="flex gap-2">
+								<ImageCropper.UploadTrigger>
+									<Button
+										variant="outline"
+										size="sm"
+										disabled={imageUploading}
+										type="button"
+										class="pointer-events-none"
+									>
+										Upload
+									</Button>
+								</ImageCropper.UploadTrigger>
+								{#if user.profile_image}
+									<Button
+										variant="ghost"
+										size="sm"
+										class="text-red-600 hover:text-red-700"
+										disabled={imageUploading}
+										onclick={handleImageDelete}
+									>
+										Remove
+									</Button>
+								{/if}
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<ImageCropper.Dialog>
-				<ImageCropper.Cropper />
-				<ImageCropper.Controls>
-					<ImageCropper.Cancel />
-					<ImageCropper.Crop />
-				</ImageCropper.Controls>
-			</ImageCropper.Dialog>
-		</ImageCropper.Root>
+					<ImageCropper.Dialog>
+						<ImageCropper.Cropper />
+						<ImageCropper.Controls>
+							<ImageCropper.Cancel />
+							<ImageCropper.Crop />
+						</ImageCropper.Controls>
+					</ImageCropper.Dialog>
+				</ImageCropper.Root>
+			</FieldSet.Content>
+		</FieldSet.Root>
 	</section>
 
 	<!-- Basic Info -->
-	<section class="space-y-4">
+	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Basic Information</h4>
-		<div class="space-y-4">
-			<div class="grid gap-4 sm:grid-cols-2">
-				<div class="space-y-2">
-					<Label for="settings-handle">Handle</Label>
-					<FlatInput id="settings-handle" value={user.handle} disabled />
-					<p class="text-xs text-muted-foreground">Handle cannot be changed.</p>
+		<FieldSet.Root>
+			<FieldSet.Content>
+				<div class="space-y-4">
+					<div class="grid gap-4 sm:grid-cols-2">
+						<div class="space-y-2">
+							<Label for="settings-handle">Handle</Label>
+							<FlatInput id="settings-handle" value={user.handle} disabled />
+							<p class="text-xs text-muted-foreground">Handle cannot be changed.</p>
+						</div>
+						<div class="space-y-2">
+							<Label for="settings-display-name">Display Name</Label>
+							<FlatInput
+								id="settings-display-name"
+								bind:value={displayName}
+								disabled={profileSaving}
+							/>
+						</div>
+					</div>
+					<div class="space-y-2">
+						<Label for="settings-bio">Bio</Label>
+						<FlatInput
+							id="settings-bio"
+							placeholder="Tell us about yourself"
+							bind:value={bio}
+							disabled={profileSaving}
+						/>
+					</div>
 				</div>
-				<div class="space-y-2">
-					<Label for="settings-display-name">Display Name</Label>
-					<FlatInput id="settings-display-name" bind:value={displayName} disabled={profileSaving} />
+			</FieldSet.Content>
+			<FieldSet.Footer>
+				<div class="flex w-full items-center justify-between">
+					<span class="text-sm text-muted-foreground">Changes apply to your public profile.</span>
+					<Button size="sm" onclick={handleProfileSave} disabled={!profileChanged || profileSaving}>
+						{profileSaving ? 'Saving...' : 'Save'}
+					</Button>
 				</div>
-			</div>
-			<div class="space-y-2">
-				<Label for="settings-bio">Bio</Label>
-				<FlatInput
-					id="settings-bio"
-					placeholder="Tell us about yourself"
-					bind:value={bio}
-					disabled={profileSaving}
-				/>
-			</div>
-			<Button onclick={handleProfileSave} disabled={!profileChanged || profileSaving}>
-				{profileSaving ? 'Saving...' : 'Save'}
-			</Button>
-		</div>
+			</FieldSet.Footer>
+		</FieldSet.Root>
 	</section>
 
 	<!-- Email -->
-	<section class="space-y-4">
+	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Email</h4>
-		<div class="space-y-4">
-			<p class="text-sm text-muted-foreground">
-				Current email: <span class="font-medium">{user.email}</span>
-			</p>
-			<div class="space-y-2">
-				<Label for="settings-new-email">New Email</Label>
-				<FlatInput
-					id="settings-new-email"
-					type="email"
-					bind:value={newEmail}
-					disabled={emailLoading}
-					onblur={() => (emailTouched = true)}
-				/>
-				{#if emailError}
-					<p class="text-xs text-rose-400">{emailError}</p>
-				{/if}
-			</div>
-			<div class="space-y-2">
-				<Label for="settings-email-password">Password</Label>
-				<Password.Root>
-					<Password.Input
-						id="settings-email-password"
-						bind:value={emailPassword}
-						autocomplete="current-password"
-						class={FLAT_INPUT_CLASS}
-						disabled={emailLoading}
+		<FieldSet.Root>
+			<FieldSet.Content>
+				<div class="space-y-4">
+					<p class="text-sm text-muted-foreground">
+						Current email: <span class="font-medium">{user.email}</span>
+					</p>
+					<div class="space-y-2">
+						<Label for="settings-new-email">New Email</Label>
+						<FlatInput
+							id="settings-new-email"
+							type="email"
+							bind:value={newEmail}
+							disabled={emailLoading}
+							onblur={() => (emailTouched = true)}
+						/>
+						{#if emailError}
+							<p class="text-xs text-rose-400">{emailError}</p>
+						{/if}
+					</div>
+					<div class="space-y-2">
+						<Label for="settings-email-password">Password</Label>
+						<Password.Root>
+							<Password.Input
+								id="settings-email-password"
+								bind:value={emailPassword}
+								autocomplete="current-password"
+								class={FLAT_INPUT_CLASS}
+								disabled={emailLoading}
+							>
+								<Password.ToggleVisibility />
+							</Password.Input>
+						</Password.Root>
+					</div>
+				</div>
+			</FieldSet.Content>
+			<FieldSet.Footer>
+				<div class="flex w-full items-center justify-between">
+					<span class="text-sm text-muted-foreground">A verification email will be sent.</span>
+					<Button
+						size="sm"
+						variant="outline"
+						onclick={handleEmailChange}
+						disabled={!newEmail || !emailPassword || emailLoading}
 					>
-						<Password.ToggleVisibility />
-					</Password.Input>
-				</Password.Root>
-			</div>
-			<Button
-				variant="outline"
-				onclick={handleEmailChange}
-				disabled={!newEmail || !emailPassword || emailLoading}
-			>
-				{emailLoading ? 'Sending...' : 'Send Verification'}
-			</Button>
-		</div>
+						{emailLoading ? 'Sending...' : 'Send Verification'}
+					</Button>
+				</div>
+			</FieldSet.Footer>
+		</FieldSet.Root>
 	</section>
 
 	<!-- Password -->
-	<section class="space-y-4">
+	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Password</h4>
-		<div class="space-y-4">
-			<div class="space-y-2">
-				<Label for="settings-current-pw">Current Password</Label>
-				<Password.Root>
-					<Password.Input
-						id="settings-current-pw"
-						bind:value={currentPassword}
-						autocomplete="current-password"
-						class={FLAT_INPUT_CLASS}
-						disabled={passwordLoading}
+		<FieldSet.Root>
+			<FieldSet.Content>
+				<div class="space-y-4">
+					<div class="space-y-2">
+						<Label for="settings-current-pw">Current Password</Label>
+						<Password.Root>
+							<Password.Input
+								id="settings-current-pw"
+								bind:value={currentPassword}
+								autocomplete="current-password"
+								class={FLAT_INPUT_CLASS}
+								disabled={passwordLoading}
+							>
+								<Password.ToggleVisibility />
+							</Password.Input>
+						</Password.Root>
+					</div>
+					<div class="grid gap-4 sm:grid-cols-2">
+						<div class="space-y-2">
+							<Label for="settings-new-pw">New Password</Label>
+							<Password.Root>
+								<Password.Input
+									id="settings-new-pw"
+									bind:value={newPassword}
+									autocomplete="new-password"
+									class={FLAT_INPUT_CLASS}
+									disabled={passwordLoading}
+									onblur={() => (newPasswordTouched = true)}
+								>
+									<Password.ToggleVisibility />
+								</Password.Input>
+								<Password.Strength />
+							</Password.Root>
+							{#if newPasswordError}
+								<p class="text-xs text-rose-400">{newPasswordError}</p>
+							{/if}
+						</div>
+						<div class="space-y-2">
+							<Label for="settings-confirm-pw">Confirm Password</Label>
+							<Password.Root>
+								<Password.Input
+									id="settings-confirm-pw"
+									bind:value={confirmPassword}
+									autocomplete="new-password"
+									class={FLAT_INPUT_CLASS}
+									disabled={passwordLoading}
+								>
+									<Password.ToggleVisibility />
+								</Password.Input>
+							</Password.Root>
+							{#if confirmError}
+								<p class="text-xs text-rose-400">{confirmError}</p>
+							{/if}
+						</div>
+					</div>
+				</div>
+			</FieldSet.Content>
+			<FieldSet.Footer>
+				<div class="flex w-full items-center justify-between">
+					<span class="text-sm text-muted-foreground">Make sure you remember your new password.</span>
+					<Button
+						size="sm"
+						variant="outline"
+						onclick={handlePasswordChange}
+						disabled={!currentPassword || !newPassword || !confirmPassword || passwordLoading}
 					>
-						<Password.ToggleVisibility />
-					</Password.Input>
-				</Password.Root>
-			</div>
-			<div class="grid gap-4 sm:grid-cols-2">
-				<div class="space-y-2">
-					<Label for="settings-new-pw">New Password</Label>
-					<Password.Root>
-						<Password.Input
-							id="settings-new-pw"
-							bind:value={newPassword}
-							autocomplete="new-password"
-							class={FLAT_INPUT_CLASS}
-							disabled={passwordLoading}
-							onblur={() => (newPasswordTouched = true)}
-						>
-							<Password.ToggleVisibility />
-						</Password.Input>
-						<Password.Strength />
-					</Password.Root>
-					{#if newPasswordError}
-						<p class="text-xs text-rose-400">{newPasswordError}</p>
-					{/if}
+						{passwordLoading ? 'Changing...' : 'Change Password'}
+					</Button>
 				</div>
-				<div class="space-y-2">
-					<Label for="settings-confirm-pw">Confirm Password</Label>
-					<Password.Root>
-						<Password.Input
-							id="settings-confirm-pw"
-							bind:value={confirmPassword}
-							autocomplete="new-password"
-							class={FLAT_INPUT_CLASS}
-							disabled={passwordLoading}
-						>
-							<Password.ToggleVisibility />
-						</Password.Input>
-					</Password.Root>
-					{#if confirmError}
-						<p class="text-xs text-rose-400">{confirmError}</p>
-					{/if}
-				</div>
-			</div>
-			<Button
-				variant="outline"
-				onclick={handlePasswordChange}
-				disabled={!currentPassword || !newPassword || !confirmPassword || passwordLoading}
-			>
-				{passwordLoading ? 'Changing...' : 'Change Password'}
-			</Button>
-		</div>
+			</FieldSet.Footer>
+		</FieldSet.Root>
 	</section>
 
 	<!-- Danger Zone -->
-	<section class="space-y-4">
+	<section class="space-y-3">
 		<h4 class="text-base font-semibold text-red-600">Danger Zone</h4>
-		<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-			<div>
-				<p class="font-medium">Delete Account</p>
-				<p class="text-sm text-muted-foreground">
-					Once deleted, all your data will be permanently removed.
-				</p>
-			</div>
-			<Button variant="destructive" size="sm">Delete Account</Button>
-		</div>
+		<FieldSet.Root variant="destructive">
+			<FieldSet.Content>
+				<div>
+					<p class="font-medium">Delete Account</p>
+					<p class="text-sm text-muted-foreground">
+						Once deleted, all your data will be permanently removed.
+					</p>
+				</div>
+			</FieldSet.Content>
+			<FieldSet.Footer>
+				<div class="flex w-full items-center justify-end">
+					<Button variant="destructive" size="sm">Delete Account</Button>
+				</div>
+			</FieldSet.Footer>
+		</FieldSet.Root>
 	</section>
 </div>

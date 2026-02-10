@@ -73,7 +73,7 @@
 {#if open}
 	<!-- Mobile (< lg) - fullscreen page -->
 	<div
-		class="fixed inset-0 z-40 flex flex-col bg-mofu-light-950 lg:hidden dark:bg-mofu-dark-950"
+		class="fixed inset-0 z-50 flex flex-col bg-mofu-light-950 lg:hidden dark:bg-mofu-dark-950"
 		transition:fly={{ x: '100%', duration: 200 }}
 		role="dialog"
 		aria-modal="true"
@@ -86,7 +86,7 @@
 	<!-- Desktop (>= lg) - modal dialog -->
 	<!-- Backdrop -->
 	<div
-		class="fixed inset-0 z-40 hidden bg-black/60 backdrop-blur-sm lg:block"
+		class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm lg:block"
 		transition:fade={{ duration: 150 }}
 		onclick={close}
 		onkeydown={(e) => e.key === 'Enter' && close()}
@@ -97,7 +97,7 @@
 
 	<!-- Dialog -->
 	<div
-		class="fixed inset-2 z-40 mx-auto hidden max-h-[calc(100vh-1rem)] overflow-hidden rounded-xl border bg-mofu-light-950 shadow-2xl sm:inset-4 sm:max-h-[calc(100vh-2rem)] lg:inset-12 lg:flex lg:max-h-[calc(100vh-6rem)] lg:max-w-7xl dark:bg-mofu-dark-950"
+		class="fixed inset-2 z-50 mx-auto hidden max-h-[calc(100vh-1rem)] overflow-hidden rounded-xl border bg-mofu-light-950 shadow-2xl sm:inset-4 sm:max-h-[calc(100vh-2rem)] lg:inset-12 lg:flex lg:max-h-[calc(100vh-6rem)] lg:max-w-7xl dark:bg-mofu-dark-950"
 		transition:scale={{ duration: 150, start: 0.95, opacity: 0 }}
 		role="dialog"
 		aria-modal="true"

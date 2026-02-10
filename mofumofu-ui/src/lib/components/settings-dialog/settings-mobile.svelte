@@ -99,7 +99,7 @@
 	<!-- Content View -->
 	{#if mobileView === 'content'}
 		<div
-			class="absolute inset-0 flex flex-col bg-background dark:bg-mofu-dark-950"
+			class="absolute inset-0 flex flex-col bg-mofu-light-950 dark:bg-mofu-dark-950"
 			in:fly={{ x: 100, duration: 200 }}
 			out:fly={{ x: 100, duration: 200 }}
 		>

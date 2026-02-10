@@ -55,7 +55,7 @@
 	</aside>
 
 	<!-- Main Content -->
-	<main class="flex flex-1 flex-col overflow-hidden bg-background">
+	<main class="flex flex-1 flex-col overflow-hidden bg-mofu-light-950 dark:bg-mofu-dark-950">
 		<!-- Header with close button -->
 		<div class="flex h-14 items-center justify-between border-b pr-2 pl-6">
 			<h3 class="text-lg font-semibold">
