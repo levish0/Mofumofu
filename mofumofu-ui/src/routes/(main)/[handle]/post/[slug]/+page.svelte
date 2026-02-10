@@ -25,7 +25,7 @@
 	let isDeleting = $state(false);
 
 	function handleEdit() {
-		goto(`/write?draft=${post.id}`);
+		goto(`/edit/${post.id}`);
 	}
 
 	function handleDelete() {
