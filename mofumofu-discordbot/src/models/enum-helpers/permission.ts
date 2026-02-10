@@ -265,5 +265,10 @@ export class Permission {
                 return Lang.getRef('permissions.ViewGuildInsights', langCode);
             },
         },
+        BypassSlowmode: {
+            displayName(langCode: Locale): string {
+                return Lang.getRef('permissions.BypassSlowmode', langCode);
+            },
+        },
     };
 }
