@@ -1,5 +1,6 @@
 export {
 	searchPosts,
+	getPostFeed,
 	getPostBySlug,
 	getPosts,
 	getPost,

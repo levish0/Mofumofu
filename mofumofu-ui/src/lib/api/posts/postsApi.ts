@@ -3,11 +3,13 @@ import { Api } from '../api';
 import type {
 	PostResponse,
 	PostListResponse,
+	PostFeedResponse,
 	SearchPostsResponse,
 	CreatePostRequest,
 	UpdatePostRequest,
 	UploadPostImageResponse,
 	PostSortField,
+	PostSortOrder,
 	SortOrder,
 	CursorDirection
 } from '../types';
@@ -25,6 +27,18 @@ export async function searchPosts(
 	api: KyInstance = Api
 ): Promise<SearchPostsResponse> {
 	return api.get('v0/search/posts', { searchParams: params }).json<SearchPostsResponse>();
+}
+
+export async function getPostFeed(
+	params: {
+		sort?: PostSortOrder;
+		published_at_after?: string;
+		page?: number;
+		page_size?: number;
+	},
+	api: KyInstance = Api
+): Promise<PostFeedResponse> {
+	return api.get('v0/posts/feed', { searchParams: params }).json<PostFeedResponse>();
 }
 
 export async function getPostBySlug(

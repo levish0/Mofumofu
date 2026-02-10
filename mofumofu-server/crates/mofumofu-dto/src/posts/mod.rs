@@ -6,6 +6,6 @@ pub use request::{
     PostSortOrder, UpdatePostRequest, UploadPostImageRequest,
 };
 pub use response::{
-    CachedPostRender, PostAuthor, PostFeedResponse, PostListResponse, PostResponse,
+    CachedPostRender, PostAuthor, PostFeedItem, PostFeedResponse, PostListResponse, PostResponse,
     UploadPostImageResponse,
 };

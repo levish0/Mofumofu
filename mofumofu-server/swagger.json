@@ -10,7 +10,7 @@
     "license": {
       "name": ""
     },
-    "version": "2.4.7"
+    "version": "2.4.9"
   },
   "paths": {
     "/health-check": {
@@ -2206,6 +2206,72 @@
         }
       }
     },
+    "/v0/posts/feed": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "get_post_feed",
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PostSortOrder"
+            }
+          },
+          {
+            "name": "published_at_after",
+            "in": "query",
+            "description": "Only include posts published after this timestamp (for trending)",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post feed retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostFeedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/v0/posts/images": {
       "post": {
         "tags": [
@@ -4318,6 +4384,45 @@
           }
         }
       },
+      "GetPostFeedRequest": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int32",
+            "minimum": 0
+          },
+          "page_size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int32",
+            "minimum": 0
+          },
+          "published_at_after": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "Only include posts published after this timestamp (for trending)"
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PostSortOrder"
+              }
+            ]
+          }
+        }
+      },
       "GetPostsRequest": {
         "type": "object",
         "required": [
@@ -4803,6 +4908,42 @@
           }
         }
       },
+      "PostFeedResponse": {
+        "type": "object",
+        "required": [
+          "data",
+          "page",
+          "page_size",
+          "has_more",
+          "total_count"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostResponse"
+            }
+          },
+          "has_more": {
+            "type": "boolean"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "total_count": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          }
+        }
+      },
       "PostIdPath": {
         "type": "object",
         "required": [
@@ -5025,6 +5166,14 @@
           "LikeCount",
           "ViewCount",
           "CommentCount"
+        ]
+      },
+      "PostSortOrder": {
+        "type": "string",
+        "enum": [
+          "Latest",
+          "Popular",
+          "Oldest"
         ]
       },
       "PublicUserProfile": {

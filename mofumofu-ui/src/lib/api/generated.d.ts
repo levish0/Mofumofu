@@ -697,6 +697,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v0/posts/feed": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get_post_feed"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v0/posts/images": {
         parameters: {
             query?: never;
@@ -1284,6 +1300,18 @@ export interface components {
             handle: string;
             slug: string;
         };
+        GetPostFeedRequest: {
+            /** Format: int32 */
+            page?: number | null;
+            /** Format: int32 */
+            page_size?: number | null;
+            /**
+             * Format: date-time
+             * @description Only include posts published after this timestamp (for trending)
+             */
+            published_at_after?: string | null;
+            sort?: null | components["schemas"]["PostSortOrder"];
+        };
         GetPostsRequest: {
             cursor_direction?: null | components["schemas"]["CursorDirection"];
             /** Format: uuid */
@@ -1434,6 +1462,16 @@ export interface components {
             id: string;
             profile_image?: string | null;
         };
+        PostFeedResponse: {
+            data: components["schemas"]["PostResponse"][];
+            has_more: boolean;
+            /** Format: int32 */
+            page: number;
+            /** Format: int32 */
+            page_size: number;
+            /** Format: int64 */
+            total_count: number;
+        };
         PostIdPath: {
             /** Format: uuid */
             post_id: string;
@@ -1496,6 +1534,8 @@ export interface components {
         };
         /** @enum {string} */
         PostSortField: "CreatedAt" | "LikeCount" | "ViewCount" | "CommentCount";
+        /** @enum {string} */
+        PostSortOrder: "Latest" | "Popular" | "Oldest";
         PublicUserProfile: {
             banner_image?: string | null;
             bio?: string | null;
@@ -3976,6 +4016,46 @@ export interface operations {
             };
             /** @description Not Found - User or post does not exist */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    get_post_feed: {
+        parameters: {
+            query?: {
+                sort?: components["schemas"]["PostSortOrder"];
+                /** @description Only include posts published after this timestamp (for trending) */
+                published_at_after?: string;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Post feed retrieved successfully */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostFeedResponse"];
+                };
+            };
+            /** @description Bad request - Invalid query parameters */
+            400: {
                 headers: {
                     [name: string]: unknown;
                 };

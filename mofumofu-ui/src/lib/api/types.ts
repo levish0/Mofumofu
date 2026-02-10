@@ -49,6 +49,8 @@ export type CreatePostRequest = components['schemas']['CreatePostRequest'];
 export type UpdatePostRequest = components['schemas']['UpdatePostRequest'];
 export type UploadPostImageResponse = components['schemas']['UploadPostImageResponse'];
 export type CursorDirection = components['schemas']['CursorDirection'];
+export type PostFeedResponse = components['schemas']['PostFeedResponse'];
+export type PostSortOrder = components['schemas']['PostSortOrder'];
 
 // Like types
 export type LikeRequest = components['schemas']['LikeRequest'];

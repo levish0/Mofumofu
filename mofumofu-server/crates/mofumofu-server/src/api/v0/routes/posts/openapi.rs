@@ -1,7 +1,7 @@
 use mofumofu_dto::posts::{
     CreatePostRequest, GetPostBySlugRequest, GetPostFeedRequest, GetPostsRequest, PostAuthor,
-    PostFeedResponse, PostIdPath, PostListResponse, PostResponse, PostSortOrder, UpdatePostRequest,
-    UploadPostImageRequest, UploadPostImageResponse,
+    PostFeedItem, PostFeedResponse, PostIdPath, PostListResponse, PostResponse, PostSortOrder,
+    UpdatePostRequest, UploadPostImageRequest, UploadPostImageResponse,
 };
 use utoipa::OpenApi;
 
@@ -23,6 +23,7 @@ use utoipa::OpenApi;
             PostAuthor,
             PostResponse,
             PostListResponse,
+            PostFeedItem,
             PostFeedResponse,
             PostSortOrder,
             CreatePostRequest,

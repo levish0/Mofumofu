@@ -7,7 +7,7 @@ use crate::repository::posts::{
 use crate::repository::user::repository_find_users_by_ids;
 use crate::utils::r2_url::build_r2_public_url;
 use mofumofu_dto::posts::{
-    GetPostFeedRequest, PostAuthor, PostFeedResponse, PostResponse, PostSortOrder,
+    GetPostFeedRequest, PostFeedItem, PostFeedResponse, PostSortOrder,
 };
 use mofumofu_entity::hashtags::Entity as HashtagEntity;
 use mofumofu_errors::errors::ServiceResult;
@@ -55,39 +55,33 @@ pub async fn service_get_post_feed(
             }
         }
 
-        let author = user_map
+        let (author_handle, author_display_name, author_profile_image) = user_map
             .get(&post.user_id)
-            .map(|u| PostAuthor {
-                id: u.id,
-                handle: u.handle.clone(),
-                display_name: u.display_name.clone(),
-                profile_image: u.profile_image.as_deref().map(build_r2_public_url),
+            .map(|u| {
+                (
+                    u.handle.clone(),
+                    u.display_name.clone(),
+                    u.profile_image.as_deref().map(build_r2_public_url),
+                )
             })
-            .unwrap_or_else(|| PostAuthor {
-                id: post.user_id,
-                handle: String::new(),
-                display_name: String::new(),
-                profile_image: None,
-            });
+            .unwrap_or_else(|| (String::new(), String::new(), None));
 
-        data.push(PostResponse {
+        data.push(PostFeedItem {
             id: post.id,
             user_id: post.user_id,
-            author,
+            author_handle,
+            author_display_name,
+            author_profile_image,
             title: post.title,
             slug: post.slug,
-            thumbnail_image: post.thumbnail_image,
             summary: post.summary,
-            content: post.content,
-            render: post.render,
-            toc: post.toc,
+            thumbnail_image: post.thumbnail_image,
+            hashtags: hashtag_names,
             like_count: post.like_count,
             comment_count: post.comment_count,
             view_count: post.view_count,
-            hashtags: hashtag_names,
             published_at: post.published_at,
             created_at: post.created_at,
-            updated_at: post.updated_at,
         });
     }
 
