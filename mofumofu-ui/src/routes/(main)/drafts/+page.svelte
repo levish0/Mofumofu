@@ -79,9 +79,7 @@
 		{#if loading}
 			<div class="space-y-3">
 				{#each Array(4) as _}
-					<div
-						class="animate-pulse rounded-xl bg-mofu-light-800 p-5 dark:bg-mofu-dark-800"
-					>
+					<div class="animate-pulse rounded-xl bg-mofu-light-800 p-5 dark:bg-mofu-dark-800">
 						<div class="mb-3 h-5 w-48 rounded bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
 						<div class="h-4 w-full rounded bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
 						<div class="mt-2 h-3 w-24 rounded bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
@@ -90,7 +88,10 @@
 			</div>
 		{:else if drafts.length === 0}
 			<div class="py-20 text-center">
-				<Icon src={DocumentText} class="mx-auto mb-4 h-12 w-12 text-mofu-light-400 dark:text-mofu-dark-400" />
+				<Icon
+					src={DocumentText}
+					class="mx-auto mb-4 h-12 w-12 text-mofu-light-400 dark:text-mofu-dark-400"
+				/>
 				<p class="mb-2 text-lg font-medium text-gray-900 dark:text-white">No drafts yet</p>
 				<p class="mb-6 text-mofu-light-300 dark:text-mofu-dark-300">
 					Drafts are automatically saved when you write a new post.
@@ -116,13 +117,10 @@
 								Updated {formatDate(draft.updated_at)}
 							</p>
 						</a>
-						<div class="ml-4 flex shrink-0 items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-							<Button
-								variant="ghost"
-								size="icon"
-								href="/write?draft={draft.id}"
-								class="h-8 w-8"
-							>
+						<div
+							class="ml-4 flex shrink-0 items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+						>
+							<Button variant="ghost" size="icon" href="/write?draft={draft.id}" class="h-8 w-8">
 								<Icon src={PencilSquare} class="h-4 w-4" solid />
 							</Button>
 							<Button
@@ -141,7 +139,12 @@
 	</div>
 
 	<!-- Delete confirmation dialog -->
-	<Dialog.Root open={!!deleteTarget} onOpenChange={(open) => { if (!open) deleteTarget = null; }}>
+	<Dialog.Root
+		open={!!deleteTarget}
+		onOpenChange={(open) => {
+			if (!open) deleteTarget = null;
+		}}
+	>
 		<Dialog.Content class="sm:max-w-sm">
 			<Dialog.Header>
 				<Dialog.Title>Delete Draft</Dialog.Title>
@@ -151,11 +154,7 @@
 			</Dialog.Header>
 			<Dialog.Footer>
 				<Button variant="ghost" onclick={() => (deleteTarget = null)}>Cancel</Button>
-				<Button
-					variant="destructive"
-					onclick={confirmDelete}
-					disabled={isDeleting}
-				>
+				<Button variant="destructive" onclick={confirmDelete} disabled={isDeleting}>
 					{isDeleting ? 'Deleting...' : 'Delete'}
 				</Button>
 			</Dialog.Footer>

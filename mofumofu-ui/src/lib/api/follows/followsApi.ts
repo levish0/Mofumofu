@@ -6,9 +6,7 @@ export async function createFollow(
 	followeeId: string,
 	api: KyInstance = Api
 ): Promise<FollowStatusResponse> {
-	return api
-		.post('v0/follows', { json: { followee_id: followeeId } })
-		.json<FollowStatusResponse>();
+	return api.post('v0/follows', { json: { followee_id: followeeId } }).json<FollowStatusResponse>();
 }
 
 export async function deleteFollow(

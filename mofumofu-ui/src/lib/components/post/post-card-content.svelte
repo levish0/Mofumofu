@@ -21,14 +21,16 @@
 
 	const formattedDate = $derived(
 		date
-			? new Date(date).toLocaleString('en-CA', {
-					year: 'numeric',
-					month: '2-digit',
-					day: '2-digit',
-					hour: '2-digit',
-					minute: '2-digit',
-					hour12: false
-				}).replace(',', '')
+			? new Date(date)
+					.toLocaleString('en-CA', {
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+						hour: '2-digit',
+						minute: '2-digit',
+						hour12: false
+					})
+					.replace(',', '')
 			: ''
 	);
 
@@ -73,7 +75,10 @@
 			{/if}
 
 			<p class="text-xs text-mofu-light-500 dark:text-mofu-dark-400">
-				{formattedDate}{#if comments > 0}<span class="mx-1">&middot;</span>{comments} comment{comments !== 1 ? 's' : ''}{/if}
+				{formattedDate}{#if comments > 0}<span class="mx-1">&middot;</span>{comments} comment{comments !==
+					1
+						? 's'
+						: ''}{/if}
 			</p>
 		</div>
 	{/if}

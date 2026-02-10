@@ -4,5316 +4,5326 @@
  */
 
 export interface paths {
-    "/health-check": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["health_check"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/action-logs": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_action_logs"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/change-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_change_email"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/change-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_change_password"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/complete-signup": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * OAuth pending signup을 완료합니다.
-         * @description OAuth 로그인 시 신규 사용자인 경우 반환된 pending_token과 함께
-         *     handle을 제출하여 가입을 완료합니다.
-         */
-        post: operations["auth_complete_signup"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/confirm-email-change": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_confirm_email_change"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/forgot-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_forgot_password"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_logout"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/connections": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** 현재 사용자의 OAuth 연결 목록을 조회합니다. */
-        get: operations["list_oauth_connections"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/connections/unlink": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** OAuth 연결을 해제합니다. */
-        post: operations["unlink_oauth_connection"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/github/authorize": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** GitHub OAuth 인증 URL을 생성합니다. */
-        get: operations["auth_github_authorize"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/github/link": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** GitHub OAuth를 현재 계정에 연결합니다. */
-        post: operations["auth_github_link"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/github/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * GitHub OAuth 로그인을 처리합니다.
-         * @description - 기존 사용자: 204 No Content + Set-Cookie
-         *     - 신규 사용자: 200 OK + pending signup 정보 (complete-signup 필요)
-         */
-        post: operations["auth_github_login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/google/authorize": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Google OAuth 인증 URL을 생성합니다. */
-        get: operations["auth_google_authorize"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/google/link": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Google OAuth를 현재 계정에 연결합니다. */
-        post: operations["auth_google_link"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/oauth/google/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Google OAuth 로그인을 처리합니다.
-         * @description - 기존 사용자: 204 No Content + Set-Cookie
-         *     - 신규 사용자: 200 OK + pending signup 정보 (complete-signup 필요)
-         */
-        post: operations["auth_google_login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/resend-verification-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_resend_verification_email"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/reset-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_reset_password"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/backup-codes/regenerate": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["totp_regenerate_backup_codes"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/disable": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["totp_disable"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/enable": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["totp_enable"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/setup": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["totp_setup"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["totp_status"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/totp/verify": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["totp_verify"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/auth/verify-email": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["auth_verify_email"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/comments": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_comments"];
-        put?: never;
-        post: operations["create_comment"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/comments/{comment_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete: operations["delete_comment"];
-        options?: never;
-        head?: never;
-        patch: operations["update_comment"];
-        trace?: never;
-    };
-    "/v0/drafts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_drafts"];
-        put?: never;
-        post: operations["create_draft"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/drafts/{draft_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_draft"];
-        put?: never;
-        post?: never;
-        delete: operations["delete_draft"];
-        options?: never;
-        head?: never;
-        patch: operations["update_draft"];
-        trace?: never;
-    };
-    "/v0/drafts/{draft_id}/publish": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["publish_draft"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/eventstream/actions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["stream_actions"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/follows": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["create_follow"];
-        delete: operations["delete_follow"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/follows/followers": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_followers"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/follows/following": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_following"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/follows/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["check_follow_status"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/hashtags/trending": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_trending"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/likes": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["create_like"];
-        delete: operations["delete_like"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/likes/status": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["check_like_status"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/moderation-logs": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_moderation_logs"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/posts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_posts"];
-        put?: never;
-        post: operations["create_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/posts/by-slug": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_post_by_slug"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/posts/feed": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_post_feed"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/posts/images": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["upload_post_image"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/posts/{post_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_post"];
-        put?: never;
-        post?: never;
-        delete: operations["delete_post"];
-        options?: never;
-        head?: never;
-        patch: operations["update_post"];
-        trace?: never;
-    };
-    "/v0/posts/{post_id}/view": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["increment_view"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/reports": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_reports"];
-        put?: never;
-        post: operations["create_report"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/reports/{report_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: operations["update_report"];
-        trace?: never;
-    };
-    "/v0/search/posts": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["search_posts"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/search/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["search_users"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/user/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_my_profile"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: operations["update_my_profile"];
-        trace?: never;
-    };
-    "/v0/user/me/banner-image": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["upload_banner_image"];
-        delete: operations["delete_banner_image"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/user/me/profile-image": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["upload_profile_image"];
-        delete: operations["delete_profile_image"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["create_user"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/ban": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["ban_user"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/handle/{handle}/available": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["check_handle_available"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/profile": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_user_profile"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/profile/id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_user_profile_by_id"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/roles/grant": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["grant_role"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/roles/revoke": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["revoke_role"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/unban": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["unban_user"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/{user_id}/bans": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_user_bans"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/v0/users/{user_id}/roles": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["get_user_roles"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+	'/health-check': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['health_check'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/action-logs': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_action_logs'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/change-email': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_change_email'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/change-password': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_change_password'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/complete-signup': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * OAuth pending signup을 완료합니다.
+		 * @description OAuth 로그인 시 신규 사용자인 경우 반환된 pending_token과 함께
+		 *     handle을 제출하여 가입을 완료합니다.
+		 */
+		post: operations['auth_complete_signup'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/confirm-email-change': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_confirm_email_change'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/forgot-password': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_forgot_password'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/login': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_login'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/logout': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_logout'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/connections': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/** 현재 사용자의 OAuth 연결 목록을 조회합니다. */
+		get: operations['list_oauth_connections'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/connections/unlink': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/** OAuth 연결을 해제합니다. */
+		post: operations['unlink_oauth_connection'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/github/authorize': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/** GitHub OAuth 인증 URL을 생성합니다. */
+		get: operations['auth_github_authorize'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/github/link': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/** GitHub OAuth를 현재 계정에 연결합니다. */
+		post: operations['auth_github_link'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/github/login': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * GitHub OAuth 로그인을 처리합니다.
+		 * @description - 기존 사용자: 204 No Content + Set-Cookie
+		 *     - 신규 사용자: 200 OK + pending signup 정보 (complete-signup 필요)
+		 */
+		post: operations['auth_github_login'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/google/authorize': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/** Google OAuth 인증 URL을 생성합니다. */
+		get: operations['auth_google_authorize'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/google/link': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/** Google OAuth를 현재 계정에 연결합니다. */
+		post: operations['auth_google_link'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/oauth/google/login': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * Google OAuth 로그인을 처리합니다.
+		 * @description - 기존 사용자: 204 No Content + Set-Cookie
+		 *     - 신규 사용자: 200 OK + pending signup 정보 (complete-signup 필요)
+		 */
+		post: operations['auth_google_login'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/resend-verification-email': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_resend_verification_email'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/reset-password': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_reset_password'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/backup-codes/regenerate': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['totp_regenerate_backup_codes'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/disable': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['totp_disable'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/enable': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['totp_enable'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/setup': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['totp_setup'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/status': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['totp_status'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/totp/verify': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['totp_verify'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/auth/verify-email': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['auth_verify_email'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/comments': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_comments'];
+		put?: never;
+		post: operations['create_comment'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/comments/{comment_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post?: never;
+		delete: operations['delete_comment'];
+		options?: never;
+		head?: never;
+		patch: operations['update_comment'];
+		trace?: never;
+	};
+	'/v0/drafts': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_drafts'];
+		put?: never;
+		post: operations['create_draft'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/drafts/{draft_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_draft'];
+		put?: never;
+		post?: never;
+		delete: operations['delete_draft'];
+		options?: never;
+		head?: never;
+		patch: operations['update_draft'];
+		trace?: never;
+	};
+	'/v0/drafts/{draft_id}/publish': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['publish_draft'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/eventstream/actions': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['stream_actions'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['create_follow'];
+		delete: operations['delete_follow'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows/followers': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_followers'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows/following': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_following'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/follows/status': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['check_follow_status'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/hashtags/trending': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_trending'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/likes': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['create_like'];
+		delete: operations['delete_like'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/likes/status': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['check_like_status'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/moderation-logs': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_moderation_logs'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_posts'];
+		put?: never;
+		post: operations['create_post'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/by-slug': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_post_by_slug'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/feed': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_post_feed'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/images': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['upload_post_image'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/posts/{post_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_post'];
+		put?: never;
+		post?: never;
+		delete: operations['delete_post'];
+		options?: never;
+		head?: never;
+		patch: operations['update_post'];
+		trace?: never;
+	};
+	'/v0/posts/{post_id}/view': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['increment_view'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/reports': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_reports'];
+		put?: never;
+		post: operations['create_report'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/reports/{report_id}': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch: operations['update_report'];
+		trace?: never;
+	};
+	'/v0/search/posts': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['search_posts'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/search/users': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['search_users'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/user/me': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_my_profile'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch: operations['update_my_profile'];
+		trace?: never;
+	};
+	'/v0/user/me/banner-image': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['upload_banner_image'];
+		delete: operations['delete_banner_image'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/user/me/profile-image': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['upload_profile_image'];
+		delete: operations['delete_profile_image'];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['create_user'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/ban': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['ban_user'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/handle/{handle}/available': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['check_handle_available'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/profile': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_profile'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/profile/id': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_profile_by_id'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/roles/grant': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['grant_role'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/roles/revoke': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['revoke_role'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/unban': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations['unban_user'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/{user_id}/bans': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_bans'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/v0/users/{user_id}/roles': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['get_user_roles'];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        /**
-         * @description Action Log Action enum (action_logs.action 필드에 저장됨)
-         *     포맷: "{resource}:{operation}"
-         * @enum {string}
-         */
-        ActionLogAction: "post:create" | "post:edit" | "post:delete" | "user:create" | "user:edit" | "auth:login" | "auth:logout" | "auth:oauth_login" | "oauth:link" | "oauth:unlink";
-        ActionLogListResponse: {
-            data: components["schemas"]["ActionLogResponse"][];
-            /** @description Whether there are newer (more recent) action logs */
-            has_newer: boolean;
-            /** @description Whether there are older action logs */
-            has_older: boolean;
-        };
-        ActionLogResponse: {
-            action: string;
-            /** Format: uuid */
-            actor_id?: string | null;
-            actor_ip?: string | null;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: uuid */
-            id: string;
-            metadata?: Record<string, never> | null;
-            /** Format: uuid */
-            resource_id?: string | null;
-            resource_type: components["schemas"]["ActionResourceType"];
-            summary: string;
-        };
-        /** @enum {string} */
-        ActionResourceType: "User" | "Post";
-        BanUserRequest: {
-            /** Format: date-time */
-            expires_at?: string | null;
-            reason: string;
-            /** Format: uuid */
-            user_id: string;
-        };
-        ChangeEmailRequest: {
-            /** @description 새 이메일 주소 */
-            new_email: string;
-            /** @description 현재 비밀번호 (본인 확인용) */
-            password: string;
-        };
-        ChangePasswordRequest: {
-            /** @description 현재 비밀번호 */
-            current_password: string;
-            /** @description 새 비밀번호 */
-            new_password: string;
-        };
-        CheckHandleAvailablePath: {
-            handle: string;
-        };
-        CheckHandleAvailableResponse: {
-            available: boolean;
-        };
-        CommentAuthor: {
-            display_name: string;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            profile_image?: string | null;
-        };
-        CommentIdPath: {
-            /** Format: uuid */
-            comment_id: string;
-        };
-        CommentListResponse: {
-            data: components["schemas"]["CommentResponse"][];
-            has_newer: boolean;
-            has_older: boolean;
-        };
-        CommentResponse: {
-            author: components["schemas"]["CommentAuthor"];
-            content: string;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            deleted_at?: string | null;
-            /** Format: int32 */
-            depth: number;
-            /** Format: uuid */
-            id: string;
-            /** Format: int32 */
-            like_count: number;
-            /** Format: uuid */
-            parent_id?: string | null;
-            /** Format: uuid */
-            post_id: string;
-            /** Format: date-time */
-            updated_at: string;
-            /** Format: uuid */
-            user_id: string;
-        };
-        /** @description OAuth pending signup 완료 요청 */
-        CompleteSignupRequest: {
-            /** @description 사용자 핸들 (고유 식별자) */
-            handle: string;
-            /** @description Pending signup 토큰 (OAuth 로그인 시 반환됨) */
-            pending_token: string;
-        };
-        ConfirmEmailChangeRequest: {
-            /** @description 이메일 변경 토큰 (이메일 링크의 ?token= 값) */
-            token: string;
-        };
-        CreateCommentRequest: {
-            content: string;
-            /** Format: uuid */
-            parent_id?: string | null;
-            /** Format: uuid */
-            post_id: string;
-        };
-        CreatePostRequest: {
-            content: string;
-            hashtags?: string[] | null;
-            publish?: boolean | null;
-            slug: string;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-            title: string;
-        };
-        CreateReportRequest: {
-            description?: string | null;
-            reason: string;
-            /** Format: uuid */
-            target_id: string;
-            target_type: components["schemas"]["ReportTargetType"];
-        };
-        CreateUserRequest: {
-            display_name: string;
-            /** @example user@example.com */
-            email: string;
-            handle: string;
-            password: string;
-        };
-        CreateUserResponse: {
-            message: string;
-        };
-        /**
-         * @description Common cursor direction for bidirectional pagination
-         * @enum {string}
-         */
-        CursorDirection: "Older" | "Newer";
-        DraftIdPath: {
-            /** Format: uuid */
-            draft_id: string;
-        };
-        DraftListResponse: {
-            data: components["schemas"]["DraftResponse"][];
-        };
-        DraftResponse: {
-            content?: string | null;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: uuid */
-            id: string;
-            metadata?: Record<string, never> | null;
-            slug?: string | null;
-            title?: string | null;
-            /** Format: date-time */
-            updated_at: string;
-            /** Format: uuid */
-            user_id: string;
-        };
-        ErrorResponse: {
-            code: string;
-            details?: string | null;
-            /** Format: int32 */
-            status: number;
-        };
-        FollowListResponse: {
-            data: components["schemas"]["FollowUserItem"][];
-            has_newer: boolean;
-            has_older: boolean;
-        };
-        FollowRequest: {
-            /** Format: uuid */
-            followee_id: string;
-        };
-        FollowStatusResponse: {
-            following: boolean;
-        };
-        FollowUserItem: {
-            display_name: string;
-            /** Format: date-time */
-            followed_at: string;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            profile_image?: string | null;
-        };
-        ForgotPasswordRequest: {
-            /** @description 비밀번호 재설정을 요청할 이메일 주소 */
-            email: string;
-        };
-        GetActionLogsRequest: {
-            /** @description Filter by actions */
-            actions?: components["schemas"]["ActionLogAction"][] | null;
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /**
-             * Format: uuid
-             * @description Cursor ID for pagination. None means get latest.
-             */
-            cursor_id?: string | null;
-            /**
-             * Format: int64
-             * @description Number of items to return (max: 100)
-             */
-            limit: number;
-            /**
-             * Format: uuid
-             * @description Filter by resource ID
-             */
-            resource_id?: string | null;
-            resource_type?: null | components["schemas"]["ActionResourceType"];
-            /**
-             * Format: uuid
-             * @description Filter by user ID (for contributions)
-             */
-            user_id?: string | null;
-        };
-        GetCommentsRequest: {
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            /** Format: uuid */
-            post_id: string;
-        };
-        GetFollowersRequest: {
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            /** Format: uuid */
-            user_id: string;
-        };
-        GetFollowingRequest: {
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            /** Format: uuid */
-            user_id: string;
-        };
-        GetModerationLogsRequest: {
-            /** Format: uuid */
-            actor_id?: string | null;
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            /** Format: uuid */
-            resource_id?: string | null;
-            resource_type?: null | components["schemas"]["ModerationResourceType"];
-        };
-        GetPostBySlugRequest: {
-            handle: string;
-            slug: string;
-        };
-        GetPostFeedRequest: {
-            /** Format: int32 */
-            page?: number | null;
-            /** Format: int32 */
-            page_size?: number | null;
-            /**
-             * Format: date-time
-             * @description Only include posts published after this timestamp (for trending)
-             */
-            published_at_after?: string | null;
-            sort?: null | components["schemas"]["PostSortOrder"];
-        };
-        GetPostsRequest: {
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            published_only?: boolean | null;
-            /** Format: uuid */
-            user_id?: string | null;
-        };
-        GetReportsRequest: {
-            cursor_direction?: null | components["schemas"]["CursorDirection"];
-            /** Format: uuid */
-            cursor_id?: string | null;
-            /** Format: int64 */
-            limit: number;
-            /** Format: uuid */
-            reporter_id?: string | null;
-            status?: null | components["schemas"]["ReportStatus"];
-            target_type?: null | components["schemas"]["ReportTargetType"];
-        };
-        GetUserProfileByIdRequest: {
-            /** Format: uuid */
-            user_id: string;
-        };
-        GetUserProfileRequest: {
-            handle: string;
-        };
-        /** @description GitHub OAuth 연결 요청 */
-        GithubLinkRequest: {
-            /** @description Authorization code from GitHub OAuth callback */
-            code: string;
-            /** @description State parameter for CSRF protection */
-            state: string;
-        };
-        /** @description GitHub OAuth 로그인 요청 */
-        GithubLoginRequest: {
-            /** @description Authorization code from GitHub OAuth callback */
-            code: string;
-            /** @description State parameter for CSRF protection */
-            state: string;
-        };
-        /** @description Google OAuth 연결 요청 */
-        GoogleLinkRequest: {
-            /** @description Authorization code from Google OAuth callback */
-            code: string;
-            /** @description State parameter for CSRF protection */
-            state: string;
-        };
-        /** @description Google OAuth 로그인 요청 */
-        GoogleLoginRequest: {
-            /** @description Authorization code from Google OAuth callback */
-            code: string;
-            /** @description State parameter for CSRF protection */
-            state: string;
-        };
-        GrantRoleRequest: {
-            role: components["schemas"]["UserRole"];
-            /** Format: uuid */
-            user_id: string;
-        };
-        HashtagResponse: {
-            /** Format: date-time */
-            created_at: string;
-            /** Format: uuid */
-            id: string;
-            /** Format: date-time */
-            last_used_at?: string | null;
-            name: string;
-            /** Format: int32 */
-            usage_count: number;
-        };
-        LikeRequest: {
-            /** Format: uuid */
-            target_id: string;
-            target_type: components["schemas"]["LikeTargetType"];
-        };
-        LikeStatusResponse: {
-            liked: boolean;
-        };
-        /** @enum {string} */
-        LikeTargetType: "Post" | "Comment";
-        LoginRequest: {
-            /** @example user@example.com */
-            email: string;
-            password: string;
-            /**
-             * @description 로그인 유지 여부 (체크 시 30일, 미체크 시 브라우저 닫으면 만료)
-             * @example false
-             */
-            remember_me?: boolean;
-        };
-        ModerationLogListResponse: {
-            data: components["schemas"]["ModerationLogResponse"][];
-            has_newer: boolean;
-            has_older: boolean;
-        };
-        ModerationLogResponse: {
-            action: string;
-            /** Format: uuid */
-            actor_id: string;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: uuid */
-            id: string;
-            metadata?: Record<string, never> | null;
-            reason?: string | null;
-            /** Format: uuid */
-            resource_id?: string | null;
-            resource_type: components["schemas"]["ModerationResourceType"];
-        };
-        /** @enum {string} */
-        ModerationResourceType: "User" | "Post" | "Comment" | "System";
-        /** @description OAuth 연결 목록 응답 */
-        OAuthConnectionListResponse: {
-            connections: components["schemas"]["OAuthConnectionResponse"][];
-        };
-        /** @description OAuth 연결 정보 응답 */
-        OAuthConnectionResponse: {
-            /**
-             * Format: date-time
-             * @description 연결 생성 시각
-             */
-            created_at: string;
-            /** @description OAuth provider (Google, Github) */
-            provider: components["schemas"]["OAuthProvider"];
-        };
-        /** @description 신규 사용자가 handle 없이 OAuth 로그인 시 반환되는 pending signup 응답 */
-        OAuthPendingSignupResponse: {
-            /** @description OAuth provider로부터 받은 표시 이름 */
-            display_name: string;
-            /** @description OAuth provider로부터 받은 이메일 */
-            email: string;
-            /** @description Pending signup 완료를 위한 일회용 토큰 */
-            pending_token: string;
-        };
-        /** @enum {string} */
-        OAuthProvider: "Google" | "Github" | "Discord" | "X" | "Microsoft";
-        /** @description OAuth authorization URL 응답 */
-        OAuthUrlResponse: {
-            /** @description Google/GitHub OAuth authorization URL (state parameter 포함) */
-            auth_url: string;
-        };
-        PostAuthor: {
-            display_name: string;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            profile_image?: string | null;
-        };
-        PostFeedItem: {
-            author_display_name: string;
-            author_handle: string;
-            author_profile_image?: string | null;
-            /** Format: int32 */
-            comment_count: number;
-            /** Format: date-time */
-            created_at: string;
-            hashtags: string[];
-            /** Format: uuid */
-            id: string;
-            /** Format: int32 */
-            like_count: number;
-            /** Format: date-time */
-            published_at?: string | null;
-            slug: string;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-            title: string;
-            /** Format: uuid */
-            user_id: string;
-            /** Format: int32 */
-            view_count: number;
-        };
-        PostFeedResponse: {
-            data: components["schemas"]["PostFeedItem"][];
-            has_more: boolean;
-            /** Format: int32 */
-            page: number;
-            /** Format: int32 */
-            page_size: number;
-            /** Format: int64 */
-            total_count: number;
-        };
-        PostIdPath: {
-            /** Format: uuid */
-            post_id: string;
-        };
-        PostListResponse: {
-            data: components["schemas"]["PostResponse"][];
-            has_newer: boolean;
-            has_older: boolean;
-        };
-        PostResponse: {
-            author: components["schemas"]["PostAuthor"];
-            /** Format: int32 */
-            comment_count: number;
-            content: string;
-            /** Format: date-time */
-            created_at: string;
-            hashtags: string[];
-            /** Format: uuid */
-            id: string;
-            /** Format: int32 */
-            like_count: number;
-            /** Format: date-time */
-            published_at?: string | null;
-            render?: string | null;
-            slug: string;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-            title: string;
-            toc?: Record<string, never> | null;
-            /** Format: date-time */
-            updated_at: string;
-            /** Format: uuid */
-            user_id: string;
-            /** Format: int32 */
-            view_count: number;
-        };
-        PostSearchItem: {
-            author_display_name: string;
-            author_handle: string;
-            author_profile_image?: string | null;
-            /** Format: int32 */
-            comment_count: number;
-            /** Format: date-time */
-            created_at: string;
-            hashtags: string[];
-            /** Format: uuid */
-            id: string;
-            /** Format: int32 */
-            like_count: number;
-            /** Format: date-time */
-            published_at?: string | null;
-            slug: string;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-            title: string;
-            /** Format: uuid */
-            user_id: string;
-            /** Format: int32 */
-            view_count: number;
-        };
-        /** @enum {string} */
-        PostSortField: "CreatedAt" | "LikeCount" | "ViewCount" | "CommentCount";
-        /** @enum {string} */
-        PostSortOrder: "Latest" | "Popular" | "Oldest";
-        PublicUserProfile: {
-            banner_image?: string | null;
-            bio?: string | null;
-            /** Format: date-time */
-            created_at: string;
-            display_name: string;
-            /** Format: int32 */
-            follower_count: number;
-            /** Format: int32 */
-            following_count: number;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            is_verified: boolean;
-            profile_image?: string | null;
-        };
-        PublishDraftRequest: {
-            delete_draft?: boolean | null;
-            hashtags?: string[] | null;
-            slug?: string | null;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-        };
-        ReportIdPath: {
-            /** Format: uuid */
-            report_id: string;
-        };
-        ReportListResponse: {
-            data: components["schemas"]["ReportResponse"][];
-            has_newer: boolean;
-            has_older: boolean;
-        };
-        ReportResponse: {
-            /** Format: date-time */
-            created_at: string;
-            description?: string | null;
-            /** Format: uuid */
-            id: string;
-            reason: string;
-            /** Format: uuid */
-            reporter_id: string;
-            /** Format: date-time */
-            resolved_at?: string | null;
-            /** Format: uuid */
-            resolved_by?: string | null;
-            status: components["schemas"]["ReportStatus"];
-            /** Format: uuid */
-            target_id: string;
-            target_type: components["schemas"]["ReportTargetType"];
-        };
-        /** @enum {string} */
-        ReportStatus: "Pending" | "Reviewing" | "Resolved" | "Dismissed";
-        /** @enum {string} */
-        ReportTargetType: "User" | "Post" | "Comment";
-        ResetPasswordRequest: {
-            /** @description 새 비밀번호 */
-            new_password: string;
-            /** @description 비밀번호 재설정 토큰 (이메일 링크의 ?token= 값) */
-            token: string;
-        };
-        RevokeRoleRequest: {
-            role: components["schemas"]["UserRole"];
-            /** Format: uuid */
-            user_id: string;
-        };
-        SearchPostsRequest: {
-            /** Format: int32 */
-            page: number;
-            /** Format: int32 */
-            page_size: number;
-            /**
-             * Format: date-time
-             * @description Only include posts published after this timestamp (for trending: e.g. 7 days ago)
-             */
-            published_at_after?: string | null;
-            /** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
-            query?: string | null;
-            sort_by?: null | components["schemas"]["PostSortField"];
-            sort_order?: null | components["schemas"]["SortOrder"];
-            /**
-             * Format: uuid
-             * @description Filter by author user ID
-             */
-            user_id?: string | null;
-        };
-        SearchPostsResponse: {
-            /** Format: int32 */
-            page: number;
-            /** Format: int32 */
-            page_size: number;
-            posts: components["schemas"]["PostSearchItem"][];
-            /** Format: int64 */
-            total_hits: number;
-            /** Format: int32 */
-            total_pages: number;
-        };
-        SearchUsersRequest: {
-            /** Format: int32 */
-            page: number;
-            /** Format: int32 */
-            page_size: number;
-            /** @description Search query for handle, display_name, or bio. Empty or omitted returns all users. */
-            query?: string | null;
-        };
-        SearchUsersResponse: {
-            /** Format: int32 */
-            page: number;
-            /** Format: int32 */
-            page_size: number;
-            /** Format: int64 */
-            total_hits: number;
-            /** Format: int32 */
-            total_pages: number;
-            users: components["schemas"]["UserSearchItem"][];
-        };
-        /** @enum {string} */
-        SortOrder: "Asc" | "Desc";
-        /** @description 백업 코드 재생성 응답 */
-        TotpBackupCodesResponse: {
-            /** @description 새로 생성된 백업 코드 목록 (10개, 8자리 영숫자) */
-            backup_codes: string[];
-        };
-        /** @description TOTP 비활성화 요청 */
-        TotpDisableRequest: {
-            /** @description 현재 TOTP 코드 (6자리) 또는 백업 코드 (8자리) */
-            code: string;
-        };
-        /** @description TOTP 활성화 요청 (setup 후 첫 코드 검증) */
-        TotpEnableRequest: {
-            /** @description 인증 앱에서 생성한 6자리 TOTP 코드 */
-            code: string;
-        };
-        /** @description TOTP 활성화 응답 (백업 코드 반환) */
-        TotpEnableResponse: {
-            /** @description 백업 코드 목록 (10개, 8자리 영숫자) */
-            backup_codes: string[];
-        };
-        /** @description 백업 코드 재생성 요청 */
-        TotpRegenerateBackupCodesRequest: {
-            /** @description 현재 TOTP 코드 (6자리) */
-            code: string;
-        };
-        /** @description 로그인 시 TOTP 필요 응답 (202 Accepted) */
-        TotpRequiredResponse: {
-            /** @description TOTP 검증용 임시 토큰 */
-            temp_token: string;
-        };
-        /** @description TOTP Setup 응답 */
-        TotpSetupResponse: {
-            /** @description QR 코드 PNG 이미지 (Base64 인코딩) */
-            qr_code_base64: string;
-            /** @description otpauth:// URI (수동 입력용) */
-            qr_code_uri: string;
-        };
-        /** @description TOTP 상태 응답 */
-        TotpStatusResponse: {
-            /** @description 남은 백업 코드 수 (활성화된 경우만) */
-            backup_codes_remaining?: number | null;
-            /** @description TOTP 활성화 여부 */
-            enabled: boolean;
-            /**
-             * Format: date-time
-             * @description TOTP 활성화 시각 (활성화된 경우만)
-             */
-            enabled_at?: string | null;
-        };
-        /** @description TOTP 검증 요청 (로그인 시 2단계 인증) */
-        TotpVerifyRequest: {
-            /** @description TOTP 코드 (6자리) 또는 백업 코드 (8자리) */
-            code: string;
-            /** @description 로그인 시 받은 임시 토큰 */
-            temp_token: string;
-        };
-        TrendingHashtagsResponse: {
-            data: components["schemas"]["HashtagResponse"][];
-        };
-        TrendingQuery: {
-            /** Format: int64 */
-            limit?: number | null;
-        };
-        UnbanUserRequest: {
-            /** Format: uuid */
-            user_id: string;
-        };
-        /** @description OAuth 연결 해제 요청 */
-        UnlinkOAuthRequest: {
-            /** @description OAuth provider to unlink (Google or Github) */
-            provider: components["schemas"]["OAuthProvider"];
-        };
-        UpdateCommentRequest: {
-            content: string;
-        };
-        UpdateDraftRequest: {
-            content?: string | null;
-            metadata?: Record<string, never> | null;
-            slug?: string | null;
-            title?: string | null;
-        };
-        UpdateMyProfileRequest: {
-            bio?: string | null;
-            display_name?: string | null;
-        };
-        UpdatePostRequest: {
-            content?: string | null;
-            hashtags?: string[] | null;
-            publish?: boolean | null;
-            slug?: string | null;
-            summary?: string | null;
-            thumbnail_image?: string | null;
-            title?: string | null;
-            unpublish?: boolean | null;
-        };
-        UpdateReportRequest: {
-            reason?: string | null;
-            status?: null | components["schemas"]["ReportStatus"];
-        };
-        UploadPostImageRequest: {
-            /** Format: binary */
-            file: string;
-        };
-        UploadPostImageResponse: {
-            image_url: string;
-        };
-        UploadUserImageRequest: {
-            /**
-             * Format: binary
-             * @description Image file binary data
-             */
-            file: string;
-        };
-        UploadUserImageResponse: {
-            /** @description URL of the uploaded image */
-            image_url: string;
-        };
-        UserBanResponse: {
-            /** Format: uuid */
-            banned_by: string;
-            /** Format: date-time */
-            created_at: string;
-            /** Format: date-time */
-            expires_at?: string | null;
-            /** Format: uuid */
-            id: string;
-            reason: string;
-            /** Format: uuid */
-            user_id: string;
-        };
-        UserIdPath: {
-            /** Format: uuid */
-            user_id: string;
-        };
-        UserResponse: {
-            banner_image?: string | null;
-            bio?: string | null;
-            /** Format: date-time */
-            created_at: string;
-            display_name: string;
-            email: string;
-            /** Format: int32 */
-            follower_count: number;
-            /** Format: int32 */
-            following_count: number;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            is_verified: boolean;
-            profile_image?: string | null;
-        };
-        /** @enum {string} */
-        UserRole: "User" | "Moderator" | "Admin";
-        UserRoleResponse: {
-            /** Format: date-time */
-            created_at: string;
-            /** Format: uuid */
-            granted_by?: string | null;
-            role: components["schemas"]["UserRole"];
-            /** Format: uuid */
-            user_id: string;
-        };
-        UserSearchItem: {
-            bio?: string | null;
-            display_name: string;
-            handle: string;
-            /** Format: uuid */
-            id: string;
-            profile_image?: string | null;
-        };
-        VerifyEmailRequest: {
-            /** @description 이메일 인증 토큰 */
-            token: string;
-        };
-    };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+	schemas: {
+		/**
+		 * @description Action Log Action enum (action_logs.action 필드에 저장됨)
+		 *     포맷: "{resource}:{operation}"
+		 * @enum {string}
+		 */
+		ActionLogAction:
+			| 'post:create'
+			| 'post:edit'
+			| 'post:delete'
+			| 'user:create'
+			| 'user:edit'
+			| 'auth:login'
+			| 'auth:logout'
+			| 'auth:oauth_login'
+			| 'oauth:link'
+			| 'oauth:unlink';
+		ActionLogListResponse: {
+			data: components['schemas']['ActionLogResponse'][];
+			/** @description Whether there are newer (more recent) action logs */
+			has_newer: boolean;
+			/** @description Whether there are older action logs */
+			has_older: boolean;
+		};
+		ActionLogResponse: {
+			action: string;
+			/** Format: uuid */
+			actor_id?: string | null;
+			actor_ip?: string | null;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			metadata?: Record<string, never> | null;
+			/** Format: uuid */
+			resource_id?: string | null;
+			resource_type: components['schemas']['ActionResourceType'];
+			summary: string;
+		};
+		/** @enum {string} */
+		ActionResourceType: 'User' | 'Post';
+		BanUserRequest: {
+			/** Format: date-time */
+			expires_at?: string | null;
+			reason: string;
+			/** Format: uuid */
+			user_id: string;
+		};
+		ChangeEmailRequest: {
+			/** @description 새 이메일 주소 */
+			new_email: string;
+			/** @description 현재 비밀번호 (본인 확인용) */
+			password: string;
+		};
+		ChangePasswordRequest: {
+			/** @description 현재 비밀번호 */
+			current_password: string;
+			/** @description 새 비밀번호 */
+			new_password: string;
+		};
+		CheckHandleAvailablePath: {
+			handle: string;
+		};
+		CheckHandleAvailableResponse: {
+			available: boolean;
+		};
+		CommentAuthor: {
+			display_name: string;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			profile_image?: string | null;
+		};
+		CommentIdPath: {
+			/** Format: uuid */
+			comment_id: string;
+		};
+		CommentListResponse: {
+			data: components['schemas']['CommentResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		CommentResponse: {
+			author: components['schemas']['CommentAuthor'];
+			content: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			deleted_at?: string | null;
+			/** Format: int32 */
+			depth: number;
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: uuid */
+			parent_id?: string | null;
+			/** Format: uuid */
+			post_id: string;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+		};
+		/** @description OAuth pending signup 완료 요청 */
+		CompleteSignupRequest: {
+			/** @description 사용자 핸들 (고유 식별자) */
+			handle: string;
+			/** @description Pending signup 토큰 (OAuth 로그인 시 반환됨) */
+			pending_token: string;
+		};
+		ConfirmEmailChangeRequest: {
+			/** @description 이메일 변경 토큰 (이메일 링크의 ?token= 값) */
+			token: string;
+		};
+		CreateCommentRequest: {
+			content: string;
+			/** Format: uuid */
+			parent_id?: string | null;
+			/** Format: uuid */
+			post_id: string;
+		};
+		CreatePostRequest: {
+			content: string;
+			hashtags?: string[] | null;
+			publish?: boolean | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+		};
+		CreateReportRequest: {
+			description?: string | null;
+			reason: string;
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['ReportTargetType'];
+		};
+		CreateUserRequest: {
+			display_name: string;
+			/** @example user@example.com */
+			email: string;
+			handle: string;
+			password: string;
+		};
+		CreateUserResponse: {
+			message: string;
+		};
+		/**
+		 * @description Common cursor direction for bidirectional pagination
+		 * @enum {string}
+		 */
+		CursorDirection: 'Older' | 'Newer';
+		DraftIdPath: {
+			/** Format: uuid */
+			draft_id: string;
+		};
+		DraftListResponse: {
+			data: components['schemas']['DraftResponse'][];
+		};
+		DraftResponse: {
+			content?: string | null;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			metadata?: Record<string, never> | null;
+			slug?: string | null;
+			title?: string | null;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+		};
+		ErrorResponse: {
+			code: string;
+			details?: string | null;
+			/** Format: int32 */
+			status: number;
+		};
+		FollowListResponse: {
+			data: components['schemas']['FollowUserItem'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		FollowRequest: {
+			/** Format: uuid */
+			followee_id: string;
+		};
+		FollowStatusResponse: {
+			following: boolean;
+		};
+		FollowUserItem: {
+			display_name: string;
+			/** Format: date-time */
+			followed_at: string;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			profile_image?: string | null;
+		};
+		ForgotPasswordRequest: {
+			/** @description 비밀번호 재설정을 요청할 이메일 주소 */
+			email: string;
+		};
+		GetActionLogsRequest: {
+			/** @description Filter by actions */
+			actions?: components['schemas']['ActionLogAction'][] | null;
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/**
+			 * Format: uuid
+			 * @description Cursor ID for pagination. None means get latest.
+			 */
+			cursor_id?: string | null;
+			/**
+			 * Format: int64
+			 * @description Number of items to return (max: 100)
+			 */
+			limit: number;
+			/**
+			 * Format: uuid
+			 * @description Filter by resource ID
+			 */
+			resource_id?: string | null;
+			resource_type?: null | components['schemas']['ActionResourceType'];
+			/**
+			 * Format: uuid
+			 * @description Filter by user ID (for contributions)
+			 */
+			user_id?: string | null;
+		};
+		GetCommentsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			post_id: string;
+		};
+		GetFollowersRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			user_id: string;
+		};
+		GetFollowingRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			user_id: string;
+		};
+		GetModerationLogsRequest: {
+			/** Format: uuid */
+			actor_id?: string | null;
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			resource_id?: string | null;
+			resource_type?: null | components['schemas']['ModerationResourceType'];
+		};
+		GetPostBySlugRequest: {
+			handle: string;
+			slug: string;
+		};
+		GetPostFeedRequest: {
+			/** Format: int32 */
+			page?: number | null;
+			/** Format: int32 */
+			page_size?: number | null;
+			/**
+			 * Format: date-time
+			 * @description Only include posts published after this timestamp (for trending)
+			 */
+			published_at_after?: string | null;
+			sort?: null | components['schemas']['PostSortOrder'];
+		};
+		GetPostsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			published_only?: boolean | null;
+			/** Format: uuid */
+			user_id?: string | null;
+		};
+		GetReportsRequest: {
+			cursor_direction?: null | components['schemas']['CursorDirection'];
+			/** Format: uuid */
+			cursor_id?: string | null;
+			/** Format: int64 */
+			limit: number;
+			/** Format: uuid */
+			reporter_id?: string | null;
+			status?: null | components['schemas']['ReportStatus'];
+			target_type?: null | components['schemas']['ReportTargetType'];
+		};
+		GetUserProfileByIdRequest: {
+			/** Format: uuid */
+			user_id: string;
+		};
+		GetUserProfileRequest: {
+			handle: string;
+		};
+		/** @description GitHub OAuth 연결 요청 */
+		GithubLinkRequest: {
+			/** @description Authorization code from GitHub OAuth callback */
+			code: string;
+			/** @description State parameter for CSRF protection */
+			state: string;
+		};
+		/** @description GitHub OAuth 로그인 요청 */
+		GithubLoginRequest: {
+			/** @description Authorization code from GitHub OAuth callback */
+			code: string;
+			/** @description State parameter for CSRF protection */
+			state: string;
+		};
+		/** @description Google OAuth 연결 요청 */
+		GoogleLinkRequest: {
+			/** @description Authorization code from Google OAuth callback */
+			code: string;
+			/** @description State parameter for CSRF protection */
+			state: string;
+		};
+		/** @description Google OAuth 로그인 요청 */
+		GoogleLoginRequest: {
+			/** @description Authorization code from Google OAuth callback */
+			code: string;
+			/** @description State parameter for CSRF protection */
+			state: string;
+		};
+		GrantRoleRequest: {
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
+		};
+		HashtagResponse: {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			/** Format: date-time */
+			last_used_at?: string | null;
+			name: string;
+			/** Format: int32 */
+			usage_count: number;
+		};
+		LikeRequest: {
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['LikeTargetType'];
+		};
+		LikeStatusResponse: {
+			liked: boolean;
+		};
+		/** @enum {string} */
+		LikeTargetType: 'Post' | 'Comment';
+		LoginRequest: {
+			/** @example user@example.com */
+			email: string;
+			password: string;
+			/**
+			 * @description 로그인 유지 여부 (체크 시 30일, 미체크 시 브라우저 닫으면 만료)
+			 * @example false
+			 */
+			remember_me?: boolean;
+		};
+		ModerationLogListResponse: {
+			data: components['schemas']['ModerationLogResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		ModerationLogResponse: {
+			action: string;
+			/** Format: uuid */
+			actor_id: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			id: string;
+			metadata?: Record<string, never> | null;
+			reason?: string | null;
+			/** Format: uuid */
+			resource_id?: string | null;
+			resource_type: components['schemas']['ModerationResourceType'];
+		};
+		/** @enum {string} */
+		ModerationResourceType: 'User' | 'Post' | 'Comment' | 'System';
+		/** @description OAuth 연결 목록 응답 */
+		OAuthConnectionListResponse: {
+			connections: components['schemas']['OAuthConnectionResponse'][];
+		};
+		/** @description OAuth 연결 정보 응답 */
+		OAuthConnectionResponse: {
+			/**
+			 * Format: date-time
+			 * @description 연결 생성 시각
+			 */
+			created_at: string;
+			/** @description OAuth provider (Google, Github) */
+			provider: components['schemas']['OAuthProvider'];
+		};
+		/** @description 신규 사용자가 handle 없이 OAuth 로그인 시 반환되는 pending signup 응답 */
+		OAuthPendingSignupResponse: {
+			/** @description OAuth provider로부터 받은 표시 이름 */
+			display_name: string;
+			/** @description OAuth provider로부터 받은 이메일 */
+			email: string;
+			/** @description Pending signup 완료를 위한 일회용 토큰 */
+			pending_token: string;
+		};
+		/** @enum {string} */
+		OAuthProvider: 'Google' | 'Github' | 'Discord' | 'X' | 'Microsoft';
+		/** @description OAuth authorization URL 응답 */
+		OAuthUrlResponse: {
+			/** @description Google/GitHub OAuth authorization URL (state parameter 포함) */
+			auth_url: string;
+		};
+		PostAuthor: {
+			display_name: string;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			profile_image?: string | null;
+		};
+		PostFeedItem: {
+			author_display_name: string;
+			author_handle: string;
+			author_profile_image?: string | null;
+			/** Format: int32 */
+			comment_count: number;
+			/** Format: date-time */
+			created_at: string;
+			hashtags: string[];
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: date-time */
+			published_at?: string | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+			/** Format: uuid */
+			user_id: string;
+			/** Format: int32 */
+			view_count: number;
+		};
+		PostFeedResponse: {
+			data: components['schemas']['PostFeedItem'][];
+			has_more: boolean;
+			/** Format: int32 */
+			page: number;
+			/** Format: int32 */
+			page_size: number;
+			/** Format: int64 */
+			total_count: number;
+		};
+		PostIdPath: {
+			/** Format: uuid */
+			post_id: string;
+		};
+		PostListResponse: {
+			data: components['schemas']['PostResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		PostResponse: {
+			author: components['schemas']['PostAuthor'];
+			/** Format: int32 */
+			comment_count: number;
+			content: string;
+			/** Format: date-time */
+			created_at: string;
+			hashtags: string[];
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: date-time */
+			published_at?: string | null;
+			render?: string | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+			toc?: Record<string, never> | null;
+			/** Format: date-time */
+			updated_at: string;
+			/** Format: uuid */
+			user_id: string;
+			/** Format: int32 */
+			view_count: number;
+		};
+		PostSearchItem: {
+			author_display_name: string;
+			author_handle: string;
+			author_profile_image?: string | null;
+			/** Format: int32 */
+			comment_count: number;
+			/** Format: date-time */
+			created_at: string;
+			hashtags: string[];
+			/** Format: uuid */
+			id: string;
+			/** Format: int32 */
+			like_count: number;
+			/** Format: date-time */
+			published_at?: string | null;
+			slug: string;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title: string;
+			/** Format: uuid */
+			user_id: string;
+			/** Format: int32 */
+			view_count: number;
+		};
+		/** @enum {string} */
+		PostSortField: 'CreatedAt' | 'LikeCount' | 'ViewCount' | 'CommentCount';
+		/** @enum {string} */
+		PostSortOrder: 'Latest' | 'Popular' | 'Oldest';
+		PublicUserProfile: {
+			banner_image?: string | null;
+			bio?: string | null;
+			/** Format: date-time */
+			created_at: string;
+			display_name: string;
+			/** Format: int32 */
+			follower_count: number;
+			/** Format: int32 */
+			following_count: number;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			is_verified: boolean;
+			profile_image?: string | null;
+		};
+		PublishDraftRequest: {
+			delete_draft?: boolean | null;
+			hashtags?: string[] | null;
+			slug?: string | null;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+		};
+		ReportIdPath: {
+			/** Format: uuid */
+			report_id: string;
+		};
+		ReportListResponse: {
+			data: components['schemas']['ReportResponse'][];
+			has_newer: boolean;
+			has_older: boolean;
+		};
+		ReportResponse: {
+			/** Format: date-time */
+			created_at: string;
+			description?: string | null;
+			/** Format: uuid */
+			id: string;
+			reason: string;
+			/** Format: uuid */
+			reporter_id: string;
+			/** Format: date-time */
+			resolved_at?: string | null;
+			/** Format: uuid */
+			resolved_by?: string | null;
+			status: components['schemas']['ReportStatus'];
+			/** Format: uuid */
+			target_id: string;
+			target_type: components['schemas']['ReportTargetType'];
+		};
+		/** @enum {string} */
+		ReportStatus: 'Pending' | 'Reviewing' | 'Resolved' | 'Dismissed';
+		/** @enum {string} */
+		ReportTargetType: 'User' | 'Post' | 'Comment';
+		ResetPasswordRequest: {
+			/** @description 새 비밀번호 */
+			new_password: string;
+			/** @description 비밀번호 재설정 토큰 (이메일 링크의 ?token= 값) */
+			token: string;
+		};
+		RevokeRoleRequest: {
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
+		};
+		SearchPostsRequest: {
+			/** Format: int32 */
+			page: number;
+			/** Format: int32 */
+			page_size: number;
+			/**
+			 * Format: date-time
+			 * @description Only include posts published after this timestamp (for trending: e.g. 7 days ago)
+			 */
+			published_at_after?: string | null;
+			/** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
+			query?: string | null;
+			sort_by?: null | components['schemas']['PostSortField'];
+			sort_order?: null | components['schemas']['SortOrder'];
+			/**
+			 * Format: uuid
+			 * @description Filter by author user ID
+			 */
+			user_id?: string | null;
+		};
+		SearchPostsResponse: {
+			/** Format: int32 */
+			page: number;
+			/** Format: int32 */
+			page_size: number;
+			posts: components['schemas']['PostSearchItem'][];
+			/** Format: int64 */
+			total_hits: number;
+			/** Format: int32 */
+			total_pages: number;
+		};
+		SearchUsersRequest: {
+			/** Format: int32 */
+			page: number;
+			/** Format: int32 */
+			page_size: number;
+			/** @description Search query for handle, display_name, or bio. Empty or omitted returns all users. */
+			query?: string | null;
+		};
+		SearchUsersResponse: {
+			/** Format: int32 */
+			page: number;
+			/** Format: int32 */
+			page_size: number;
+			/** Format: int64 */
+			total_hits: number;
+			/** Format: int32 */
+			total_pages: number;
+			users: components['schemas']['UserSearchItem'][];
+		};
+		/** @enum {string} */
+		SortOrder: 'Asc' | 'Desc';
+		/** @description 백업 코드 재생성 응답 */
+		TotpBackupCodesResponse: {
+			/** @description 새로 생성된 백업 코드 목록 (10개, 8자리 영숫자) */
+			backup_codes: string[];
+		};
+		/** @description TOTP 비활성화 요청 */
+		TotpDisableRequest: {
+			/** @description 현재 TOTP 코드 (6자리) 또는 백업 코드 (8자리) */
+			code: string;
+		};
+		/** @description TOTP 활성화 요청 (setup 후 첫 코드 검증) */
+		TotpEnableRequest: {
+			/** @description 인증 앱에서 생성한 6자리 TOTP 코드 */
+			code: string;
+		};
+		/** @description TOTP 활성화 응답 (백업 코드 반환) */
+		TotpEnableResponse: {
+			/** @description 백업 코드 목록 (10개, 8자리 영숫자) */
+			backup_codes: string[];
+		};
+		/** @description 백업 코드 재생성 요청 */
+		TotpRegenerateBackupCodesRequest: {
+			/** @description 현재 TOTP 코드 (6자리) */
+			code: string;
+		};
+		/** @description 로그인 시 TOTP 필요 응답 (202 Accepted) */
+		TotpRequiredResponse: {
+			/** @description TOTP 검증용 임시 토큰 */
+			temp_token: string;
+		};
+		/** @description TOTP Setup 응답 */
+		TotpSetupResponse: {
+			/** @description QR 코드 PNG 이미지 (Base64 인코딩) */
+			qr_code_base64: string;
+			/** @description otpauth:// URI (수동 입력용) */
+			qr_code_uri: string;
+		};
+		/** @description TOTP 상태 응답 */
+		TotpStatusResponse: {
+			/** @description 남은 백업 코드 수 (활성화된 경우만) */
+			backup_codes_remaining?: number | null;
+			/** @description TOTP 활성화 여부 */
+			enabled: boolean;
+			/**
+			 * Format: date-time
+			 * @description TOTP 활성화 시각 (활성화된 경우만)
+			 */
+			enabled_at?: string | null;
+		};
+		/** @description TOTP 검증 요청 (로그인 시 2단계 인증) */
+		TotpVerifyRequest: {
+			/** @description TOTP 코드 (6자리) 또는 백업 코드 (8자리) */
+			code: string;
+			/** @description 로그인 시 받은 임시 토큰 */
+			temp_token: string;
+		};
+		TrendingHashtagsResponse: {
+			data: components['schemas']['HashtagResponse'][];
+		};
+		TrendingQuery: {
+			/** Format: int64 */
+			limit?: number | null;
+		};
+		UnbanUserRequest: {
+			/** Format: uuid */
+			user_id: string;
+		};
+		/** @description OAuth 연결 해제 요청 */
+		UnlinkOAuthRequest: {
+			/** @description OAuth provider to unlink (Google or Github) */
+			provider: components['schemas']['OAuthProvider'];
+		};
+		UpdateCommentRequest: {
+			content: string;
+		};
+		UpdateDraftRequest: {
+			content?: string | null;
+			metadata?: Record<string, never> | null;
+			slug?: string | null;
+			title?: string | null;
+		};
+		UpdateMyProfileRequest: {
+			bio?: string | null;
+			display_name?: string | null;
+		};
+		UpdatePostRequest: {
+			content?: string | null;
+			hashtags?: string[] | null;
+			publish?: boolean | null;
+			slug?: string | null;
+			summary?: string | null;
+			thumbnail_image?: string | null;
+			title?: string | null;
+			unpublish?: boolean | null;
+		};
+		UpdateReportRequest: {
+			reason?: string | null;
+			status?: null | components['schemas']['ReportStatus'];
+		};
+		UploadPostImageRequest: {
+			/** Format: binary */
+			file: string;
+		};
+		UploadPostImageResponse: {
+			image_url: string;
+		};
+		UploadUserImageRequest: {
+			/**
+			 * Format: binary
+			 * @description Image file binary data
+			 */
+			file: string;
+		};
+		UploadUserImageResponse: {
+			/** @description URL of the uploaded image */
+			image_url: string;
+		};
+		UserBanResponse: {
+			/** Format: uuid */
+			banned_by: string;
+			/** Format: date-time */
+			created_at: string;
+			/** Format: date-time */
+			expires_at?: string | null;
+			/** Format: uuid */
+			id: string;
+			reason: string;
+			/** Format: uuid */
+			user_id: string;
+		};
+		UserIdPath: {
+			/** Format: uuid */
+			user_id: string;
+		};
+		UserResponse: {
+			banner_image?: string | null;
+			bio?: string | null;
+			/** Format: date-time */
+			created_at: string;
+			display_name: string;
+			email: string;
+			/** Format: int32 */
+			follower_count: number;
+			/** Format: int32 */
+			following_count: number;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			is_verified: boolean;
+			profile_image?: string | null;
+		};
+		/** @enum {string} */
+		UserRole: 'User' | 'Moderator' | 'Admin';
+		UserRoleResponse: {
+			/** Format: date-time */
+			created_at: string;
+			/** Format: uuid */
+			granted_by?: string | null;
+			role: components['schemas']['UserRole'];
+			/** Format: uuid */
+			user_id: string;
+		};
+		UserSearchItem: {
+			bio?: string | null;
+			display_name: string;
+			handle: string;
+			/** Format: uuid */
+			id: string;
+			profile_image?: string | null;
+		};
+		VerifyEmailRequest: {
+			/** @description 이메일 인증 토큰 */
+			token: string;
+		};
+	};
+	responses: never;
+	parameters: never;
+	requestBodies: never;
+	headers: never;
+	pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    health_check: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Service is healthy and running */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal server error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_action_logs: {
-        parameters: {
-            query: {
-                /** @description Cursor ID for pagination. None means get latest. */
-                cursor_id?: string;
-                /** @description Cursor direction (default: Older when cursor_id is provided) */
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                /** @description Number of items to return (max: 100) */
-                limit: number;
-                /** @description Filter by user ID (for contributions) */
-                user_id?: string;
-                /** @description Filter by resource ID */
-                resource_id?: string;
-                /** @description Filter by resource type */
-                resource_type?: components["schemas"]["ActionResourceType"];
-                /** @description Filter by actions */
-                actions?: components["schemas"]["ActionLogAction"][];
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Action logs retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ActionLogListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_change_email: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChangeEmailRequest"];
-            };
-        };
-        responses: {
-            /** @description Verification email sent to new address */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, or incorrect password */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_change_password: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChangePasswordRequest"];
-            };
-        };
-        responses: {
-            /** @description Password changed successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, or incorrect password */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_complete_signup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CompleteSignupRequest"];
-            };
-        };
-        responses: {
-            /** @description Signup completed successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Token expired or invalid */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Handle or email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database or Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_confirm_email_change: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ConfirmEmailChangeRequest"];
-            };
-        };
-        responses: {
-            /** @description Email changed successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid or expired token */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_forgot_password: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ForgotPasswordRequest"];
-            };
-        };
-        responses: {
-            /** @description Password reset email sent if account exists */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LoginRequest"];
-            };
-        };
-        responses: {
-            /** @description TOTP required */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TotpRequiredResponse"];
-                };
-            };
-            /** @description Login successful */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid credentials or password not set */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database or Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_logout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Logout successful */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    list_oauth_connections: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OAuth connections list */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OAuthConnectionListResponse"];
-                };
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    unlink_oauth_connection: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UnlinkOAuthRequest"];
-            };
-        };
-        responses: {
-            /** @description OAuth unlinked successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, or cannot unlink last authentication method */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User or OAuth connection not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_github_authorize: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OAuth URL generated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OAuthUrlResponse"];
-                };
-            };
-            /** @description Internal Server Error - Redis or OAuth URL generation error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_github_link: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GithubLinkRequest"];
-            };
-        };
-        responses: {
-            /** @description OAuth linked successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, invalid or expired state/code */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - OAuth account already linked to this or another user */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database, Redis, or OAuth provider error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_github_login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GithubLoginRequest"];
-            };
-        };
-        responses: {
-            /** @description New user - pending signup required */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OAuthPendingSignupResponse"];
-                };
-            };
-            /** @description Login successful (existing user) */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, invalid/expired state/code, or no verified email */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database, Redis, or OAuth provider error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_google_authorize: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description OAuth URL generated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OAuthUrlResponse"];
-                };
-            };
-            /** @description Internal Server Error - Redis or OAuth URL generation error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_google_link: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GoogleLinkRequest"];
-            };
-        };
-        responses: {
-            /** @description OAuth linked successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, invalid or expired state/code */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - OAuth account already linked to this or another user */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database, Redis, or OAuth provider error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_google_login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GoogleLoginRequest"];
-            };
-        };
-        responses: {
-            /** @description New user - pending signup required */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OAuthPendingSignupResponse"];
-                };
-            };
-            /** @description Login successful (existing user) */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, or invalid/expired state/code */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Email already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database, Redis, or OAuth provider error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_resend_verification_email: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Verification email sent successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session, or OAuth user without password */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Email already verified */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database or Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Gateway - Worker service request failed or returned invalid response */
-            502: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Service Unavailable - Worker service connection failed */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_reset_password: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ResetPasswordRequest"];
-            };
-        };
-        responses: {
-            /** @description Password reset successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, or invalid/expired token */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_regenerate_backup_codes: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TotpRegenerateBackupCodesRequest"];
-            };
-        };
-        responses: {
-            /** @description Backup codes regenerated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TotpBackupCodesResponse"];
-                };
-            };
-            /** @description Invalid TOTP code or TOTP not enabled */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_disable: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TotpDisableRequest"];
-            };
-        };
-        responses: {
-            /** @description TOTP disabled */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Invalid TOTP code or TOTP not enabled */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_enable: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TotpEnableRequest"];
-            };
-        };
-        responses: {
-            /** @description TOTP enabled */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TotpEnableResponse"];
-                };
-            };
-            /** @description Invalid TOTP code */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description TOTP already enabled */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_setup: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description TOTP setup initiated */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TotpSetupResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description TOTP already enabled */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_status: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description TOTP status */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TotpStatusResponse"];
-                };
-            };
-            /** @description Unauthorized */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    totp_verify: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TotpVerifyRequest"];
-            };
-        };
-        responses: {
-            /** @description TOTP verified, login successful */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Invalid TOTP code or temp token */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    auth_verify_email: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["VerifyEmailRequest"];
-            };
-        };
-        responses: {
-            /** @description Email verified successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON, validation error, invalid or expired token */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Email already verified */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database or Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_comments: {
-        parameters: {
-            query: {
-                post_id: string;
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Comments retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_comment: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateCommentRequest"];
-            };
-        };
-        responses: {
-            /** @description Comment created successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Post or parent comment does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_comment: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                comment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Comment deleted successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Not the comment author */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Comment does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    update_comment: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                comment_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateCommentRequest"];
-            };
-        };
-        responses: {
-            /** @description Comment updated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommentResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Not the comment author */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Comment does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_drafts: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Drafts retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DraftListResponse"];
-                };
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_draft: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Draft created successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DraftResponse"];
-                };
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_draft: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                draft_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Draft retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DraftResponse"];
-                };
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Draft does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_draft: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                draft_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Draft deleted successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Draft does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    update_draft: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                draft_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateDraftRequest"];
-            };
-        };
-        responses: {
-            /** @description Draft updated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DraftResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Draft does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    publish_draft: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                draft_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["PublishDraftRequest"];
-            };
-        };
-        responses: {
-            /** @description Draft published as post successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Draft does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    stream_actions: {
-        parameters: {
-            query?: {
-                /** @description Filter by user ID (for contributions) */
-                user_id?: string;
-                /** @description Filter by resource ID */
-                resource_id?: string;
-                /** @description Filter by resource type */
-                resource_type?: components["schemas"]["ActionResourceType"];
-                /** @description Filter by actions */
-                actions?: components["schemas"]["ActionLogAction"][];
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description SSE stream of action logs */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "text/event-stream": unknown;
-                };
-            };
-        };
-    };
-    create_follow: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["FollowRequest"];
-            };
-        };
-        responses: {
-            /** @description Follow created successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FollowStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Already following */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_follow: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["FollowRequest"];
-            };
-        };
-        responses: {
-            /** @description Follow removed successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FollowStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Follow does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_followers: {
-        parameters: {
-            query: {
-                user_id: string;
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Followers retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FollowListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_following: {
-        parameters: {
-            query: {
-                user_id: string;
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Following list retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FollowListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    check_follow_status: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                followee_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Follow status retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FollowStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_trending: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                limit: number | null;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Trending hashtags retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TrendingHashtagsResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_like: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LikeRequest"];
-            };
-        };
-        responses: {
-            /** @description Like created successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LikeStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Target does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - Already liked */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_like: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LikeRequest"];
-            };
-        };
-        responses: {
-            /** @description Like removed successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LikeStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Like does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    check_like_status: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                target_type: components["schemas"]["LikeTargetType"];
-                target_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Like status retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LikeStatusResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_moderation_logs: {
-        parameters: {
-            query: {
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-                actor_id?: string;
-                resource_type?: components["schemas"]["ModerationResourceType"];
-                resource_id?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Moderation logs retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ModerationLogListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_posts: {
-        parameters: {
-            query: {
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-                user_id?: string;
-                published_only?: boolean;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Posts retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreatePostRequest"];
-            };
-        };
-        responses: {
-            /** @description Post created successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_post_by_slug: {
-        parameters: {
-            query: {
-                handle: string;
-                slug: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Post found */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User or post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_post_feed: {
-        parameters: {
-            query?: {
-                sort?: components["schemas"]["PostSortOrder"];
-                /** @description Only include posts published after this timestamp (for trending) */
-                published_at_after?: string;
-                page?: number;
-                page_size?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Post feed retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostFeedResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    upload_post_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["UploadPostImageRequest"];
-            };
-        };
-        responses: {
-            /** @description Post image uploaded successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UploadPostImageResponse"];
-                };
-            };
-            /** @description Bad Request - Invalid image or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Payload Too Large - Image exceeds size limit */
-            413: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                post_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Post retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostResponse"];
-                };
-            };
-            /** @description Bad request - Invalid path parameter */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                post_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Post deleted successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Not the post author */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    update_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                post_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdatePostRequest"];
-            };
-        };
-        responses: {
-            /** @description Post updated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Not the post author */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    increment_view: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                post_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description View count incremented */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid path parameter */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Post does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_reports: {
-        parameters: {
-            query: {
-                cursor_id?: string;
-                cursor_direction?: components["schemas"]["CursorDirection"];
-                limit: number;
-                reporter_id?: string;
-                target_type?: components["schemas"]["ReportTargetType"];
-                status?: components["schemas"]["ReportStatus"];
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Reports retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReportListResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_report: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateReportRequest"];
-            };
-        };
-        responses: {
-            /** @description Report created successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReportResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    update_report: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                report_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateReportRequest"];
-            };
-        };
-        responses: {
-            /** @description Report updated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ReportResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - Report does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    search_posts: {
-        parameters: {
-            query: {
-                /** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
-                query?: string;
-                /** @description Filter by author user ID */
-                user_id?: string;
-                /** @description Only include posts published after this timestamp (for trending: e.g. 7 days ago) */
-                published_at_after?: string;
-                page: number;
-                page_size: number;
-                sort_by?: components["schemas"]["PostSortField"];
-                sort_order?: components["schemas"]["SortOrder"];
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Post search results */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SearchPostsResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    search_users: {
-        parameters: {
-            query: {
-                /** @description Search query for handle, display_name, or bio. Empty or omitted returns all users. */
-                query?: string;
-                page: number;
-                page_size: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User search results */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SearchUsersResponse"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_my_profile: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Current user info */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserResponse"];
-                };
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    update_my_profile: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateMyProfileRequest"];
-            };
-        };
-        responses: {
-            /** @description Profile updated successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserResponse"];
-                };
-            };
-            /** @description Bad Request - Validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    upload_banner_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["UploadUserImageRequest"];
-            };
-        };
-        responses: {
-            /** @description Banner image uploaded successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UploadUserImageResponse"];
-                };
-            };
-            /** @description Bad Request - Invalid image or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Payload Too Large - Image exceeds size limit */
-            413: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_banner_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Banner image deleted successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - No banner image to delete */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    upload_profile_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["UploadUserImageRequest"];
-            };
-        };
-        responses: {
-            /** @description Profile image uploaded successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UploadUserImageResponse"];
-                };
-            };
-            /** @description Bad Request - Invalid image or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Payload Too Large - Image exceeds size limit */
-            413: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    delete_profile_image: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Profile image deleted successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - No profile image to delete */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create_user: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserRequest"];
-            };
-        };
-        responses: {
-            /** @description User created successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CreateUserResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Conflict - User with this email or handle already exists */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database or Redis error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Gateway - Worker service request failed or returned invalid response */
-            502: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Service Unavailable - Worker service connection failed */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ban_user: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["BanUserRequest"];
-            };
-        };
-        responses: {
-            /** @description User banned successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserBanResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Insufficient privileges */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    check_handle_available: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                handle: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Handle availability checked */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CheckHandleAvailableResponse"];
-                };
-            };
-            /** @description Bad request - Invalid handle format */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_user_profile: {
-        parameters: {
-            query: {
-                handle: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User profile retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PublicUserProfile"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_user_profile_by_id: {
-        parameters: {
-            query: {
-                user_id: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User profile retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PublicUserProfile"];
-                };
-            };
-            /** @description Bad request - Invalid query parameters */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User not found */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error - Database error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    grant_role: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GrantRoleRequest"];
-            };
-        };
-        responses: {
-            /** @description Role granted successfully */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRoleResponse"];
-                };
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Insufficient privileges */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    revoke_role: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RevokeRoleRequest"];
-            };
-        };
-        responses: {
-            /** @description Role revoked successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Insufficient privileges */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User does not have this role */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    unban_user: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UnbanUserRequest"];
-            };
-        };
-        responses: {
-            /** @description User unbanned successfully */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad request - Invalid JSON or validation error */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Forbidden - Insufficient privileges */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - No active ban */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_user_bans: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                user_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User bans retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserBanResponse"][];
-                };
-            };
-            /** @description Bad request - Invalid path parameter */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Unauthorized - Invalid or expired session */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    get_user_roles: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                user_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description User roles retrieved successfully */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRoleResponse"][];
-                };
-            };
-            /** @description Bad request - Invalid path parameter */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not Found - User does not exist */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Internal Server Error */
-            500: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
+	health_check: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Service is healthy and running */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal server error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_action_logs: {
+		parameters: {
+			query: {
+				/** @description Cursor ID for pagination. None means get latest. */
+				cursor_id?: string;
+				/** @description Cursor direction (default: Older when cursor_id is provided) */
+				cursor_direction?: components['schemas']['CursorDirection'];
+				/** @description Number of items to return (max: 100) */
+				limit: number;
+				/** @description Filter by user ID (for contributions) */
+				user_id?: string;
+				/** @description Filter by resource ID */
+				resource_id?: string;
+				/** @description Filter by resource type */
+				resource_type?: components['schemas']['ActionResourceType'];
+				/** @description Filter by actions */
+				actions?: components['schemas']['ActionLogAction'][];
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Action logs retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ActionLogListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_change_email: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['ChangeEmailRequest'];
+			};
+		};
+		responses: {
+			/** @description Verification email sent to new address */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, or incorrect password */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_change_password: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['ChangePasswordRequest'];
+			};
+		};
+		responses: {
+			/** @description Password changed successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, or incorrect password */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_complete_signup: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CompleteSignupRequest'];
+			};
+		};
+		responses: {
+			/** @description Signup completed successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Token expired or invalid */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Handle or email already exists */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database or Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_confirm_email_change: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['ConfirmEmailChangeRequest'];
+			};
+		};
+		responses: {
+			/** @description Email changed successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid or expired token */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_forgot_password: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['ForgotPasswordRequest'];
+			};
+		};
+		responses: {
+			/** @description Password reset email sent if account exists */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_login: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LoginRequest'];
+			};
+		};
+		responses: {
+			/** @description TOTP required */
+			202: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TotpRequiredResponse'];
+				};
+			};
+			/** @description Login successful */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid credentials or password not set */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database or Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_logout: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Logout successful */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	list_oauth_connections: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description OAuth connections list */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['OAuthConnectionListResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	unlink_oauth_connection: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UnlinkOAuthRequest'];
+			};
+		};
+		responses: {
+			/** @description OAuth unlinked successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, or cannot unlink last authentication method */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User or OAuth connection not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_github_authorize: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description OAuth URL generated */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['OAuthUrlResponse'];
+				};
+			};
+			/** @description Internal Server Error - Redis or OAuth URL generation error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_github_link: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GithubLinkRequest'];
+			};
+		};
+		responses: {
+			/** @description OAuth linked successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, invalid or expired state/code */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - OAuth account already linked to this or another user */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database, Redis, or OAuth provider error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_github_login: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GithubLoginRequest'];
+			};
+		};
+		responses: {
+			/** @description New user - pending signup required */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['OAuthPendingSignupResponse'];
+				};
+			};
+			/** @description Login successful (existing user) */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, invalid/expired state/code, or no verified email */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Email already exists */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database, Redis, or OAuth provider error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_google_authorize: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description OAuth URL generated */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['OAuthUrlResponse'];
+				};
+			};
+			/** @description Internal Server Error - Redis or OAuth URL generation error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_google_link: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GoogleLinkRequest'];
+			};
+		};
+		responses: {
+			/** @description OAuth linked successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, invalid or expired state/code */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - OAuth account already linked to this or another user */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database, Redis, or OAuth provider error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_google_login: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GoogleLoginRequest'];
+			};
+		};
+		responses: {
+			/** @description New user - pending signup required */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['OAuthPendingSignupResponse'];
+				};
+			};
+			/** @description Login successful (existing user) */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, or invalid/expired state/code */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Email already exists */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database, Redis, or OAuth provider error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_resend_verification_email: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Verification email sent successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session, or OAuth user without password */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Email already verified */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database or Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad Gateway - Worker service request failed or returned invalid response */
+			502: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Service Unavailable - Worker service connection failed */
+			503: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_reset_password: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['ResetPasswordRequest'];
+			};
+		};
+		responses: {
+			/** @description Password reset successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, or invalid/expired token */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_regenerate_backup_codes: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['TotpRegenerateBackupCodesRequest'];
+			};
+		};
+		responses: {
+			/** @description Backup codes regenerated */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TotpBackupCodesResponse'];
+				};
+			};
+			/** @description Invalid TOTP code or TOTP not enabled */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_disable: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['TotpDisableRequest'];
+			};
+		};
+		responses: {
+			/** @description TOTP disabled */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Invalid TOTP code or TOTP not enabled */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_enable: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['TotpEnableRequest'];
+			};
+		};
+		responses: {
+			/** @description TOTP enabled */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TotpEnableResponse'];
+				};
+			};
+			/** @description Invalid TOTP code */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description TOTP already enabled */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_setup: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description TOTP setup initiated */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TotpSetupResponse'];
+				};
+			};
+			/** @description Unauthorized */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description TOTP already enabled */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_status: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description TOTP status */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TotpStatusResponse'];
+				};
+			};
+			/** @description Unauthorized */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	totp_verify: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['TotpVerifyRequest'];
+			};
+		};
+		responses: {
+			/** @description TOTP verified, login successful */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Invalid TOTP code or temp token */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	auth_verify_email: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['VerifyEmailRequest'];
+			};
+		};
+		responses: {
+			/** @description Email verified successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON, validation error, invalid or expired token */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Email already verified */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database or Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_comments: {
+		parameters: {
+			query: {
+				post_id: string;
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Comments retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreateCommentRequest'];
+			};
+		};
+		responses: {
+			/** @description Comment created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post or parent comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				comment_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Comment deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the comment author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_comment: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				comment_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateCommentRequest'];
+			};
+		};
+		responses: {
+			/** @description Comment updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CommentResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the comment author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Comment does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_drafts: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Drafts retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftListResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Draft deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateDraftRequest'];
+			};
+		};
+		responses: {
+			/** @description Draft updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['DraftResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	publish_draft: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				draft_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['PublishDraftRequest'];
+			};
+		};
+		responses: {
+			/** @description Draft published as post successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Draft does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	stream_actions: {
+		parameters: {
+			query?: {
+				/** @description Filter by user ID (for contributions) */
+				user_id?: string;
+				/** @description Filter by resource ID */
+				resource_id?: string;
+				/** @description Filter by resource type */
+				resource_type?: components['schemas']['ActionResourceType'];
+				/** @description Filter by actions */
+				actions?: components['schemas']['ActionLogAction'][];
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description SSE stream of action logs */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'text/event-stream': unknown;
+				};
+			};
+		};
+	};
+	create_follow: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FollowRequest'];
+			};
+		};
+		responses: {
+			/** @description Follow created successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Already following */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_follow: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['FollowRequest'];
+			};
+		};
+		responses: {
+			/** @description Follow removed successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Follow does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_followers: {
+		parameters: {
+			query: {
+				user_id: string;
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Followers retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_following: {
+		parameters: {
+			query: {
+				user_id: string;
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Following list retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	check_follow_status: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				followee_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Follow status retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['FollowStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_trending: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				limit: number | null;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Trending hashtags retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['TrendingHashtagsResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_like: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LikeRequest'];
+			};
+		};
+		responses: {
+			/** @description Like created successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Target does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - Already liked */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_like: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['LikeRequest'];
+			};
+		};
+		responses: {
+			/** @description Like removed successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Like does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	check_like_status: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				target_type: components['schemas']['LikeTargetType'];
+				target_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Like status retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['LikeStatusResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_moderation_logs: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				actor_id?: string;
+				resource_type?: components['schemas']['ModerationResourceType'];
+				resource_id?: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Moderation logs retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ModerationLogListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_posts: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				user_id?: string;
+				published_only?: boolean;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Posts retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreatePostRequest'];
+			};
+		};
+		responses: {
+			/** @description Post created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_post_by_slug: {
+		parameters: {
+			query: {
+				handle: string;
+				slug: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post found */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User or post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_post_feed: {
+		parameters: {
+			query?: {
+				sort?: components['schemas']['PostSortOrder'];
+				/** @description Only include posts published after this timestamp (for trending) */
+				published_at_after?: string;
+				page?: number;
+				page_size?: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post feed retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostFeedResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	upload_post_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'multipart/form-data': components['schemas']['UploadPostImageRequest'];
+			};
+		};
+		responses: {
+			/** @description Post image uploaded successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UploadPostImageResponse'];
+				};
+			};
+			/** @description Bad Request - Invalid image or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Payload Too Large - Image exceeds size limit */
+			413: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the post author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_post: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdatePostRequest'];
+			};
+		};
+		responses: {
+			/** @description Post updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PostResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Not the post author */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	increment_view: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				post_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description View count incremented */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Post does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_reports: {
+		parameters: {
+			query: {
+				cursor_id?: string;
+				cursor_direction?: components['schemas']['CursorDirection'];
+				limit: number;
+				reporter_id?: string;
+				target_type?: components['schemas']['ReportTargetType'];
+				status?: components['schemas']['ReportStatus'];
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Reports retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportListResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_report: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreateReportRequest'];
+			};
+		};
+		responses: {
+			/** @description Report created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_report: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				report_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateReportRequest'];
+			};
+		};
+		responses: {
+			/** @description Report updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ReportResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - Report does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	search_posts: {
+		parameters: {
+			query: {
+				/** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
+				query?: string;
+				/** @description Filter by author user ID */
+				user_id?: string;
+				/** @description Only include posts published after this timestamp (for trending: e.g. 7 days ago) */
+				published_at_after?: string;
+				page: number;
+				page_size: number;
+				sort_by?: components['schemas']['PostSortField'];
+				sort_order?: components['schemas']['SortOrder'];
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Post search results */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['SearchPostsResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	search_users: {
+		parameters: {
+			query: {
+				/** @description Search query for handle, display_name, or bio. Empty or omitted returns all users. */
+				query?: string;
+				page: number;
+				page_size: number;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User search results */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['SearchUsersResponse'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_my_profile: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Current user info */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserResponse'];
+				};
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	update_my_profile: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UpdateMyProfileRequest'];
+			};
+		};
+		responses: {
+			/** @description Profile updated successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserResponse'];
+				};
+			};
+			/** @description Bad Request - Validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	upload_banner_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'multipart/form-data': components['schemas']['UploadUserImageRequest'];
+			};
+		};
+		responses: {
+			/** @description Banner image uploaded successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UploadUserImageResponse'];
+				};
+			};
+			/** @description Bad Request - Invalid image or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Payload Too Large - Image exceeds size limit */
+			413: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_banner_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Banner image deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - No banner image to delete */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	upload_profile_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'multipart/form-data': components['schemas']['UploadUserImageRequest'];
+			};
+		};
+		responses: {
+			/** @description Profile image uploaded successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UploadUserImageResponse'];
+				};
+			};
+			/** @description Bad Request - Invalid image or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Payload Too Large - Image exceeds size limit */
+			413: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	delete_profile_image: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Profile image deleted successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - No profile image to delete */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	create_user: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['CreateUserRequest'];
+			};
+		};
+		responses: {
+			/** @description User created successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CreateUserResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Conflict - User with this email or handle already exists */
+			409: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database or Redis error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad Gateway - Worker service request failed or returned invalid response */
+			502: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Service Unavailable - Worker service connection failed */
+			503: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	ban_user: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['BanUserRequest'];
+			};
+		};
+		responses: {
+			/** @description User banned successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserBanResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	check_handle_available: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				handle: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Handle availability checked */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['CheckHandleAvailableResponse'];
+				};
+			};
+			/** @description Bad request - Invalid handle format */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_profile: {
+		parameters: {
+			query: {
+				handle: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User profile retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PublicUserProfile'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_profile_by_id: {
+		parameters: {
+			query: {
+				user_id: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User profile retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['PublicUserProfile'];
+				};
+			};
+			/** @description Bad request - Invalid query parameters */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User not found */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error - Database error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	grant_role: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['GrantRoleRequest'];
+			};
+		};
+		responses: {
+			/** @description Role granted successfully */
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserRoleResponse'];
+				};
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	revoke_role: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['RevokeRoleRequest'];
+			};
+		};
+		responses: {
+			/** @description Role revoked successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User does not have this role */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	unban_user: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['UnbanUserRequest'];
+			};
+		};
+		responses: {
+			/** @description User unbanned successfully */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Bad request - Invalid JSON or validation error */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Forbidden - Insufficient privileges */
+			403: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - No active ban */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_bans: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				user_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User bans retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserBanResponse'][];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Unauthorized - Invalid or expired session */
+			401: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
+	get_user_roles: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				user_id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description User roles retrieved successfully */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['UserRoleResponse'][];
+				};
+			};
+			/** @description Bad request - Invalid path parameter */
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Not Found - User does not exist */
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			/** @description Internal Server Error */
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+		};
+	};
 }

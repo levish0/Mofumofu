@@ -200,7 +200,7 @@
 <Button
 	onclick={openDialog}
 	variant="ghost"
-	class="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 px-4 py-2 text-lg"
+	class="flex items-center gap-2 bg-primary px-4 py-2 text-lg text-primary-foreground hover:bg-primary/90"
 >
 	<Icon src={PaperAirplane} class="h-5 w-5" solid />
 	{isEditMode ? 'Update' : 'Publish'}
@@ -221,7 +221,13 @@
 	</div>
 {/if}
 
-<Dialog.Root bind:open={isOpen} onOpenChange={(open) => { if (isLoading) return; isOpen = open; }}>
+<Dialog.Root
+	bind:open={isOpen}
+	onOpenChange={(open) => {
+		if (isLoading) return;
+		isOpen = open;
+	}}
+>
 	<Dialog.Content class="sm:max-w-lg">
 		<div class="px-2 pt-4">
 			<Dialog.Header class="mb-2 p-0">
@@ -259,11 +265,7 @@
 		</div>
 
 		<Dialog.Footer class="px-2 py-2">
-			<Button
-				variant="ghost"
-				onclick={() => (isOpen = false)}
-				class="flex items-center gap-2"
-			>
+			<Button variant="ghost" onclick={() => (isOpen = false)} class="flex items-center gap-2">
 				<ArrowLeft class="h-5 w-5" />
 				Cancel
 			</Button>

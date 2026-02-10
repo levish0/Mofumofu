@@ -94,9 +94,7 @@
 					Clear filters
 				</button>
 			{:else if posts.length === 0}
-				<div class="mb-2 text-lg text-mofu-light-400 dark:text-mofu-dark-400">
-					No posts yet.
-				</div>
+				<div class="mb-2 text-lg text-mofu-light-400 dark:text-mofu-dark-400">No posts yet.</div>
 				<div class="text-sm text-mofu-light-500 dark:text-mofu-dark-500">
 					{profileName} hasn't published any posts.
 				</div>

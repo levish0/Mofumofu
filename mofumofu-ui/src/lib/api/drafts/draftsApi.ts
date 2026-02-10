@@ -16,10 +16,7 @@ export async function createDraft(api: KyInstance = Api): Promise<DraftResponse>
 	return api.post('v0/drafts').json<DraftResponse>();
 }
 
-export async function getDraft(
-	draftId: string,
-	api: KyInstance = Api
-): Promise<DraftResponse> {
+export async function getDraft(draftId: string, api: KyInstance = Api): Promise<DraftResponse> {
 	return api.get(`v0/drafts/${encodeURIComponent(draftId)}`).json<DraftResponse>();
 }
 
@@ -33,10 +30,7 @@ export async function updateDraft(
 		.json<DraftResponse>();
 }
 
-export async function deleteDraft(
-	draftId: string,
-	api: KyInstance = Api
-): Promise<void> {
+export async function deleteDraft(draftId: string, api: KyInstance = Api): Promise<void> {
 	await api.delete(`v0/drafts/${encodeURIComponent(draftId)}`);
 }
 

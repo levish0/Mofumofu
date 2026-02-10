@@ -82,10 +82,7 @@
 	<meta property="profile:username" content={profile.handle} />
 
 	<meta name="twitter:card" content="summary" />
-	<meta
-		name="twitter:title"
-		content="{profile.display_name} (@{profile.handle}) - Mofumofu"
-	/>
+	<meta name="twitter:title" content="{profile.display_name} (@{profile.handle}) - Mofumofu" />
 	<meta
 		name="twitter:description"
 		content={profile.bio || `${profile.display_name}'s profile on Mofumofu`}

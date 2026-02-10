@@ -36,8 +36,7 @@
 		onTogglePreviewMode
 	}: Props = $props();
 
-	const btnClass =
-		'hover:bg-accent text-muted-foreground hover:text-foreground rounded p-2';
+	const btnClass = 'hover:bg-accent text-muted-foreground hover:text-foreground rounded p-2';
 
 	async function handleImageUpload() {
 		const input = document.createElement('input');
@@ -78,22 +77,47 @@
 			<Button variant="ghost" onclick={() => onInsertText('# ')} class={btnClass} title="Heading 1">
 				<Heading1 class="h-5 w-5" />
 			</Button>
-			<Button variant="ghost" onclick={() => onInsertText('## ')} class={btnClass} title="Heading 2">
+			<Button
+				variant="ghost"
+				onclick={() => onInsertText('## ')}
+				class={btnClass}
+				title="Heading 2"
+			>
 				<Heading2 class="h-5 w-5" />
 			</Button>
-			<Button variant="ghost" onclick={() => onInsertText('### ')} class={btnClass} title="Heading 3">
+			<Button
+				variant="ghost"
+				onclick={() => onInsertText('### ')}
+				class={btnClass}
+				title="Heading 3"
+			>
 				<Heading3 class="h-5 w-5" />
 			</Button>
-			<Button variant="ghost" onclick={() => onInsertText('#### ')} class={btnClass} title="Heading 4">
+			<Button
+				variant="ghost"
+				onclick={() => onInsertText('#### ')}
+				class={btnClass}
+				title="Heading 4"
+			>
 				<Heading4 class="h-5 w-5" />
 			</Button>
 
-			<div class="bg-border mx-1 h-6 w-px"></div>
+			<div class="mx-1 h-6 w-px bg-border"></div>
 
-			<Button variant="ghost" onclick={() => onInsertText('**', '**')} class={btnClass} title="Bold">
+			<Button
+				variant="ghost"
+				onclick={() => onInsertText('**', '**')}
+				class={btnClass}
+				title="Bold"
+			>
 				<Bold class="h-5 w-5" />
 			</Button>
-			<Button variant="ghost" onclick={() => onInsertText('*', '*')} class={btnClass} title="Italic">
+			<Button
+				variant="ghost"
+				onclick={() => onInsertText('*', '*')}
+				class={btnClass}
+				title="Italic"
+			>
 				<Italic class="h-5 w-5" />
 			</Button>
 			<Button
@@ -105,7 +129,7 @@
 				<Strikethrough class="h-5 w-5" />
 			</Button>
 
-			<div class="bg-border mx-1 h-6 w-px"></div>
+			<div class="mx-1 h-6 w-px bg-border"></div>
 
 			<Button variant="ghost" onclick={() => onInsertText('> ')} class={btnClass} title="Quote">
 				<Quote class="h-5 w-5" />

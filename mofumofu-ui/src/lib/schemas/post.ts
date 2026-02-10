@@ -12,10 +12,7 @@ export function createPostSchema() {
 			v.string(),
 			v.minLength(1, 'Slug is required.'),
 			v.maxLength(80, 'Slug must be 80 characters or less.'),
-			v.regex(
-				/^[^\s\/\?#\[\]@!$&'()*+,;=]+$/,
-				'Slug contains invalid characters.'
-			)
+			v.regex(/^[^\s\/\?#\[\]@!$&'()*+,;=]+$/, 'Slug contains invalid characters.')
 		),
 		summary: v.optional(
 			v.pipe(v.string(), v.maxLength(500, 'Summary must be 500 characters or less.'))

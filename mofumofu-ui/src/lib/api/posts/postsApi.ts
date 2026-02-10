@@ -78,9 +78,7 @@ export async function updatePost(
 	data: UpdatePostRequest,
 	api: KyInstance = Api
 ): Promise<PostResponse> {
-	return api
-		.patch(`v0/posts/${encodeURIComponent(postId)}`, { json: data })
-		.json<PostResponse>();
+	return api.patch(`v0/posts/${encodeURIComponent(postId)}`, { json: data }).json<PostResponse>();
 }
 
 export async function deletePost(postId: string, api: KyInstance = Api): Promise<void> {

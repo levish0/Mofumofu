@@ -5,11 +5,7 @@
 	import { WriteEditor, WritePreview } from '$lib/components/write';
 	import { processMarkdown } from '$lib/utils/markdown';
 	import { useResizable } from '$lib/hooks/use-resizable.svelte';
-	import {
-		createDraft,
-		getDraft,
-		updateDraft
-	} from '$lib/api/drafts/draftsApi';
+	import { createDraft, getDraft, updateDraft } from '$lib/api/drafts/draftsApi';
 
 	const user = $derived(page.data.user);
 
@@ -77,11 +73,14 @@
 	$effect(() => {
 		if (!user) return;
 
-		autoSaveTimer = setInterval(() => {
-			if (hasUnsavedChanges()) {
-				saveDraft();
-			}
-		}, 5 * 60 * 1000);
+		autoSaveTimer = setInterval(
+			() => {
+				if (hasUnsavedChanges()) {
+					saveDraft();
+				}
+			},
+			5 * 60 * 1000
+		);
 
 		return () => {
 			if (autoSaveTimer) clearInterval(autoSaveTimer);
@@ -132,7 +131,6 @@
 		// Delete draft after publishing if one exists
 		// (handled silently, don't block the redirect)
 	}
-
 </script>
 
 {#if user}

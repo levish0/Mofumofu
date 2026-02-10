@@ -7,7 +7,13 @@
 	import { toast } from 'svelte-sonner';
 	import { incrementView, deletePost } from '$lib/api/posts';
 	import { useNavbarScroll } from '$lib/hooks/useNavbarScroll.svelte';
-	import { PostHeader, PostTOC, PostDeleteModal, FloatingTOC, FloatingNavigation } from '$lib/components/post/view';
+	import {
+		PostHeader,
+		PostTOC,
+		PostDeleteModal,
+		FloatingTOC,
+		FloatingNavigation
+	} from '$lib/components/post/view';
 	import type { TocItem } from '$lib/api/types';
 
 	const post = $derived(page.data.post);
@@ -95,10 +101,7 @@
 	<meta property="og:title" content="{post.title} - {post.author.display_name}" />
 	<meta property="og:description" content={post.summary || post.title} />
 	<meta property="og:type" content="article" />
-	<meta
-		property="og:url"
-		content="https://mofumofu.ink/@{post.author.handle}/post/{post.slug}"
-	/>
+	<meta property="og:url" content="https://mofumofu.ink/@{post.author.handle}/post/{post.slug}" />
 	<meta
 		property="og:image"
 		content={post.thumbnail_image || 'https://mofumofu.ink/og-default.png'}
@@ -148,7 +151,7 @@
 				/>
 
 				<div
-					class="prose prose-lg mb-12 max-w-none break-keep text-mofu-light-200 wrap-break-word dark:prose-invert dark:text-mofu-dark-200"
+					class="prose prose-lg dark:prose-invert mb-12 max-w-none wrap-break-word break-keep text-mofu-light-200 dark:text-mofu-dark-200"
 				>
 					{@html htmlContent}
 				</div>

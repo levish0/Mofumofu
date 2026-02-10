@@ -25,7 +25,9 @@
 
 <div
 	class="overflow-hidden pt-4 break-all transition-all duration-400 ease-in-out"
-	style="max-height: {showStickyToolbar ? '0px' : '480px'}; opacity: {showStickyToolbar ? '0' : '1'};"
+	style="max-height: {showStickyToolbar ? '0px' : '480px'}; opacity: {showStickyToolbar
+		? '0'
+		: '1'};"
 >
 	<!-- Title -->
 	<div class="mb-6 px-6">

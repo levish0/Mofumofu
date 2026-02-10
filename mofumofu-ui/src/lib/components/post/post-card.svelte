@@ -13,7 +13,7 @@
 {:else}
 	<a
 		href="/@{post.author_handle}/post/{post.slug}"
-		class="flex h-full flex-col overflow-hidden rounded-xl bg-mofu-light-800 transition-all duration-200 hover:-translate-y-1 hover:opacity-75 hover:shadow-lg dark:bg-mofu-dark-800 md:min-h-[300px]"
+		class="flex h-full flex-col overflow-hidden rounded-xl bg-mofu-light-800 transition-all duration-200 hover:-translate-y-1 hover:opacity-75 hover:shadow-lg md:min-h-[300px] dark:bg-mofu-dark-800"
 	>
 		<PostCardImage image={post.thumbnail_image} title={post.title} />
 		<PostCardContent

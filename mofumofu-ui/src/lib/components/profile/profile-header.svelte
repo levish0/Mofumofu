@@ -84,9 +84,7 @@
 							loading="lazy"
 						/>
 					{:else}
-						<div
-							class="h-full w-full bg-gradient-to-r from-blue-400 to-purple-500"
-						></div>
+						<div class="h-full w-full bg-gradient-to-r from-blue-400 to-purple-500"></div>
 					{/if}
 
 					{#if isOwnProfile}

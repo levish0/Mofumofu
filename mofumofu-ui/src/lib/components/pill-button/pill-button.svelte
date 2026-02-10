@@ -25,9 +25,4 @@
 	);
 </script>
 
-<Button
-	bind:ref
-	{variant}
-	class={cn(PILL_BUTTON_CLASS, pillVariant, className)}
-	{...rest}
-/>
+<Button bind:ref {variant} class={cn(PILL_BUTTON_CLASS, pillVariant, className)} {...rest} />

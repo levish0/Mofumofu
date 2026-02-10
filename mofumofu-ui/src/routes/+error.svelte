@@ -6,7 +6,7 @@
 	<h1 class="text-[clamp(3rem,15vw,12rem)] leading-none font-light tracking-tight">
 		{page.status}
 	</h1>
-	<p class="mt-4 text-sm tracking-widest uppercase text-muted-foreground">
+	<p class="mt-4 text-sm tracking-widest text-muted-foreground uppercase">
 		{page.error?.message ?? 'Something went wrong'}
 	</p>
 </div>

@@ -32,11 +32,7 @@
 		<a href="/@{authorHandle}" class="flex items-center gap-2 overflow-hidden">
 			<div class="h-6 w-6 shrink-0 overflow-hidden rounded-full">
 				{#if authorAvatar}
-					<img
-						src={authorAvatar}
-						alt="{authorName}'s avatar"
-						class="h-full w-full object-cover"
-					/>
+					<img src={authorAvatar} alt="{authorName}'s avatar" class="h-full w-full object-cover" />
 				{:else}
 					<span
 						class="flex h-full w-full items-center justify-center bg-mofu-light-700 text-[10px] font-medium text-black dark:bg-mofu-dark-700 dark:text-white"

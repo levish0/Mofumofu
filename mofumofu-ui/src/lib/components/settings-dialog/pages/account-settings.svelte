@@ -366,7 +366,9 @@
 			</FieldSet.Content>
 			<FieldSet.Footer>
 				<div class="flex w-full items-center justify-between">
-					<span class="text-sm text-muted-foreground">Make sure you remember your new password.</span>
+					<span class="text-sm text-muted-foreground"
+						>Make sure you remember your new password.</span
+					>
 					<Button
 						size="sm"
 						variant="outline"

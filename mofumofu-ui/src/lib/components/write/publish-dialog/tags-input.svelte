@@ -50,9 +50,7 @@
 		{:else}
 			<p class="text-xs text-muted-foreground">Click a tag to remove it.</p>
 		{/if}
-		<span
-			class="text-xs {value.length >= 8 ? 'text-destructive' : 'text-muted-foreground'}"
-		>
+		<span class="text-xs {value.length >= 8 ? 'text-destructive' : 'text-muted-foreground'}">
 			{value.length}/8
 		</span>
 	</div>
