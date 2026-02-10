@@ -19,8 +19,7 @@
     "scripts": {
         "lint": "eslint . --cache --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
-        "format": "prettier --check .",
-        "format:fix": "prettier --write .",
+        "fmt": "prettier --write .",
         "clean": "git clean -xdf --exclude=\"/config/**/*\"",
         "clean:dry": "git clean -xdf --exclude=\"/config/**/*\" --dry-run",
         "build": "tsc --project tsconfig.json",
