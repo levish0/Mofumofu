@@ -5,7 +5,8 @@
       "Bash(cargo check:*)",
       "Bash(cat:*)",
       "Bash(cd:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(test:*)"
     ]
   }
 }
