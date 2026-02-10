@@ -15,7 +15,10 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
-		"gen": "wrangler types"
+		"unlighthouse:dev": "pnpm dlx unlighthouse --site http://localhost:5173",
+		"unlighthouse:preview": "pnpm dlx unlighthouse --site http://localhost:8787",
+		"gen": "wrangler types",
+		"generate:api": "openapi-typescript swagger.json -o src/lib/api/generated.d.ts"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
@@ -36,6 +39,8 @@
 		"eslint-plugin-svelte": "^3.14.0",
 		"globals": "^17.3.0",
 		"jsrepo": "^3.2.1",
+		"ky": "^1.14.3",
+		"openapi-typescript": "^7.12.0",
 		"playwright": "^1.58.1",
 		"prettier": "^3.8.1",
 		"prettier-plugin-svelte": "^3.4.1",
@@ -43,6 +48,7 @@
 		"runed": "^0.37.1",
 		"svelte": "^5.49.2",
 		"svelte-check": "^4.3.6",
+		"svelte-hero-icons": "^5.2.0",
 		"svelte-sonner": "^1.0.7",
 		"svelte-toolbelt": "^0.10.6",
 		"tailwind-merge": "^3.4.0",

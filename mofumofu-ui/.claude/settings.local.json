@@ -1,4 +1,11 @@
 {
-	"enabledMcpjsonServers": ["svelte"],
-	"enableAllProjectMcpServers": true
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "svelte"
+  ],
+  "permissions": {
+    "allow": [
+      "Bash(xargs -I {} sh -c 'echo \"\"=== {} ===\"\" && head -5 \"\"{}\"\"')"
+    ]
+  }
 }
