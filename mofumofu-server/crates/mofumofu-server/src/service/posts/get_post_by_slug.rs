@@ -3,7 +3,7 @@ use crate::repository::posts::repository_find_post_by_user_id_and_slug;
 use crate::repository::user::repository_find_user_by_handle;
 use crate::utils::r2_url::build_r2_public_url;
 use crate::utils::redis_cache::{get_json_compressed, set_json_compressed};
-use mofumofu_constants::{post_render_key, POST_RENDER_CACHE_TTL_SECONDS};
+use mofumofu_constants::{POST_RENDER_CACHE_TTL_SECONDS, post_render_key};
 use mofumofu_dto::posts::{CachedPostRender, PostAuthor, PostResponse};
 use mofumofu_entity::hashtags::Entity as HashtagEntity;
 use mofumofu_errors::errors::{Errors, ServiceResult};
@@ -41,34 +41,30 @@ pub async fn service_get_post_by_slug(
 
     // Try cache for rendered content
     let cache_key = post_render_key(post.id);
-    let (render, toc) =
-        match get_json_compressed::<CachedPostRender>(redis_cache, &cache_key).await {
-            Ok(Some(cached)) => (Some(cached.render), Some(cached.toc)),
-            _ => {
-                // Cache miss — use DB values and cache them for next time
-                if let (Some(render), Some(toc)) = (&post.render, &post.toc) {
-                    let cached = CachedPostRender {
-                        render: render.clone(),
-                        toc: toc.clone(),
-                    };
-                    if let Err(e) = set_json_compressed(
-                        redis_cache,
-                        &cache_key,
-                        &cached,
-                        POST_RENDER_CACHE_TTL_SECONDS,
-                    )
-                    .await
-                    {
-                        tracing::warn!(
-                            "Failed to backfill render cache for {}: {:?}",
-                            post.id,
-                            e
-                        );
-                    }
+    let (render, toc) = match get_json_compressed::<CachedPostRender>(redis_cache, &cache_key).await
+    {
+        Ok(Some(cached)) => (Some(cached.render), Some(cached.toc)),
+        _ => {
+            // Cache miss — use DB values and cache them for next time
+            if let (Some(render), Some(toc)) = (&post.render, &post.toc) {
+                let cached = CachedPostRender {
+                    render: render.clone(),
+                    toc: toc.clone(),
+                };
+                if let Err(e) = set_json_compressed(
+                    redis_cache,
+                    &cache_key,
+                    &cached,
+                    POST_RENDER_CACHE_TTL_SECONDS,
+                )
+                .await
+                {
+                    tracing::warn!("Failed to backfill render cache for {}: {:?}", post.id, e);
                 }
-                (post.render.clone(), post.toc.clone())
             }
-        };
+            (post.render.clone(), post.toc.clone())
+        }
+    };
 
     Ok(PostResponse {
         id: post.id,

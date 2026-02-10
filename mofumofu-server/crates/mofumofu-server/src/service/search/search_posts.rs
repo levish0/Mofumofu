@@ -114,7 +114,9 @@ pub async fn service_search_posts(
             };
 
             let created_at = DateTime::from_timestamp(p.created_at, 0)?;
-            let published_at = p.published_at.and_then(|ts| DateTime::from_timestamp(ts, 0));
+            let published_at = p
+                .published_at
+                .and_then(|ts| DateTime::from_timestamp(ts, 0));
 
             Some(PostSearchItem {
                 id,

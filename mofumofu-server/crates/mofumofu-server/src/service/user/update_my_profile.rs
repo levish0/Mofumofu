@@ -25,8 +25,14 @@ pub async fn service_update_my_profile(
         handle: updated_user.handle,
         display_name: updated_user.display_name,
         bio: updated_user.bio,
-        profile_image: updated_user.profile_image.as_deref().map(build_r2_public_url),
-        banner_image: updated_user.banner_image.as_deref().map(build_r2_public_url),
+        profile_image: updated_user
+            .profile_image
+            .as_deref()
+            .map(build_r2_public_url),
+        banner_image: updated_user
+            .banner_image
+            .as_deref()
+            .map(build_r2_public_url),
         is_verified: updated_user.verified_at.is_some(),
         created_at: updated_user.created_at,
     })

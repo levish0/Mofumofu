@@ -22,8 +22,12 @@ pub async fn get_post_by_slug(
     State(state): State<AppState>,
     ValidatedQuery(payload): ValidatedQuery<GetPostBySlugRequest>,
 ) -> Result<Json<PostResponse>, Errors> {
-    let response =
-        service_get_post_by_slug(&state.read_db, &state.redis_cache, payload.handle, payload.slug)
-            .await?;
+    let response = service_get_post_by_slug(
+        &state.read_db,
+        &state.redis_cache,
+        payload.handle,
+        payload.slug,
+    )
+    .await?;
     Ok(Json(response))
 }

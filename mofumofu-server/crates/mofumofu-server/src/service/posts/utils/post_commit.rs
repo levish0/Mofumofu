@@ -1,7 +1,7 @@
 use crate::bridge::worker_client::{delete_post_from_index, index_post};
 use crate::state::WorkerClient;
 use crate::utils::redis_cache::{delete_key, set_json_compressed};
-use mofumofu_constants::{post_render_key, POST_RENDER_CACHE_TTL_SECONDS};
+use mofumofu_constants::{POST_RENDER_CACHE_TTL_SECONDS, post_render_key};
 use mofumofu_dto::posts::CachedPostRender;
 use redis::aio::ConnectionManager as RedisClient;
 use serde_json::Value as JsonValue;
@@ -30,8 +30,13 @@ pub async fn post_process_post(
         render: render.to_string(),
         toc: toc.clone(),
     };
-    if let Err(e) =
-        set_json_compressed(redis_cache, &cache_key, &cached, POST_RENDER_CACHE_TTL_SECONDS).await
+    if let Err(e) = set_json_compressed(
+        redis_cache,
+        &cache_key,
+        &cached,
+        POST_RENDER_CACHE_TTL_SECONDS,
+    )
+    .await
     {
         tracing::warn!("Failed to cache post render for {}: {:?}", post_id, e);
     }
