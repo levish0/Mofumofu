@@ -128,9 +128,9 @@
 					class="adsbygoogle"
 					style="display:block"
 					data-ad-client="ca-pub-7400482974214530"
-					data-ad-slot=""
-					data-ad-format="vertical"
-					data-full-width-responsive="false"
+					data-ad-slot="9983314415"
+					data-ad-format="auto"
+					data-full-width-responsive="true"
 				></ins>
 			</div>
 		</div>
