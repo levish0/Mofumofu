@@ -327,6 +327,6 @@ _We believe the internet should be a space for genuine thought and expression._
 _Mofumofu doesn't optimize for engagement metrics or algorithmic reach._
 _It's built for clarity, ownership, and simplicity._
 
-**Made with love by levish (Levi Lim) & Community**
+**Made with love by levish (Levi Laine) & Community**
 
 </div>
