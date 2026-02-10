@@ -61,8 +61,8 @@ async fn handle_reindex_posts(
             .one(db.as_ref())
             .await?;
 
-        let (author_handle, author_display_name) = match user {
-            Some(u) => (u.handle, u.display_name),
+        let (author_handle, author_display_name, author_profile_image) = match user {
+            Some(u) => (u.handle, u.display_name, u.profile_image),
             None => {
                 tracing::warn!(
                     "Skipping post {} — author {} not found",
@@ -93,6 +93,7 @@ async fn handle_reindex_posts(
             &hashtag_names,
             &author_handle,
             &author_display_name,
+            author_profile_image.as_deref(),
         ));
     }
 

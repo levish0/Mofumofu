@@ -28,12 +28,14 @@ pub fn build_post_search_json(
     hashtags: &[String],
     author_handle: &str,
     author_display_name: &str,
+    author_profile_image: Option<&str>,
 ) -> JsonValue {
     json!({
         "id": post.id.to_string(),
         "user_id": post.user_id.to_string(),
         "author_handle": author_handle,
         "author_display_name": author_display_name,
+        "author_profile_image": author_profile_image,
         "title": post.title,
         "summary": post.summary,
         "slug": post.slug,
@@ -64,6 +66,7 @@ fn post_index_settings() -> meilisearch_sdk::settings::Settings {
             "user_id",
             "author_handle",
             "author_display_name",
+            "author_profile_image",
             "title",
             "summary",
             "slug",
@@ -129,8 +132,13 @@ async fn handle_index_post(
                 }
             }
 
-            let search_doc =
-                build_post_search_json(&post, &hashtag_names, &user.handle, &user.display_name);
+            let search_doc = build_post_search_json(
+                &post,
+                &hashtag_names,
+                &user.handle,
+                &user.display_name,
+                user.profile_image.as_deref(),
+            );
 
             index.add_documents(&[search_doc], Some("id")).await?;
             tracing::info!("Post {} indexed successfully", job.post_id);

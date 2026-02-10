@@ -1,4 +1,5 @@
 use crate::connection::MeilisearchClient;
+use chrono::DateTime;
 use mofumofu_dto::search::{
     PostSearchItem, PostSortField, SearchPostsRequest, SearchPostsResponse, SortOrder,
 };
@@ -13,6 +14,7 @@ struct IndexedPost {
     user_id: String,
     author_handle: String,
     author_display_name: String,
+    author_profile_image: Option<String>,
     title: String,
     slug: String,
     summary: Option<String>,
@@ -109,11 +111,16 @@ pub async fn service_search_posts(
                     return None;
                 }
             };
+
+            let created_at = DateTime::from_timestamp(p.created_at, 0)?;
+            let published_at = p.published_at.and_then(|ts| DateTime::from_timestamp(ts, 0));
+
             Some(PostSearchItem {
                 id,
                 user_id,
                 author_handle: p.author_handle,
                 author_display_name: p.author_display_name,
+                author_profile_image: p.author_profile_image,
                 title: p.title,
                 slug: p.slug,
                 summary: p.summary,
@@ -122,8 +129,8 @@ pub async fn service_search_posts(
                 like_count: p.like_count,
                 comment_count: p.comment_count,
                 view_count: p.view_count,
-                published_at: p.published_at,
-                created_at: p.created_at,
+                published_at,
+                created_at,
             })
         })
         .collect();

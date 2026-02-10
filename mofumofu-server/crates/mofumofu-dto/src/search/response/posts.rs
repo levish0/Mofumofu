@@ -1,4 +1,5 @@
 use axum::{Json, http::StatusCode, response::IntoResponse};
+use chrono::{DateTime, Utc};
 use serde::Serialize;
 use utoipa::ToSchema;
 use uuid::Uuid;
@@ -9,6 +10,8 @@ pub struct PostSearchItem {
     pub user_id: Uuid,
     pub author_handle: String,
     pub author_display_name: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub author_profile_image: Option<String>,
     pub title: String,
     pub slug: String,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -19,8 +22,8 @@ pub struct PostSearchItem {
     pub like_count: i32,
     pub comment_count: i32,
     pub view_count: i32,
-    pub published_at: Option<i64>,
-    pub created_at: i64,
+    pub published_at: Option<DateTime<Utc>>,
+    pub created_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Serialize, ToSchema)]
