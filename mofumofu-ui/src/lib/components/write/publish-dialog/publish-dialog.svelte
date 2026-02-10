@@ -10,6 +10,7 @@
 	import { page } from '$app/state';
 	import { toast } from 'svelte-sonner';
 	import { ArrowLeft } from '@lucide/svelte';
+	import Spinner from '$lib/components/ui/spinner/spinner.svelte';
 
 	import TitleInput from './title-input.svelte';
 	import SlugInput from './slug-input.svelte';
@@ -212,9 +213,7 @@
 		aria-modal="true"
 	>
 		<div class="flex flex-col items-center gap-4">
-			<div
-				class="h-12 w-12 animate-spin rounded-full border-4 border-white/30 border-t-white"
-			></div>
+			<Spinner class="size-12 text-white" />
 			<p class="text-lg font-medium text-white">
 				{isEditMode ? 'Updating post...' : 'Publishing post...'}
 			</p>
