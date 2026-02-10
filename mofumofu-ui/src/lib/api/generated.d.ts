@@ -649,6 +649,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v0/posts/by-slug": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["get_post_by_slug"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v0/posts/images": {
         parameters: {
             query?: never;
@@ -727,6 +743,22 @@ export interface paths {
         options?: never;
         head?: never;
         patch: operations["update_report"];
+        trace?: never;
+    };
+    "/v0/search/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["search_posts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
         trace?: never;
     };
     "/v0/search/users": {
@@ -1184,6 +1216,10 @@ export interface components {
             resource_id?: string | null;
             resource_type?: null | components["schemas"]["ModerationResourceType"];
         };
+        GetPostBySlugRequest: {
+            handle: string;
+            slug: string;
+        };
         GetPostsRequest: {
             cursor_direction?: null | components["schemas"]["CursorDirection"];
             /** Format: uuid */
@@ -1370,6 +1406,31 @@ export interface components {
             /** Format: int32 */
             view_count: number;
         };
+        PostSearchItem: {
+            author_display_name: string;
+            author_handle: string;
+            /** Format: int32 */
+            comment_count: number;
+            /** Format: int64 */
+            created_at: number;
+            hashtags: string[];
+            /** Format: uuid */
+            id: string;
+            /** Format: int32 */
+            like_count: number;
+            /** Format: int64 */
+            published_at?: number | null;
+            slug: string;
+            summary?: string | null;
+            thumbnail_image?: string | null;
+            title: string;
+            /** Format: uuid */
+            user_id: string;
+            /** Format: int32 */
+            view_count: number;
+        };
+        /** @enum {string} */
+        PostSortField: "CreatedAt" | "LikeCount" | "ViewCount" | "CommentCount";
         PublicUserProfile: {
             banner_image?: string | null;
             bio?: string | null;
@@ -1430,6 +1491,32 @@ export interface components {
             role: components["schemas"]["UserRole"];
             /** Format: uuid */
             user_id: string;
+        };
+        SearchPostsRequest: {
+            /** Format: int32 */
+            page: number;
+            /** Format: int32 */
+            page_size: number;
+            /** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
+            query?: string | null;
+            sort_by?: null | components["schemas"]["PostSortField"];
+            sort_order?: null | components["schemas"]["SortOrder"];
+            /**
+             * Format: uuid
+             * @description Filter by author user ID
+             */
+            user_id?: string | null;
+        };
+        SearchPostsResponse: {
+            /** Format: int32 */
+            page: number;
+            /** Format: int32 */
+            page_size: number;
+            posts: components["schemas"]["PostSearchItem"][];
+            /** Format: int64 */
+            total_hits: number;
+            /** Format: int32 */
+            total_pages: number;
         };
         SearchUsersRequest: {
             /** Format: int32 */
@@ -3703,6 +3790,50 @@ export interface operations {
             };
         };
     };
+    get_post_by_slug: {
+        parameters: {
+            query: {
+                handle: string;
+                slug: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Post found */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostResponse"];
+                };
+            };
+            /** @description Bad request - Invalid query parameters or validation error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Not Found - User or post does not exist */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     upload_post_image: {
         parameters: {
             query?: never;
@@ -4081,6 +4212,49 @@ export interface operations {
             };
             /** @description Not Found - Report does not exist */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Internal Server Error */
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    search_posts: {
+        parameters: {
+            query: {
+                /** @description Search query for title, summary, author, or hashtags. Empty or omitted returns all posts. */
+                query?: string;
+                /** @description Filter by author user ID */
+                user_id?: string;
+                page: number;
+                page_size: number;
+                sort_by?: components["schemas"]["PostSortField"];
+                sort_order?: components["schemas"]["SortOrder"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Post search results */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SearchPostsResponse"];
+                };
+            };
+            /** @description Bad request - Invalid query parameters or validation error */
+            400: {
                 headers: {
                     [name: string]: unknown;
                 };

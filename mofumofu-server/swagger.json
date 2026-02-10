@@ -2031,6 +2031,53 @@
         ]
       }
     },
+    "/v0/posts/by-slug": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "operationId": "get_post_by_slug",
+        "parameters": [
+          {
+            "name": "handle",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters or validation error"
+          },
+          "404": {
+            "description": "Not Found - User or post does not exist"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/v0/posts/images": {
       "post": {
         "tags": [
@@ -2435,6 +2482,89 @@
             "session_id_cookie": []
           }
         ]
+      }
+    },
+    "/v0/search/posts": {
+      "get": {
+        "tags": [
+          "Search"
+        ],
+        "operationId": "search_posts",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search query for title, summary, author, or hashtags. Empty or omitted returns all posts.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "Filter by author user ID",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/PostSortField"
+            }
+          },
+          {
+            "name": "sort_order",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/SortOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPostsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid query parameters or validation error"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/v0/search/users": {
@@ -3912,6 +4042,21 @@
           }
         }
       },
+      "GetPostBySlugRequest": {
+        "type": "object",
+        "required": [
+          "handle",
+          "slug"
+        ],
+        "properties": {
+          "handle": {
+            "type": "string"
+          },
+          "slug": {
+            "type": "string"
+          }
+        }
+      },
       "GetPostsRequest": {
         "type": "object",
         "required": [
@@ -4527,6 +4672,94 @@
           }
         }
       },
+      "PostSearchItem": {
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "author_handle",
+          "author_display_name",
+          "title",
+          "slug",
+          "hashtags",
+          "like_count",
+          "comment_count",
+          "view_count",
+          "created_at"
+        ],
+        "properties": {
+          "author_display_name": {
+            "type": "string"
+          },
+          "author_handle": {
+            "type": "string"
+          },
+          "comment_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "hashtags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "like_count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "published_at": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "format": "int64"
+          },
+          "slug": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "thumbnail_image": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "view_count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PostSortField": {
+        "type": "string",
+        "enum": [
+          "CreatedAt",
+          "LikeCount",
+          "ViewCount",
+          "CommentCount"
+        ]
+      },
       "PublicUserProfile": {
         "type": "object",
         "required": [
@@ -4752,6 +4985,98 @@
           "user_id": {
             "type": "string",
             "format": "uuid"
+          }
+        }
+      },
+      "SearchPostsRequest": {
+        "type": "object",
+        "required": [
+          "page",
+          "page_size"
+        ],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "query": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Search query for title, summary, author, or hashtags. Empty or omitted returns all posts."
+          },
+          "sort_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PostSortField"
+              }
+            ]
+          },
+          "sort_order": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ]
+          },
+          "user_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Filter by author user ID"
+          }
+        }
+      },
+      "SearchPostsResponse": {
+        "type": "object",
+        "required": [
+          "posts",
+          "page",
+          "page_size",
+          "total_hits",
+          "total_pages"
+        ],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "page_size": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "posts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PostSearchItem"
+            }
+          },
+          "total_hits": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "total_pages": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
           }
         }
       },
