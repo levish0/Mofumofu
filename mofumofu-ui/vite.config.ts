@@ -2,9 +2,18 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()],
+	plugins: [
+		tailwindcss(),
+		sveltekit(),
+		visualizer({
+			filename: 'stats.html',
+			open: true,
+			gzipSize: true
+		})
+	],
 	test: {
 		expect: { requireAssertions: true },
 		projects: [
