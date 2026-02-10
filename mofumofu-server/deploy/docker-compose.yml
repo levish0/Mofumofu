@@ -128,7 +128,7 @@ services:
         max-file: "3"
 
   markdown-service:
-    image: ghcr.io/shiueo/mofumofu-markdown:latest
+    image: ghcr.io/levish0/mofumofu-markdown:latest
     container_name: mofumofu-markdown
     network_mode: host
     restart: unless-stopped
@@ -146,7 +146,7 @@ services:
   # ── Application (Stateless) ────────────────────────────
 
   migration:
-    image: ghcr.io/shiueo/mofumofu:latest
+    image: ghcr.io/levish0/mofumofu:latest
     container_name: mofumofu-migration
     network_mode: host
     restart: "no"
@@ -162,7 +162,7 @@ services:
         max-file: "3"
 
   server:
-    image: ghcr.io/shiueo/mofumofu:latest
+    image: ghcr.io/levish0/mofumofu:latest
     container_name: mofumofu-server
     network_mode: host
     restart: unless-stopped
@@ -191,7 +191,7 @@ services:
         max-file: "3"
 
   worker:
-    image: ghcr.io/shiueo/mofumofu-worker:latest
+    image: ghcr.io/levish0/mofumofu-worker:latest
     container_name: mofumofu-worker
     network_mode: host
     restart: unless-stopped
