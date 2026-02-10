@@ -19,7 +19,7 @@
 	<!-- Theme -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Theme</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<div class="space-y-4">
 					<p class="text-sm text-muted-foreground">Choose how mofumofu looks to you.</p>

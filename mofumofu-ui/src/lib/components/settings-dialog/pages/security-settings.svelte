@@ -166,7 +166,7 @@
 	<!-- TOTP Section -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Two-Factor Authentication</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				{#if totpLoading}
 					<p class="text-sm text-muted-foreground">Loading...</p>
@@ -348,7 +348,7 @@
 	<!-- OAuth Section -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Connected Accounts</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				{#if oauthLoading}
 					<p class="text-sm text-muted-foreground">Loading...</p>

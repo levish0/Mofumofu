@@ -152,7 +152,7 @@
 	<!-- Profile -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Profile</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<ImageCropper.Root
 					bind:src={cropperSrc}
@@ -210,7 +210,7 @@
 	<!-- Basic Info -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Basic Information</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<div class="space-y-4">
 					<div class="grid gap-4 sm:grid-cols-2">
@@ -253,7 +253,7 @@
 	<!-- Email -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Email</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<div class="space-y-4">
 					<p class="text-sm text-muted-foreground">
@@ -307,7 +307,7 @@
 	<!-- Password -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold">Password</h4>
-		<FieldSet.Root>
+		<FieldSet.Root class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<div class="space-y-4">
 					<div class="space-y-2">
@@ -383,7 +383,7 @@
 	<!-- Danger Zone -->
 	<section class="space-y-3">
 		<h4 class="text-base font-semibold text-red-600">Danger Zone</h4>
-		<FieldSet.Root variant="destructive">
+		<FieldSet.Root variant="destructive" class="bg-mofu-light-900 dark:bg-mofu-dark-900">
 			<FieldSet.Content>
 				<div>
 					<p class="font-medium">Delete Account</p>
