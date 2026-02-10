@@ -1,3 +1,4 @@
+use crate::validator::string_validator::validate_not_blank;
 use mofumofu_entity::common::ReportStatus;
 use serde::Deserialize;
 use utoipa::ToSchema;
@@ -11,5 +12,6 @@ pub struct UpdateReportRequest {
         max = 500,
         message = "Reason must be between 1 and 500 characters."
     ))]
+    #[validate(custom(function = "validate_not_blank"))]
     pub reason: Option<String>,
 }

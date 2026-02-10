@@ -6,3 +6,4 @@ export * from './types';
 export * as authApi from './auth';
 export * as userApi from './user';
 export * as postsApi from './posts';
+export * as draftsApi from './drafts';

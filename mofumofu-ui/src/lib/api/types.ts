@@ -50,6 +50,12 @@ export type UpdatePostRequest = components['schemas']['UpdatePostRequest'];
 export type UploadPostImageResponse = components['schemas']['UploadPostImageResponse'];
 export type CursorDirection = components['schemas']['CursorDirection'];
 
+// Draft types
+export type DraftResponse = components['schemas']['DraftResponse'];
+export type DraftListResponse = components['schemas']['DraftListResponse'];
+export type UpdateDraftRequest = components['schemas']['UpdateDraftRequest'];
+export type PublishDraftRequest = components['schemas']['PublishDraftRequest'];
+
 // Discriminated unions for multi-status responses
 export type LoginResult = { kind: 'success' } | { kind: 'totp_required'; temp_token: string };
 

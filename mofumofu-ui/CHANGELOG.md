@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.4] - 2026-02-10
+
+### Added
+
+- Post write editor with split-view layout (editor left, live preview right)
+- Markdown processing pipeline matching server's unified setup (14 plugins: remark-parse, remark-gfm, remark-breaks, remark-math, remark-emoji, remark-github-blockquote-alert, remark-rehype, rehype-raw, rehype-katex, rehype-highlight, rehype-slug, tocPlugin, rehype-sanitize, rehype-stringify)
+- Markdown utility split into `processor.ts`, `toc.ts`, and `sanitize-schema.ts` mirroring server structure
+- Write toolbar with formatting buttons (H1-H4, bold, italic, strikethrough, quote, link, image upload, math, code)
+- Image upload in toolbar with 8MB limit via `uploadPostImage` API
+- Collapsible header section with title input (80 char limit) and tag input using shadcn TagsInput component (max 8 tags)
+- Resizable split-pane with drag handle for desktop, editor/preview toggle switch for mobile
+- Live markdown preview with dynamic highlight.js theme switching (night-owl dark, atom-one-light light)
+- Publish dialog with thumbnail upload (FileDropZone, 4MB), title, URL slug (auto-generated), tags, and summary inputs
+- Valibot post validation schema (title 1-80, content 1+, slug 1-80 with URL-safe regex, summary 0-500, tags max 8)
+- Draft API integration (`GET/POST /v0/drafts`, `PATCH/DELETE /v0/drafts/:id`, `POST /v0/drafts/:id/publish`)
+- Auto-save drafts every 5 minutes with manual save button
+- Draft loading from URL parameter (`/write?draft=id`)
+- Server-side auth guard redirecting unauthenticated users to sign-in
+- Fullscreen write layout (no navbar)
+- Global error page (`+error.svelte`)
+- Draft type exports (`DraftResponse`, `DraftListResponse`, `UpdateDraftRequest`, `PublishDraftRequest`)
+
 ## [2.4.0] - 2026-02-10
 
 ### Added
