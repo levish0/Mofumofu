@@ -1,6 +1,6 @@
 import type { KyInstance } from 'ky';
 import { Api } from '../api';
-import type { FollowStatusResponse } from '../types';
+import type { FollowStatusResponse, FollowListResponse, CursorDirection } from '../types';
 
 export async function createFollow(
 	followeeId: string,
@@ -27,4 +27,28 @@ export async function checkFollowStatus(
 	return api
 		.get('v0/follows/status', { searchParams: { followee_id: followeeId } })
 		.json<FollowStatusResponse>();
+}
+
+export async function getFollowers(
+	params: {
+		user_id: string;
+		limit: number;
+		cursor_id?: string;
+		cursor_direction?: CursorDirection;
+	},
+	api: KyInstance = Api
+): Promise<FollowListResponse> {
+	return api.get('v0/follows/followers', { searchParams: params }).json<FollowListResponse>();
+}
+
+export async function getFollowing(
+	params: {
+		user_id: string;
+		limit: number;
+		cursor_id?: string;
+		cursor_direction?: CursorDirection;
+	},
+	api: KyInstance = Api
+): Promise<FollowListResponse> {
+	return api.get('v0/follows/following', { searchParams: params }).json<FollowListResponse>();
 }

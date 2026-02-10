@@ -59,11 +59,11 @@
 {#if isLoading}
 	<div class="h-9 w-20 animate-pulse rounded-full bg-mofu-light-700 dark:bg-mofu-dark-700"></div>
 {:else}
-	<Button
+	<PillButton
 		onclick={handleToggle}
 		disabled={isSubmitting}
 		variant={isFollowing ? 'outline' : 'default'}
-		class="px-4 {isFollowing ? 'bg-transparent' : ''}"
+		class="px-4"
 	>
 		{#if isSubmitting}
 			...
@@ -74,5 +74,5 @@
 		{:else}
 			Follow
 		{/if}
-	</Button>
+	</PillButton>
 {/if}

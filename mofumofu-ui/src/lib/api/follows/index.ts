@@ -1,1 +1,7 @@
-export { createFollow, deleteFollow, checkFollowStatus } from './followsApi';
+export {
+	createFollow,
+	deleteFollow,
+	checkFollowStatus,
+	getFollowers,
+	getFollowing
+} from './followsApi';

@@ -4,9 +4,11 @@
 
 	interface Props {
 		profile: PublicUserProfile;
+		onViewChange?: (view: 'posts' | 'followers' | 'following') => void;
+		activeView?: 'posts' | 'followers' | 'following';
 	}
 
-	const { profile }: Props = $props();
+	const { profile, onViewChange, activeView = 'posts' }: Props = $props();
 
 	function formatJoinDate(createdAt: string): string {
 		const date = new Date(createdAt);
@@ -43,18 +45,24 @@
 
 		<!-- Stats -->
 		<div class="flex items-center space-x-4 text-sm">
-			<div>
+			<button
+				onclick={() => onViewChange?.('following')}
+				class="hover:underline {activeView === 'following' ? 'underline' : ''}"
+			>
 				<span class="font-bold text-gray-900 dark:text-white">
 					{profile.following_count.toLocaleString()}
 				</span>
 				<span class="ml-1 text-mofu-light-300 dark:text-mofu-dark-300">Following</span>
-			</div>
-			<div>
+			</button>
+			<button
+				onclick={() => onViewChange?.('followers')}
+				class="hover:underline {activeView === 'followers' ? 'underline' : ''}"
+			>
 				<span class="font-bold text-gray-900 dark:text-white">
 					{profile.follower_count.toLocaleString()}
 				</span>
 				<span class="ml-1 text-mofu-light-300 dark:text-mofu-dark-300">Followers</span>
-			</div>
+			</button>
 		</div>
 	</div>
 </div>

@@ -58,6 +58,8 @@ export type LikeTargetType = components['schemas']['LikeTargetType'];
 // Follow types
 export type FollowRequest = components['schemas']['FollowRequest'];
 export type FollowStatusResponse = components['schemas']['FollowStatusResponse'];
+export type FollowListResponse = components['schemas']['FollowListResponse'];
+export type FollowUserItem = components['schemas']['FollowUserItem'];
 
 // TOC item (server returns as JSON array, typed as Record in OpenAPI)
 export interface TocItem {
