@@ -5,7 +5,6 @@
 		Clock,
 		Bell,
 		MagnifyingGlass,
-		ChevronDown,
 		User,
 		ArrowRightOnRectangle,
 		DocumentText,
@@ -100,34 +99,23 @@
 				<!-- Profile dropdown -->
 				<div class="relative" bind:this={dropdownEl}>
 					<button
-						class="flex h-9 items-center space-x-1 rounded-lg"
+						class="h-9 w-9 overflow-hidden rounded-full"
 						aria-label="profile menu"
 						onclick={() => (dropdownOpen = !dropdownOpen)}
 					>
-						<div class="h-9 w-9 overflow-hidden rounded-full">
-							{#if user.profile_image}
-								<img
-									src={user.profile_image}
-									alt="{user.handle}'s profile"
-									class="h-full w-full object-cover"
-								/>
-							{:else}
-								<span
-									class="flex h-full w-full items-center justify-center bg-mofu-light-700 text-sm font-medium text-black dark:bg-mofu-dark-700 dark:text-white"
-								>
-									{user.handle.charAt(0).toUpperCase()}
-								</span>
-							{/if}
-						</div>
-						<Icon
-							src={ChevronDown}
-							solid
-							size="14"
-							class={cn(
-								'text-black transition-transform dark:text-white',
-								dropdownOpen && 'rotate-180'
-							)}
-						/>
+						{#if user.profile_image}
+							<img
+								src={user.profile_image}
+								alt="{user.handle}'s profile"
+								class="h-full w-full object-cover"
+							/>
+						{:else}
+							<span
+								class="flex h-full w-full items-center justify-center bg-mofu-light-700 text-sm font-medium text-black dark:bg-mofu-dark-700 dark:text-white"
+							>
+								{user.handle.charAt(0).toUpperCase()}
+							</span>
+						{/if}
 					</button>
 
 					{#if dropdownOpen}

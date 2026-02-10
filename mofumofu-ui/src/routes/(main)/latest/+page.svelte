@@ -17,7 +17,7 @@
 			const res = await searchPosts({
 				page: pageNum,
 				page_size: PAGE_SIZE,
-				sort_by: 'LikeCount',
+				sort_by: 'CreatedAt',
 				sort_order: 'Desc'
 			});
 			posts = pageNum === 1 ? res.posts : [...posts, ...res.posts];

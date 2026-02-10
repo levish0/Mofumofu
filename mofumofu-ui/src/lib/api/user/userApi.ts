@@ -61,7 +61,7 @@ export async function uploadProfileImage(
 	return api
 		.post('v0/user/me/profile-image', {
 			body: formData,
-			headers: { 'Content-Type': undefined as unknown as string }
+			headers: { 'Content-Type': undefined! }
 		})
 		.json<UploadUserImageResponse>();
 }
@@ -79,7 +79,7 @@ export async function uploadBannerImage(
 	return api
 		.post('v0/user/me/banner-image', {
 			body: formData,
-			headers: { 'Content-Type': undefined as unknown as string }
+			headers: { 'Content-Type': undefined! }
 		})
 		.json<UploadUserImageResponse>();
 }
