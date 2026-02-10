@@ -18,6 +18,8 @@ pub async fn service_get_user_profile_by_id(
         bio: user.bio,
         profile_image: user.profile_image.as_deref().map(build_r2_public_url),
         banner_image: user.banner_image.as_deref().map(build_r2_public_url),
+        follower_count: user.follower_count,
+        following_count: user.following_count,
         is_verified: user.verified_at.is_some(),
         created_at: user.created_at,
     };

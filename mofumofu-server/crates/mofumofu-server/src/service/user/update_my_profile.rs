@@ -33,6 +33,8 @@ pub async fn service_update_my_profile(
             .banner_image
             .as_deref()
             .map(build_r2_public_url),
+        follower_count: updated_user.follower_count,
+        following_count: updated_user.following_count,
         is_verified: updated_user.verified_at.is_some(),
         created_at: updated_user.created_at,
     })
