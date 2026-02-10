@@ -65,6 +65,30 @@ pub async fn set_json_compressed<T: Serialize>(
     Ok(())
 }
 
+/// Check if a key exists in Redis
+pub async fn key_exists(redis_client: &RedisClient, key: &str) -> Result<bool, Errors> {
+    let mut conn = redis_client.clone();
+    conn.exists(key).await.map_err(|e| {
+        Errors::SysInternalError(format!("Redis exists check failed for key '{}': {}", key, e))
+    })
+}
+
+/// Set a simple string value with TTL
+pub async fn set_with_ttl(
+    redis_client: &RedisClient,
+    key: &str,
+    value: &str,
+    ttl_seconds: u64,
+) -> Result<(), Errors> {
+    let mut conn = redis_client.clone();
+    conn.set_ex::<_, _, ()>(key, value, ttl_seconds)
+        .await
+        .map_err(|e| {
+            Errors::SysInternalError(format!("Redis write failed for key '{}': {}", key, e))
+        })?;
+    Ok(())
+}
+
 /// Delete a key from Redis
 pub async fn delete_key(redis_client: &RedisClient, key: &str) -> Result<(), Errors> {
     let mut conn = redis_client.clone();

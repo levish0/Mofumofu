@@ -35,3 +35,15 @@ pub const POST_RENDER_PREFIX: &str = "post:render:";
 pub fn post_render_key(post_id: Uuid) -> String {
     format!("{}{}", POST_RENDER_PREFIX, post_id)
 }
+
+/// View count dedup TTL (1 hour)
+pub const VIEW_DEDUP_TTL_SECONDS: u64 = 3600;
+
+/// View dedup key prefix
+/// Format: "view:{post_id}:{anonymous_user_id}"
+pub const VIEW_DEDUP_PREFIX: &str = "view:";
+
+/// Generate view dedup key
+pub fn view_dedup_key(post_id: Uuid, anonymous_user_id: &str) -> String {
+    format!("{}{}:{}", VIEW_DEDUP_PREFIX, post_id, anonymous_user_id)
+}

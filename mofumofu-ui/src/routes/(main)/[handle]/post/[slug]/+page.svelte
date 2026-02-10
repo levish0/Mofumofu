@@ -19,7 +19,7 @@
 	const tocItems = $derived((post.toc as TocItem[] | null) ?? []);
 
 	const { isVisible } = useNavbarScroll();
-	const topPosition = $derived(isVisible() ? '68px' : '8px');
+	const topPosition = $derived(isVisible() ? '140px' : '80px');
 
 	let isDeleteModalOpen = $state(false);
 	let isDeleting = $state(false);

@@ -15,7 +15,7 @@
 			<h3 class="mb-2 text-lg font-semibold text-mofu-light-200 dark:text-mofu-dark-200">
 				Table of Contents
 			</h3>
-			<nav class="max-h-[80vh] space-y-2 overflow-y-auto">
+			<nav class="max-h-[70vh] space-y-2 overflow-y-auto">
 				{#each tocItems as item}
 					<a
 						href="#{item.id}"
