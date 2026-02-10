@@ -69,7 +69,10 @@ pub async fn set_json_compressed<T: Serialize>(
 pub async fn key_exists(redis_client: &RedisClient, key: &str) -> Result<bool, Errors> {
     let mut conn = redis_client.clone();
     conn.exists(key).await.map_err(|e| {
-        Errors::SysInternalError(format!("Redis exists check failed for key '{}': {}", key, e))
+        Errors::SysInternalError(format!(
+            "Redis exists check failed for key '{}': {}",
+            key, e
+        ))
     })
 }
 

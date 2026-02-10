@@ -1,5 +1,7 @@
+use crate::middleware::anonymous_user::AnonymousUserContext;
 use crate::service::posts::service_increment_post_view;
 use crate::state::AppState;
+use axum::Extension;
 use axum::extract::State;
 use axum::http::StatusCode;
 use mofumofu_dto::posts::PostIdPath;
@@ -20,8 +22,15 @@ use mofumofu_errors::errors::Errors;
 )]
 pub async fn increment_view(
     State(state): State<AppState>,
+    Extension(anon): Extension<AnonymousUserContext>,
     ValidatedPath(path): ValidatedPath<PostIdPath>,
 ) -> Result<StatusCode, Errors> {
-    service_increment_post_view(&state.write_db, path.post_id).await?;
+    service_increment_post_view(
+        &state.write_db,
+        &state.redis_cache,
+        path.post_id,
+        &anon.anonymous_user_id,
+    )
+    .await?;
     Ok(StatusCode::NO_CONTENT)
 }
