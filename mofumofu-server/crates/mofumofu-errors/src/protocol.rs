@@ -40,10 +40,36 @@ pub mod post {
 
 pub mod draft {
     pub const DRAFT_NOT_FOUND: &str = "draft:not_found";
+    pub const DRAFT_MISSING_TITLE: &str = "draft:missing_title";
+    pub const DRAFT_MISSING_CONTENT: &str = "draft:missing_content";
 }
 
 pub mod comment {
     pub const COMMENT_NOT_FOUND: &str = "comment:not_found";
+    pub const COMMENT_DEPTH_EXCEEDED: &str = "comment:depth_exceeded";
+    pub const COMMENT_PARENT_NOT_FOUND: &str = "comment:parent_not_found";
+    pub const COMMENT_POST_MISMATCH: &str = "comment:post_mismatch";
+}
+
+pub mod follow {
+    pub const FOLLOW_SELF_FOLLOW: &str = "follow:self_follow";
+    pub const FOLLOW_ALREADY_FOLLOWING: &str = "follow:already_following";
+    pub const FOLLOW_NOT_FOLLOWING: &str = "follow:not_following";
+}
+
+pub mod like {
+    pub const LIKE_ALREADY_LIKED: &str = "like:already_liked";
+    pub const LIKE_NOT_LIKED: &str = "like:not_liked";
+    pub const LIKE_TARGET_NOT_FOUND: &str = "like:target_not_found";
+}
+
+pub mod report {
+    pub const REPORT_NOT_FOUND: &str = "report:not_found";
+    pub const REPORT_ALREADY_EXISTS: &str = "report:already_exists";
+}
+
+pub mod markdown {
+    pub const MARKDOWN_RENDER_FAILED: &str = "markdown:render_failed";
 }
 
 pub mod general {

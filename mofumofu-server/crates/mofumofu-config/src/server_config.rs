@@ -69,6 +69,9 @@ pub struct ServerConfig {
     // NATS (for background job queue)
     pub nats_url: String,
 
+    // Markdown Service
+    pub markdown_service_url: String,
+
     // Meilisearch
     pub meilisearch_host: String,
     pub meilisearch_api_key: Option<String>,
@@ -310,6 +313,10 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
 
         // NATS
         nats_url: env::var("NATS_URL").unwrap_or_else(|_| "nats://localhost:4222".to_string()),
+
+        // Markdown Service
+        markdown_service_url: env::var("MARKDOWN_SERVICE_URL")
+            .unwrap_or_else(|_| "http://markdown-service:6700".to_string()),
 
         // Meilisearch
         meilisearch_host: env::var("MEILISEARCH_HOST")

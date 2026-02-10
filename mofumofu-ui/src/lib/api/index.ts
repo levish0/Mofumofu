@@ -1,3 +1,7 @@
 export { Api, createServerApi } from './api';
 
 export { ApiError, isApiError, toApiError, type ErrorResponse } from './errors';
+
+export * from './types';
+export * as authApi from './auth';
+export * as userApi from './user';

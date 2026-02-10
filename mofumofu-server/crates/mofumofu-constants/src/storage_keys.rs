@@ -9,7 +9,18 @@ pub const PROFILE_IMAGE_MAX_SIZE: usize = 4 * 1024 * 1024;
 /// Maximum size for banner images (8MB)
 pub const BANNER_IMAGE_MAX_SIZE: usize = 8 * 1024 * 1024;
 
+/// Prefix for post content images
+pub const POST_IMAGES_PREFIX: &str = "post-images";
+
+/// Maximum size for post images (8MB)
+pub const POST_IMAGE_MAX_SIZE: usize = 8 * 1024 * 1024;
+
 /// Generate storage key for user images (profile/banner)
 pub fn user_image_key(hash: &str, extension: &str) -> String {
     format!("{}/{}.{}", USER_IMAGES_PREFIX, hash, extension)
+}
+
+/// Generate storage key for post content images
+pub fn post_image_key(hash: &str, extension: &str) -> String {
+    format!("{}/{}.{}", POST_IMAGES_PREFIX, hash, extension)
 }

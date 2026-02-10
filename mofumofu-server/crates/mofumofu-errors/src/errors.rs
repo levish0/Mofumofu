@@ -1,8 +1,9 @@
 use crate::handlers::{
     comment_handler, draft_handler, email_handler, eventstream_handler, file_handler,
-    general_handler, meilisearch_handler, oauth_handler, password_handler, post_handler,
-    rate_limit_handler, session_handler, system_handler, token_handler, totp_handler,
-    turnstile_handler, user_handler, worker_handler,
+    follow_handler, general_handler, like_handler, markdown_handler, meilisearch_handler,
+    oauth_handler, password_handler, post_handler, rate_limit_handler, report_handler,
+    session_handler, system_handler, token_handler, totp_handler, turnstile_handler, user_handler,
+    worker_handler,
 };
 use axum::Json;
 use axum::http::StatusCode;
@@ -90,13 +91,31 @@ pub enum Errors {
 
     // Draft
     DraftNotFound,
+    DraftMissingTitle,
+    DraftMissingContent,
 
     // Comment
     CommentNotFound,
+    CommentDepthExceeded,
+    CommentParentNotFound,
+    CommentPostMismatch,
+
+    // Follow
+    FollowSelfFollow,
+    FollowAlreadyFollowing,
+    FollowNotFollowing,
+
+    // Like
+    LikeAlreadyLiked,
+    LikeNotLiked,
+    LikeTargetNotFound,
 
     // Report
     ReportNotFound,
     ReportAlreadyExists,
+
+    // Markdown
+    MarkdownRenderFailed,
 
     // OAuth
     OauthInvalidAuthUrl,
@@ -190,6 +209,10 @@ impl IntoResponse for Errors {
         post_handler::log_error(&self);
         draft_handler::log_error(&self);
         comment_handler::log_error(&self);
+        follow_handler::log_error(&self);
+        like_handler::log_error(&self);
+        report_handler::log_error(&self);
+        markdown_handler::log_error(&self);
         oauth_handler::log_error(&self);
         session_handler::log_error(&self);
         password_handler::log_error(&self);
@@ -210,6 +233,10 @@ impl IntoResponse for Errors {
             .or_else(|| post_handler::map_response(&self))
             .or_else(|| draft_handler::map_response(&self))
             .or_else(|| comment_handler::map_response(&self))
+            .or_else(|| follow_handler::map_response(&self))
+            .or_else(|| like_handler::map_response(&self))
+            .or_else(|| report_handler::map_response(&self))
+            .or_else(|| markdown_handler::map_response(&self))
             .or_else(|| oauth_handler::map_response(&self))
             .or_else(|| session_handler::map_response(&self))
             .or_else(|| password_handler::map_response(&self))

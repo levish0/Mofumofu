@@ -1,7 +1,17 @@
 mod action_logs;
 mod auth;
+mod comments;
+mod drafts;
+mod follows;
+mod hashtags;
+mod likes;
+mod moderation_logs;
 pub mod openapi;
+mod posts;
+mod reports;
 pub mod routes;
 mod search;
 mod stream;
 mod user;
+mod user_bans;
+mod user_roles;

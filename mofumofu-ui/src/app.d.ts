@@ -1,3 +1,6 @@
+import type { KyInstance } from 'ky';
+import type { UserResponse } from '$lib/api/types';
+
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 declare global {
@@ -6,10 +9,9 @@ declare global {
 		interface Locals {
 			api: KyInstance;
 		}
-
-		// interface Error {}
-		// interface Locals {}
-		// interface PageData {}
+		interface PageData {
+			user: UserResponse | null;
+		}
 		// interface PageState {}
 		// interface Platform {}
 	}

@@ -5,6 +5,96 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.1] - 2025-02-10
+
+### Added
+
+#### Handler / Router Layer (`mofumofu-server`)
+- **posts/**: `create_post` (POST), `get_post` (GET by ID), `get_posts` (GET list), `update_post` (PATCH), `delete_post` (DELETE), `upload_post_image` (POST multipart with `POST_IMAGE_MAX_SIZE` body limit), `increment_view` (POST)
+- **drafts/**: `create_draft` (POST), `get_draft` (GET by ID), `get_drafts` (GET list), `update_draft` (PATCH), `delete_draft` (DELETE), `publish_draft` (POST)
+- **comments/**: `create_comment` (POST), `get_comments` (GET list), `update_comment` (PATCH), `delete_comment` (DELETE)
+- **likes/**: `create_like` (POST), `delete_like` (DELETE), `check_like_status` (GET)
+- **follows/**: `create_follow` (POST), `delete_follow` (DELETE), `check_follow_status` (GET)
+- **hashtags/**: `get_trending` (GET)
+- **reports/**: `create_report` (POST), `get_reports` (GET list), `update_report` (PATCH)
+- **user_roles/**: `grant_role` (POST), `revoke_role` (POST), `get_user_roles` (GET)
+- **user_bans/**: `ban_user` (POST), `unban_user` (POST), `get_user_bans` (GET)
+- **moderation_logs/**: `get_moderation_logs` (GET list)
+- OpenAPI spec (`utoipa`) for all 10 new domain modules, merged into `V0ApiDoc`
+
+#### DTOs (`mofumofu-dto`)
+- **Path extractors**: `PostIdPath`, `DraftIdPath`, `CommentIdPath`, `ReportIdPath`, `UserIdPath` (IntoParams + ToSchema)
+- **Request DTOs**: `RevokeRoleRequest`, `UnbanUserRequest`, `TrendingQuery` (limit 1-50, default 10)
+
+### Changed
+- `LikeRequest`, `FollowRequest`: added `IntoParams` derive (required for query parameter extraction in status check endpoints)
+- `hashtags` module: added `request` submodule
+
+## [2.3.1] - 2025-02-10
+
+### Added
+
+#### Constants (`mofumofu-constants`)
+- `ModerationAction` enum (`user:ban`, `user:unban`, `user:grant_role`, `user:revoke_role`, `report:resolve`, `report:dismiss`, `post:delete`, `comment:delete`) with `as_str()`, `Display`, `FromStr`
+- `POST_IMAGES_PREFIX`, `POST_IMAGE_MAX_SIZE`, `post_image_key()` storage key helpers
+
+#### Error Layer (`mofumofu-errors`)
+- `FollowSelfFollow`, `FollowAlreadyFollowing`, `FollowNotFollowing` error variants + handler
+- `LikeAlreadyLiked`, `LikeNotLiked`, `LikeTargetNotFound` error variants + handler
+- `CommentDepthExceeded`, `CommentParentNotFound`, `CommentPostMismatch` error variants (comment handler expanded)
+- `DraftMissingTitle`, `DraftMissingContent` error variants (draft handler expanded)
+- `MarkdownRenderFailed` error variant + handler
+- `ReportNotFound`, `ReportAlreadyExists` handler
+- `UserAlreadyBanned`, `UserNotBanned`, `UserDoesNotHaveRole`, `UserAlreadyHasRole`, `CannotManageHigherOrEqualRole` handler (user handler expanded)
+- Protocol constants for follow, like, markdown, report modules
+
+#### DTOs (`mofumofu-dto`)
+- **posts/**: `CreatePostRequest`, `GetPostsRequest` (IntoParams), `UpdatePostRequest`, `PostResponse` (`from_model` with hashtag names), `PostListResponse`, `UploadPostImageRequest` (FromMultipart), `UploadPostImageResponse`
+- **drafts/**: `UpdateDraftRequest`, `PublishDraftRequest`, `DraftResponse`, `DraftListResponse`
+- **comments/**: `CreateCommentRequest`, `GetCommentsRequest` (IntoParams), `UpdateCommentRequest`, `CommentResponse`, `CommentListResponse`
+- **likes/**: `LikeRequest`, `LikeStatusResponse`
+- **follows/**: `FollowRequest`, `FollowStatusResponse`
+- **hashtags/**: `HashtagResponse`, `TrendingHashtagsResponse`
+- **reports/**: `CreateReportRequest`, `GetReportsRequest` (IntoParams), `UpdateReportRequest`, `ReportResponse`, `ReportListResponse`
+- **user_roles/**: `GrantRoleRequest`, `UserRoleResponse`
+- **user_bans/**: `BanUserRequest`, `UserBanResponse`
+- **moderation_logs/**: `GetModerationLogsRequest` (IntoParams), `ModerationLogResponse`, `ModerationLogListResponse`
+
+#### Repository (`mofumofu-server`)
+- **posts/**: `increment_view_count`, `increment_like_count`, `decrement_like_count`, `increment_comment_count`, `decrement_comment_count`, `exists/newer`, `exists/older`
+- **comments/**: `increment_like_count`, `decrement_like_count`, `exists/newer`, `exists/older`
+- **hashtags/**: `increment_usage_count`, `decrement_usage_count`, `find_trending`
+- **post_hashtags/**: `delete_all_by_post_id`
+- **user/**: `increment_follower_count`, `decrement_follower_count`, `increment_following_count`, `decrement_following_count`
+- **user_roles/**: `find_highest` (`repository_get_highest_user_role`)
+
+#### Entity (`mofumofu-entity`)
+- `UserRole::priority()` method for role hierarchy comparison
+
+#### Bridge (`mofumofu-server`)
+- `markdown_client::render_markdown` — calls markdown-service `/render` endpoint (camelCase API contract)
+
+#### Config (`mofumofu-config`)
+- `markdown_service_url` field in `ServerConfig`
+
+#### Service Layer (`mofumofu-server`)
+- **posts/**: `create_post`, `get_post`, `get_posts` (cursor pagination), `update_post`, `delete_post`, `increment_view` (Redis dedup), `upload_post_image` (R2)
+- **drafts/**: `create_draft`, `get_draft`, `get_drafts`, `update_draft`, `delete_draft`, `publish_draft` (markdown render + hashtag management)
+- **comments/**: `create_comment` (threaded with depth), `get_comments` (cursor pagination), `update_comment`, `delete_comment` (soft delete + counter decrement)
+- **likes/**: `create_like`, `delete_like` (polymorphic post/comment + counter cache), `check_like_status`
+- **follows/**: `create_follow`, `delete_follow` (follower/following counter cache), `check_follow_status`
+- **hashtags/**: `get_trending_hashtags`
+- **reports/**: `create_report`, `get_reports` (cursor pagination), `update_report` (resolve/dismiss workflow + moderation log)
+- **user_roles/**: `grant_role` (priority ACL: actor vs max(target, new_role)), `revoke_role` (rows_affected check), `get_user_roles`
+- **user_bans/**: `ban_user` (priority ACL), `unban_user` (priority ACL), `get_user_bans`, `check_active_ban`
+- **moderation_logs/**: `get_moderation_logs` (cursor pagination)
+
+### Changed
+- All services use **transaction-first pattern** (TOCTOU safety): `conn.begin()` → reads/checks → writes → `txn.commit()`
+- `repository_create_moderation_log` accepts `ModerationAction` enum instead of raw `String`
+- Ownership checks use `Errors::ForbiddenError` instead of `Errors::UserUnauthorized`
+- External HTTP calls (markdown render) execute before transaction to avoid holding txn during network I/O
+
 ## [2.1.1] - 2025-02-10
 
 ### Added

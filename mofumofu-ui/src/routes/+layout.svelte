@@ -16,7 +16,7 @@
 
 <ModeWatcher defaultMode="dark" />
 <Toaster />
-<div class=" dark:bg-mofu-dark-900 bg-mofu-light-900 min-h-screen max-w-screen font-pretendard">
+<div class=" min-h-screen max-w-screen bg-mofu-light-900 font-pretendard dark:bg-mofu-dark-900">
 	<main>
 		{@render children()}
 	</main>

@@ -14,3 +14,13 @@ pub enum UserRole {
     #[sea_orm(string_value = "admin")]
     Admin,
 }
+
+impl UserRole {
+    pub fn priority(&self) -> u8 {
+        match self {
+            UserRole::User => 1,
+            UserRole::Moderator => 2,
+            UserRole::Admin => 3,
+        }
+    }
+}

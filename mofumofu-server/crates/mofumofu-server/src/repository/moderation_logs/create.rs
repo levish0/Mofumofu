@@ -1,3 +1,4 @@
+use mofumofu_constants::ModerationAction;
 use mofumofu_entity::common::ModerationResourceType;
 use mofumofu_entity::moderation_logs::{
     ActiveModel as ModerationLogActiveModel, Model as ModerationLogModel,
@@ -9,7 +10,7 @@ use uuid::Uuid;
 
 pub async fn repository_create_moderation_log<C>(
     conn: &C,
-    action: String,
+    action: ModerationAction,
     actor_id: Uuid,
     resource_type: ModerationResourceType,
     resource_id: Option<Uuid>,
@@ -21,7 +22,7 @@ where
 {
     let log = ModerationLogActiveModel {
         id: Default::default(),
-        action: Set(action),
+        action: Set(action.as_str().to_string()),
         actor_id: Set(actor_id),
         resource_type: Set(resource_type),
         resource_id: Set(resource_id),

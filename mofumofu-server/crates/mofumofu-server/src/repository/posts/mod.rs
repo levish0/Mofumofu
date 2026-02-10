@@ -1,15 +1,27 @@
 pub mod create;
+pub mod decrement_comment_count;
+pub mod decrement_like_count;
 pub mod delete;
+pub mod exists;
 pub mod find_by_id;
 pub mod find_by_user_id_and_slug;
 pub mod find_list;
 pub mod get_by_id;
+pub mod increment_comment_count;
+pub mod increment_like_count;
+pub mod increment_view_count;
 pub mod update;
 
 pub use create::repository_create_post;
+pub use decrement_comment_count::repository_decrement_post_comment_count;
+pub use decrement_like_count::repository_decrement_post_like_count;
 pub use delete::repository_delete_post;
+pub use exists::*;
 pub use find_by_id::repository_find_post_by_id;
 pub use find_by_user_id_and_slug::repository_find_post_by_user_id_and_slug;
 pub use find_list::{PostFilter, repository_find_posts};
 pub use get_by_id::repository_get_post_by_id;
+pub use increment_comment_count::repository_increment_post_comment_count;
+pub use increment_like_count::repository_increment_post_like_count;
+pub use increment_view_count::repository_increment_post_view_count;
 pub use update::{PostUpdateParams, repository_update_post};

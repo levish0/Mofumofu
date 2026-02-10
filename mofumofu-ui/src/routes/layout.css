@@ -12,6 +12,33 @@
 		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
+@theme {
+	--color-mofu: #fab69a;
+
+	--color-mofu-dark-950: #0c0c0c;
+	--color-mofu-dark-900: #111111;
+	--color-mofu-dark-800: #1e1e1e;
+	--color-mofu-dark-700: #2a2a2a;
+	--color-mofu-dark-600: #3b3b3b;
+	--color-mofu-dark-500: #e4e4e7;
+	--color-mofu-dark-400: #6b6b6b;
+	--color-mofu-dark-300: #9f9fa9;
+	--color-mofu-dark-200: #e1e1e1;
+	--color-mofu-dark-100: #f4f4f5;
+
+	--color-mofu-light-950: #f9f9f9;
+	--color-mofu-light-900: #f2f3f5;
+	--color-mofu-light-800: #e3e5e8;
+	--color-mofu-light-700: #d1d9de;
+	--color-mofu-light-600: #c4cdd5;
+	--color-mofu-light-500: #8e9297;
+	--color-mofu-light-400: #6a7480;
+	--color-mofu-light-300: #4f545c;
+	--color-mofu-light-200: #36393f;
+	--color-mofu-light-100: #2f3136;
+	--color-mofu-light-50: #202225;
+}
+
 :root {
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
@@ -134,6 +161,42 @@
 
 .scrollbar-hidden {
 	scrollbar-width: none;
+}
+
+@utility shimmer {
+	position: relative;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.04);
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -150%;
+		height: 100%;
+		width: 150%;
+		background: linear-gradient(110deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+		animation: shimmer 1.5s infinite;
+	}
+
+	:is(.dark &) {
+		background-color: rgba(255, 255, 255, 0.04);
+
+		&::after {
+			background: linear-gradient(
+				110deg,
+				transparent 0%,
+				rgba(255, 255, 255, 0.1) 50%,
+				transparent 100%
+			);
+		}
+	}
+}
+
+@keyframes shimmer {
+	100% {
+		transform: translateX(100%);
+	}
 }
 
 a,
