@@ -2,9 +2,10 @@ pub mod request;
 pub mod response;
 
 pub use request::{
-    CreatePostRequest, GetPostBySlugRequest, GetPostsRequest, PostIdPath, UpdatePostRequest,
-    UploadPostImageRequest,
+    CreatePostRequest, GetPostBySlugRequest, GetPostFeedRequest, GetPostsRequest, PostIdPath,
+    PostSortOrder, UpdatePostRequest, UploadPostImageRequest,
 };
 pub use response::{
-    CachedPostRender, PostAuthor, PostListResponse, PostResponse, UploadPostImageResponse,
+    CachedPostRender, PostAuthor, PostFeedResponse, PostListResponse, PostResponse,
+    UploadPostImageResponse,
 };

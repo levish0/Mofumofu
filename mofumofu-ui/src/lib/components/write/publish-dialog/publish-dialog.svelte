@@ -205,22 +205,25 @@
 	{isEditMode ? 'Update' : 'Publish'}
 </Button>
 
-<Dialog.Root bind:open={isOpen} onOpenChange={(open) => { if (isLoading) return; isOpen = open; }}>
-	<Dialog.Content class="relative sm:max-w-lg">
-		{#if isLoading}
+{#if isLoading}
+	<div
+		class="pointer-events-auto fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm"
+		role="dialog"
+		aria-modal="true"
+	>
+		<div class="flex flex-col items-center gap-4">
 			<div
-				class="absolute inset-0 z-50 flex items-center justify-center rounded-xl bg-background/80"
-			>
-				<div class="flex flex-col items-center gap-2">
-					<div
-						class="h-8 w-8 animate-spin rounded-full border-2 border-muted-foreground/30 border-t-primary"
-					></div>
-					<span class="text-sm font-medium text-muted-foreground">
-						{isEditMode ? 'Updating...' : 'Publishing...'}
-					</span>
-				</div>
-			</div>
-		{/if}
+				class="h-12 w-12 animate-spin rounded-full border-4 border-white/30 border-t-white"
+			></div>
+			<p class="text-lg font-medium text-white">
+				{isEditMode ? 'Updating post...' : 'Publishing post...'}
+			</p>
+		</div>
+	</div>
+{/if}
+
+<Dialog.Root bind:open={isOpen} onOpenChange={(open) => { if (isLoading) return; isOpen = open; }}>
+	<Dialog.Content class="sm:max-w-lg">
 		<div class="px-2 pt-4">
 			<Dialog.Header class="mb-2 p-0">
 				<Dialog.Title>{isEditMode ? 'Update Post' : 'Publish Post'}</Dialog.Title>
