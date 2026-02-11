@@ -125,15 +125,14 @@
 <div class="min-h-screen pt-2">
 	<div class="mx-auto grid max-w-8xl grid-cols-1 px-4 xl:grid-cols-[minmax(0,240px)_minmax(0,56rem)_minmax(0,240px)]">
 		<!-- Left column: ad space (xl+ only) -->
-		<div class="hidden xl:block">
-			<div class="sticky overflow-hidden pt-4 pr-4" style="top: {topPosition}">
+		<div class="hidden xl:block" style="contain: layout;">
+			<div class="sticky overflow-hidden pt-4 pr-4" style="top: {topPosition}; max-height: calc(100vh - {topPosition});">
 				<ins
 					class="adsbygoogle"
 					style="display:block"
 					data-ad-client="ca-pub-7400482974214530"
 					data-ad-slot="9983314415"
-					data-ad-format="auto"
-					data-full-width-responsive="true"
+					data-ad-format="rectangle"
 				></ins>
 			</div>
 		</div>
