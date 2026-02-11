@@ -126,7 +126,7 @@
 	<div class="mx-auto grid max-w-8xl grid-cols-1 px-4 xl:grid-cols-[minmax(0,240px)_minmax(0,56rem)_minmax(0,240px)]">
 		<!-- Left column: ad space (xl+ only) -->
 		<div class="hidden xl:block" style="contain: layout;">
-			<div class="sticky overflow-hidden pt-4 pr-4" style="top: {topPosition}; max-height: calc(100vh - {topPosition});">
+			<div class="sticky overflow-hidden pt-4 pr-8" style="top: {topPosition}; max-height: calc(100vh - {topPosition});">
 				<ins
 					class="adsbygoogle"
 					style="display:block"
