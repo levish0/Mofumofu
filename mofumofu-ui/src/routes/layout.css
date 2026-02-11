@@ -150,8 +150,9 @@
 	* {
 		@apply border-border outline-ring/50;
 	}
+	html,
 	body {
-		@apply bg-background text-foreground;
+		@apply min-h-screen bg-background text-foreground;
 	}
 }
 
