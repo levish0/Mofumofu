@@ -123,10 +123,10 @@
 </svelte:head>
 
 <div class="min-h-screen pt-2">
-	<div class="grid grid-cols-1 xl:grid-cols-[1fr_minmax(0,56rem)_1fr]">
+	<div class="mx-auto grid max-w-8xl grid-cols-1 px-4 xl:grid-cols-[minmax(0,240px)_minmax(0,56rem)_minmax(0,240px)]">
 		<!-- Left column: ad space (xl+ only) -->
 		<div class="hidden xl:block">
-			<div class="sticky pt-4 pr-4" style="top: {topPosition}">
+			<div class="sticky overflow-hidden pt-4 pr-4" style="top: {topPosition}">
 				<ins
 					class="adsbygoogle"
 					style="display:block"
@@ -139,7 +139,7 @@
 		</div>
 
 		<!-- Center column: post content -->
-		<div class="mx-auto w-full max-w-4xl px-4 pb-40 xl:mx-0 xl:max-w-none">
+		<div class="mx-auto w-full max-w-4xl pb-40 xl:mx-0 xl:max-w-none">
 			<article>
 				<PostHeader
 					{post}
