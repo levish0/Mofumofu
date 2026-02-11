@@ -7,7 +7,8 @@
       "Bash(pnpm check:*)",
       "Bash(npx svelte-check:*)",
       "Bash(find:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "WebFetch(domain:mofumofu.ink)"
     ]
   },
   "enableAllProjectMcpServers": true,

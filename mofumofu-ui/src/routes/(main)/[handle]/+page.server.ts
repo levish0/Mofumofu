@@ -18,7 +18,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 			posts: postsResult.posts,
 			totalPages: postsResult.total_pages
 		};
-	} catch {
+	} catch (e) {
+		console.error('[profile] Failed to load profile:', handle, e);
 		throw error(404, 'Profile not found');
 	}
 };
