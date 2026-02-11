@@ -73,7 +73,7 @@
 	<title>Search - Mofumofu</title>
 </svelte:head>
 
-<div class="mx-auto max-w-8xl px-4 py-6">
+<div class="mx-auto min-h-screen max-w-8xl px-4 py-6">
 	<!-- Search input -->
 	<div class="mx-auto mb-8 max-w-2xl">
 		<div class="relative">
