@@ -1,20 +1,18 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(xargs -I {} sh -c 'echo \"\"=== {} ===\"\" && head -5 \"\"{}\"\"')",
-      "Bash(dir:*)",
-      "Bash(ls:*)",
-      "Bash(pnpm check:*)",
-      "Bash(npx svelte-check:*)",
-      "Bash(find:*)",
-      "mcp__ide__getDiagnostics",
-      "WebFetch(domain:mofumofu.ink)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_evaluate"
-    ]
-  },
-  "enableAllProjectMcpServers": true,
-  "enabledMcpjsonServers": [
-    "svelte"
-  ]
+	"permissions": {
+		"allow": [
+			"Bash(xargs -I {} sh -c 'echo \"\"=== {} ===\"\" && head -5 \"\"{}\"\"')",
+			"Bash(dir:*)",
+			"Bash(ls:*)",
+			"Bash(pnpm check:*)",
+			"Bash(npx svelte-check:*)",
+			"Bash(find:*)",
+			"mcp__ide__getDiagnostics",
+			"WebFetch(domain:mofumofu.ink)",
+			"mcp__playwright__browser_navigate",
+			"mcp__playwright__browser_evaluate"
+		]
+	},
+	"enableAllProjectMcpServers": true,
+	"enabledMcpjsonServers": ["svelte"]
 }

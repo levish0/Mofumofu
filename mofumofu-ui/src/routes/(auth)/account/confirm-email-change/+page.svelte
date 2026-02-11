@@ -41,18 +41,12 @@
 			<p class="text-sm text-muted-foreground">Please wait.</p>
 		{:else if status === 'success'}
 			<h1 class="text-2xl font-bold">Email changed!</h1>
-			<p class="text-sm text-muted-foreground">
-				Your email has been updated successfully.
-			</p>
-			<a href="/" class="text-sm font-medium text-primary hover:underline">
-				Go to home
-			</a>
+			<p class="text-sm text-muted-foreground">Your email has been updated successfully.</p>
+			<a href="/" class="text-sm font-medium text-primary hover:underline"> Go to home </a>
 		{:else}
 			<h1 class="text-2xl font-bold">Confirmation failed</h1>
 			<p class="text-sm text-destructive">{errorMsg}</p>
-			<a href="/" class="text-sm font-medium text-primary hover:underline">
-				Go to home
-			</a>
+			<a href="/" class="text-sm font-medium text-primary hover:underline"> Go to home </a>
 		{/if}
 	</div>
 </div>
