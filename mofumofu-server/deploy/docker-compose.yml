@@ -4,39 +4,11 @@ services:
   postgres:
     image: postgres:18-alpine
     container_name: mofumofu-postgres
-    network_mode: host
     restart: unless-stopped
     env_file: env/postgres.env
     command:
-      - "postgres"
-      - "-c" # NVMe SSD tuning
-      - "shared_buffers=4GB"
       - "-c"
-      - "effective_cache_size=12GB"
-      - "-c"
-      - "work_mem=64MB"
-      - "-c"
-      - "maintenance_work_mem=512MB"
-      - "-c"
-      - "max_connections=200"
-      - "-c"
-      - "random_page_cost=1.1"
-      - "-c"
-      - "effective_io_concurrency=200"
-      - "-c"
-      - "max_wal_size=2GB"
-      - "-c"
-      - "checkpoint_completion_target=0.9"
-      - "-c"
-      - "wal_buffers=64MB"
-      - "-c"
-      - "default_statistics_target=100"
-      - "-c"
-      - "max_parallel_workers_per_gather=4"
-      - "-c"
-      - "max_parallel_workers=8"
-      - "-c"
-      - "max_worker_processes=8"
+      - "max_connections=100"
     volumes:
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
@@ -53,13 +25,12 @@ services:
   redis-session:
     image: redis:8-alpine
     container_name: mofumofu-redis-session
-    network_mode: host
     restart: unless-stopped
-    command: redis-server --port 6379 --appendonly yes --maxmemory 512mb --maxmemory-policy volatile-ttl
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy volatile-ttl
     volumes:
       - redis-session-data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "-p", "6379", "ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -72,7 +43,6 @@ services:
   redis-cache:
     image: redis:8-alpine
     container_name: mofumofu-redis-cache
-    network_mode: host
     restart: unless-stopped
     command: redis-server --port 6380 --maxmemory 1gb --maxmemory-policy allkeys-lru
     volumes:
@@ -91,13 +61,12 @@ services:
   nats:
     image: nats:2.12.4-alpine
     container_name: mofumofu-nats
-    network_mode: host
     restart: unless-stopped
     command: ["--jetstream", "--store_dir=/data", "-m", "8222"]
     volumes:
       - nats-data:/data
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:8222/healthz"]
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8222/healthz"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -110,13 +79,12 @@ services:
   meilisearch:
     image: getmeili/meilisearch:v1.34.3
     container_name: mofumofu-meilisearch
-    network_mode: host
     restart: unless-stopped
     env_file: env/meilisearch.env
     volumes:
       - meili-data:/meili_data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:7700/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -130,10 +98,9 @@ services:
   markdown-service:
     image: ghcr.io/levish0/mofumofu-markdown:latest
     container_name: mofumofu-markdown
-    network_mode: host
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:6700/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:6700/health"]
       interval: 10s
       timeout: 3s
       retries: 5
@@ -146,9 +113,8 @@ services:
   # ── Application (Stateless) ────────────────────────────
 
   migration:
-    image: ghcr.io/levish0/mofumofu:latest
+    image: ghcr.io/levish0/mofumofu-server:latest
     container_name: mofumofu-migration
-    network_mode: host
     restart: "no"
     env_file: env/server.env
     command: ["./migration", "up"]
@@ -162,11 +128,12 @@ services:
         max-file: "3"
 
   server:
-    image: ghcr.io/levish0/mofumofu:latest
+    image: ghcr.io/levish0/mofumofu-server:latest
     container_name: mofumofu-server
-    network_mode: host
     restart: unless-stopped
     env_file: env/server.env
+    ports:
+      - "8000:8000"
     depends_on:
       migration:
         condition: service_completed_successfully
@@ -179,7 +146,7 @@ services:
       meilisearch:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/health-check"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health-check"]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -193,7 +160,6 @@ services:
   worker:
     image: ghcr.io/levish0/mofumofu-worker:latest
     container_name: mofumofu-worker
-    network_mode: host
     restart: unless-stopped
     env_file: env/worker.env
     depends_on:
