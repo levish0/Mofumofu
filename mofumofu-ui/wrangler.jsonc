@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "mofumofu-ui",
+	"name": "mofumofu",
 	"compatibility_date": "2026-02-09",
 	"compatibility_flags": ["nodejs_als", "nodejs_compat"],
 	"main": ".svelte-kit/cloudflare/_worker.js",

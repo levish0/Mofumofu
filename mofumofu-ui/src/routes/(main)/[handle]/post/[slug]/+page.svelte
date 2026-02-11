@@ -132,7 +132,8 @@
 					style="display:block"
 					data-ad-client="ca-pub-7400482974214530"
 					data-ad-slot="9983314415"
-					data-ad-format="rectangle"
+					data-ad-format="auto"
+				data-full-width-responsive="true"
 				></ins>
 			</div>
 		</div>
