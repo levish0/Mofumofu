@@ -5,6 +5,51 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.5.0] - 2025-02-11
+
+### Added
+
+#### View Count Deduplication (`mofumofu-server`)
+- Redis-based view dedup: `view:{post_id}:{anonymous_user_id}` key with 1-hour TTL prevents duplicate view counts from the same visitor
+- `key_exists()` and `set_with_ttl()` utilities in `redis_cache.rs`
+- Cache key constants: `VIEW_DEDUP_PREFIX`, `VIEW_DEDUP_TTL_SECONDS`, `view_dedup_key()` in `mofumofu-constants`
+- Best-effort: Redis failure gracefully falls through to allow the view increment
+
+#### Follower / Following List Endpoints (`mofumofu-server`)
+- `GET /v0/follows/followers` — paginated follower list with V7 cursor pagination (UUID v7)
+- `GET /v0/follows/following` — paginated following list with V7 cursor pagination
+- DTOs: `GetFollowersRequest`, `GetFollowingRequest`, `FollowUserItem` (id, handle, display_name, profile_image, followed_at), `FollowListResponse` (data, has_newer, has_older)
+- Repository: `find_followers`, `find_following`, `exists_newer_follower`, `exists_older_follower`, `exists_newer_following`, `exists_older_following`
+- Service: batch user loading with R2 public URL conversion for profile images
+
+#### Post Feed Endpoint (`mofumofu-server`)
+- `GET /v0/posts/feed` — DB-based browsable post feed with offset pagination and sort options
+- `PostSortOrder` enum: `Latest` (created_at DESC), `Popular` (like_count DESC), `Oldest` (created_at ASC)
+- `PostFeedItem` — lightweight flat DTO (author_handle, author_display_name, author_profile_image as top-level fields) matching `PostSearchItem` structure
+- `PostFeedResponse` with `data`, `page`, `page_size`, `has_more`, `total_count`
+- Separate from MeiliSearch search — uses DB directly to avoid stale counter issues
+
+#### OAuth Profile Image Download (`mofumofu-server`)
+- `download_profile_image.rs` — downloads OAuth provider profile image (Google/GitHub), validates, converts to WebP, uploads to R2
+- On `complete_signup`, external profile image URL is now re-hosted on R2 instead of storing the raw external URL
+- Best-effort: download/upload failure gracefully proceeds without profile image
+
+#### Production Deployment (`deploy/`)
+- `docker-compose.yml` — full production stack with bridge networking: postgres, redis-session (AOF), redis-cache (LRU), nats (JetStream), meilisearch, markdown-service, migration, server, worker
+- `Caddyfile.docker` — reverse proxy config with zstd + gzip compression
+- `env/*.env.example` — example environment files for postgres, meilisearch, server (50+ vars), worker
+- Only the server container exposes port 8000; all inter-service communication uses Docker DNS service names
+
+#### Search Enhancements (`mofumofu-dto`)
+- `published_at_after` filter on `SearchPostsRequest` for time-window based trending queries
+
+### Changed
+- `PublicUserProfile` and `UserResponse` DTOs now include `follower_count` and `following_count` fields
+- `service_increment_post_view` now requires `redis_cache` and `anonymous_user_id` parameters for dedup
+- `service_complete_signup` now requires `http_client` and `r2_client` parameters for OAuth profile image re-hosting
+- `service_get_post` and `service_get_post_by_slug`: `PostAuthor` now builds full R2 public URL for `profile_image` (previously returned raw storage key in some paths)
+- User profile services (`get_my_profile`, `get_user_profile_by_handle`, `get_user_profile_by_id`, `update_my_profile`) updated to return follower/following counts
+
 ## [2.4.7] - 2025-02-10
 
 ### Added

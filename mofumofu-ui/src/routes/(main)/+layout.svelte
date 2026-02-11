@@ -14,7 +14,7 @@
 </script>
 
 <Navbar {isVisible} {isAtTop} onOpenSettings={() => (settingsOpen = true)} />
-<div class="pt-15">
+<div class="min-h-screen bg-mofu-light-900 pt-15 dark:bg-mofu-dark-900">
 	{@render children()}
 </div>
 
