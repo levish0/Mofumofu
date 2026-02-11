@@ -144,6 +144,7 @@
 		try {
 			const { auth_url } =
 				provider === 'google' ? await getGoogleAuthUrl() : await getGithubAuthUrl();
+			sessionStorage.setItem('oauth_link_mode', 'link');
 			window.location.href = auth_url;
 		} catch {
 			toast.error(`Failed to connect to ${provider}.`);
