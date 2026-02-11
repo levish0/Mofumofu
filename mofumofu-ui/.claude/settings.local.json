@@ -8,7 +8,9 @@
       "Bash(npx svelte-check:*)",
       "Bash(find:*)",
       "mcp__ide__getDiagnostics",
-      "WebFetch(domain:mofumofu.ink)"
+      "WebFetch(domain:mofumofu.ink)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_evaluate"
     ]
   },
   "enableAllProjectMcpServers": true,

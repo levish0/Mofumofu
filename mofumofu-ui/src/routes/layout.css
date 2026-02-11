@@ -151,7 +151,7 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-mofu-light-900 text-foreground dark:bg-mofu-dark-900;
 	}
 }
 
