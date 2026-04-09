@@ -1,4 +1,5 @@
 use crate::m20250825_033639_users::Users;
+use crate::m20260209_171658_create_comments::Comments;
 use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
@@ -10,35 +11,35 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Follows::Table)
+                    .table(CommentLikes::Table)
                     .if_not_exists()
                     .col(
-                        ColumnDef::new(Follows::Id)
+                        ColumnDef::new(CommentLikes::Id)
                             .uuid()
                             .not_null()
                             .primary_key()
                             .default(Expr::cust("uuidv7()")),
                     )
-                    .col(ColumnDef::new(Follows::FollowerId).uuid().not_null())
-                    .col(ColumnDef::new(Follows::FolloweeId).uuid().not_null())
+                    .col(ColumnDef::new(CommentLikes::UserId).uuid().not_null())
+                    .col(ColumnDef::new(CommentLikes::CommentId).uuid().not_null())
                     .col(
-                        ColumnDef::new(Follows::CreatedAt)
+                        ColumnDef::new(CommentLikes::CreatedAt)
                             .timestamp_with_time_zone()
                             .not_null()
                             .default(Expr::cust("now()")),
                     )
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk_follows_follower")
-                            .from(Follows::Table, Follows::FollowerId)
+                            .name("fk_comment_likes_user")
+                            .from(CommentLikes::Table, CommentLikes::UserId)
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk_follows_followee")
-                            .from(Follows::Table, Follows::FolloweeId)
-                            .to(Users::Table, Users::Id)
+                            .name("fk_comment_likes_comment")
+                            .from(CommentLikes::Table, CommentLikes::CommentId)
+                            .to(Comments::Table, Comments::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .to_owned(),
@@ -48,10 +49,10 @@ impl MigrationTrait for Migration {
         manager
             .create_index(
                 Index::create()
-                    .name("uq_follows_follower_followee")
-                    .table(Follows::Table)
-                    .col(Follows::FollowerId)
-                    .col(Follows::FolloweeId)
+                    .name("uq_comment_likes_user_comment")
+                    .table(CommentLikes::Table)
+                    .col(CommentLikes::UserId)
+                    .col(CommentLikes::CommentId)
                     .unique()
                     .to_owned(),
             )
@@ -60,10 +61,10 @@ impl MigrationTrait for Migration {
         manager
             .create_index(
                 Index::create()
-                    .name("idx_follows_followee_id_id")
-                    .table(Follows::Table)
-                    .col(Follows::FolloweeId)
-                    .col(Follows::Id)
+                    .name("idx_comment_likes_comment_id_id")
+                    .table(CommentLikes::Table)
+                    .col(CommentLikes::CommentId)
+                    .col(CommentLikes::Id)
                     .to_owned(),
             )
             .await?;
@@ -71,20 +72,11 @@ impl MigrationTrait for Migration {
         manager
             .create_index(
                 Index::create()
-                    .name("idx_follows_follower_id_id")
-                    .table(Follows::Table)
-                    .col(Follows::FollowerId)
-                    .col(Follows::Id)
+                    .name("idx_comment_likes_user_id_id")
+                    .table(CommentLikes::Table)
+                    .col(CommentLikes::UserId)
+                    .col(CommentLikes::Id)
                     .to_owned(),
-            )
-            .await?;
-
-        manager
-            .get_connection()
-            .execute_unprepared(
-                "ALTER TABLE follows
-                 ADD CONSTRAINT chk_follows_no_self_follow
-                 CHECK (follower_id != followee_id)",
             )
             .await?;
 
@@ -93,16 +85,17 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table(Follows::Table).to_owned())
+            .drop_table(Table::drop().table(CommentLikes::Table).to_owned())
             .await
     }
 }
 
 #[derive(DeriveIden)]
-pub enum Follows {
+pub enum CommentLikes {
+    #[sea_orm(iden = "comment_likes")]
     Table,
     Id,
-    FollowerId,
-    FolloweeId,
+    UserId,
+    CommentId,
     CreatedAt,
 }

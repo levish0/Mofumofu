@@ -23,12 +23,6 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Comments::PostId).uuid().not_null())
                     .col(ColumnDef::new(Comments::UserId).uuid().not_null())
                     .col(ColumnDef::new(Comments::ParentId).uuid().null())
-                    .col(
-                        ColumnDef::new(Comments::Depth)
-                            .integer()
-                            .not_null()
-                            .default(0),
-                    )
                     .col(ColumnDef::new(Comments::Content).text().not_null())
                     .col(
                         ColumnDef::new(Comments::LikeCount)
@@ -116,28 +110,6 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        manager
-            .get_connection()
-            .execute_unprepared(
-                "ALTER TABLE comments
-                 ADD CONSTRAINT chk_comments_depth_nonnegative
-                 CHECK (depth >= 0)",
-            )
-            .await?;
-
-        manager
-            .get_connection()
-            .execute_unprepared(
-                "ALTER TABLE comments
-                 ADD CONSTRAINT chk_comments_parent_depth
-                 CHECK (
-                    (parent_id IS NULL AND depth = 0)
-                    OR
-                    (parent_id IS NOT NULL AND depth > 0)
-                 )",
-            )
-            .await?;
-
         Ok(())
     }
 
@@ -155,7 +127,6 @@ pub enum Comments {
     PostId,
     UserId,
     ParentId,
-    Depth,
     Content,
     LikeCount,
     DeletedAt,
