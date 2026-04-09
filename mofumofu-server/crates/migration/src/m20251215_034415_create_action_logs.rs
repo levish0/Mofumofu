@@ -1,8 +1,8 @@
 use crate::common::action::ActionResourceType;
 
+use crate::m20250825_033639_users::Users;
 use sea_orm_migration::prelude::*;
 use strum::IntoEnumIterator;
-use crate::m20250825_033639_users::Users;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;

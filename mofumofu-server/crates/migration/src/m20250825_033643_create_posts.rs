@@ -12,10 +12,7 @@ impl MigrationTrait for Migration {
         let publish_constraint = Cond::any()
             .add(
                 Cond::all()
-                    .add(
-                        Expr::col(Posts::Status)
-                            .eq(Expr::val("draft").as_enum(PostStatus::Table)),
-                    )
+                    .add(Expr::col(Posts::Status).eq(Expr::val("draft").as_enum(PostStatus::Table)))
                     .add(Expr::col(Posts::PublishedAt).is_null()),
             )
             .add(

@@ -296,8 +296,10 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         server_host,
         server_port,
 
-        markdown_service_host: env::var("MARKDOWN_SERVICE_HOST").unwrap_or_else(|_| "127.0.0.1".to_string()),
-        markdown_service_port: env::var("MARKDOWN_SERVICE_PORT").unwrap_or_else(|_| "6700".to_string()),
+        markdown_service_host: env::var("MARKDOWN_SERVICE_HOST")
+            .unwrap_or_else(|_| "127.0.0.1".to_string()),
+        markdown_service_port: env::var("MARKDOWN_SERVICE_PORT")
+            .unwrap_or_else(|_| "6700".to_string()),
 
         // NATS
         nats_url: env::var("NATS_URL").unwrap_or_else(|_| "nats://localhost:4222".to_string()),

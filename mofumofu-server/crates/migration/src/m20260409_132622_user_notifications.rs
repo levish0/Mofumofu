@@ -1,9 +1,9 @@
 use crate::common::notification::NotificationType;
 use crate::m20250825_033639_users::Users;
-use sea_orm_migration::{prelude::*, schema::*};
-use strum::IntoEnumIterator;
 use crate::m20250825_033643_create_posts::Posts;
 use crate::m20260209_171658_create_comments::Comments;
+use sea_orm_migration::{prelude::*, schema::*};
+use strum::IntoEnumIterator;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -17,24 +17,18 @@ impl MigrationTrait for Migration {
             .eq("post")
             .and(Expr::col(UserNotifications::PostId).is_not_null())
             .and(Expr::col(UserNotifications::CommentId).is_null())
-            .or(
-                Expr::col(UserNotifications::NotificationType)
-                    .eq("comment")
-                    .and(Expr::col(UserNotifications::PostId).is_not_null())
-                    .and(Expr::col(UserNotifications::CommentId).is_not_null()),
-            )
-            .or(
-                Expr::col(UserNotifications::NotificationType)
-                    .eq("user")
-                    .and(Expr::col(UserNotifications::PostId).is_null())
-                    .and(Expr::col(UserNotifications::CommentId).is_null()),
-            )
-            .or(
-                Expr::col(UserNotifications::NotificationType)
-                    .eq("system")
-                    .and(Expr::col(UserNotifications::PostId).is_null())
-                    .and(Expr::col(UserNotifications::CommentId).is_null()),
-            );
+            .or(Expr::col(UserNotifications::NotificationType)
+                .eq("comment")
+                .and(Expr::col(UserNotifications::PostId).is_not_null())
+                .and(Expr::col(UserNotifications::CommentId).is_not_null()))
+            .or(Expr::col(UserNotifications::NotificationType)
+                .eq("user")
+                .and(Expr::col(UserNotifications::PostId).is_null())
+                .and(Expr::col(UserNotifications::CommentId).is_null()))
+            .or(Expr::col(UserNotifications::NotificationType)
+                .eq("system")
+                .and(Expr::col(UserNotifications::PostId).is_null())
+                .and(Expr::col(UserNotifications::CommentId).is_null()));
 
         manager
             .create_table(
@@ -64,11 +58,7 @@ impl MigrationTrait for Migration {
                     // notification_type decides which target references must exist.
                     // comment notifications require both post_id and comment_id.
                     .col(ColumnDef::new(UserNotifications::PostId).uuid().null())
-                    .col(
-                        ColumnDef::new(UserNotifications::CommentId)
-                            .uuid()
-                            .null(),
-                    )
+                    .col(ColumnDef::new(UserNotifications::CommentId).uuid().null())
                     // Additional data (optional)
                     .col(
                         ColumnDef::new(UserNotifications::AdditionalData)
