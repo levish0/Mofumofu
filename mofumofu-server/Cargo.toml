@@ -13,12 +13,12 @@ rust-version = "1.93.0"
 [workspace.dependencies]
 # Internal crates
 mofumofu_config = { path = "crates/mofumofu-config" }
-mofumofu_constants = { path = "crates/mofumofu-constants" }
-mofumofu_dto = { path = "crates/mofumofu-dto" }
+# mofumofu_constants = { path = "crates/mofumofu-constants" }
+# mofumofu_dto = { path = "crates/mofumofu-dto" }
 mofumofu_entity = { path = "crates/mofumofu-entity" }
 mofumofu_errors = { path = "crates/mofumofu-errors" }
-mofumofu_worker = { path = "crates/mofumofu-worker" }
-mofumofu_server = { path = "crates/mofumofu-server" }
+# mofumofu_worker = { path = "crates/mofumofu-worker" }
+# mofumofu_server = { path = "crates/mofumofu-server" }
 
 # External dependencies
 tokio = { version = "1.49.0", features = ["full"] }

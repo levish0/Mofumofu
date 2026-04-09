@@ -1,5 +1,5 @@
-use sea_orm_migration::prelude::*;
 use crate::m20250825_033639_users::Users;
+use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
