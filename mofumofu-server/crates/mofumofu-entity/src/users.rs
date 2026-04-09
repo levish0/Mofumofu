@@ -26,9 +26,7 @@ pub struct Model {
     #[sea_orm(column_type = "Text", not_null, unique)]
     pub email: String,
     #[sea_orm(column_type = "Text", nullable)]
-    pub password_hash: Option<String>,
-    #[sea_orm(column_type = "TimestampWithTimeZone", nullable)]
-    pub verified_at: Option<DateTimeUtc>,
+    pub password: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub profile_image: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]

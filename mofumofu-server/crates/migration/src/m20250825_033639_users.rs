@@ -22,12 +22,7 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Users::DisplayName).text().not_null())
                     .col(ColumnDef::new(Users::Bio).text().null())
                     .col(ColumnDef::new(Users::Email).text().not_null().unique_key())
-                    .col(ColumnDef::new(Users::PasswordHash).text().null())
-                    .col(
-                        ColumnDef::new(Users::VerifiedAt)
-                            .timestamp_with_time_zone()
-                            .null(),
-                    )
+                    .col(ColumnDef::new(Users::Password).text().null())
                     .col(ColumnDef::new(Users::ProfileImage).text().null())
                     .col(ColumnDef::new(Users::BannerImage).text().null())
                     .col(ColumnDef::new(Users::TotpSecret).text().null())
@@ -87,10 +82,10 @@ pub enum Users {
     DisplayName,
     Bio,
     Email,
-    PasswordHash,
-    VerifiedAt,
+    Password,
     ProfileImage,
     BannerImage,
+    // TOTP 2FA
     TotpSecret,
     TotpEnabledAt,
     TotpBackupCodes,
