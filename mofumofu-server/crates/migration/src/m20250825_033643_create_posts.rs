@@ -9,6 +9,27 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        let publish_constraint = Cond::any()
+            .add(
+                Cond::all()
+                    .add(
+                        Expr::col(Posts::Status)
+                            .eq(Expr::val("draft").as_enum(PostStatus::Table)),
+                    )
+                    .add(Expr::col(Posts::PublishedAt).is_null()),
+            )
+            .add(
+                Cond::all()
+                    .add(
+                        Expr::col(Posts::Status)
+                            .eq(Expr::val("published").as_enum(PostStatus::Table)),
+                    )
+                    .add(Expr::col(Posts::Title).is_not_null())
+                    .add(Expr::col(Posts::Slug).is_not_null())
+                    .add(Expr::col(Posts::Content).is_not_null())
+                    .add(Expr::col(Posts::PublishedAt).is_not_null()),
+            );
+
         manager
             .create_table(
                 Table::create()
@@ -82,6 +103,7 @@ impl MigrationTrait for Migration {
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
+                    .check(("chk_posts_status_published_at", publish_constraint))
                     .to_owned(),
             )
             .await?;
@@ -111,30 +133,17 @@ impl MigrationTrait for Migration {
             .await?;
 
         manager
-            .get_connection()
-            .execute_unprepared(
-                "ALTER TABLE posts
-                 ADD CONSTRAINT chk_posts_status_published_at
-                 CHECK (
-                    (status = 'draft' AND published_at IS NULL)
-                    OR
-                    (
-                        status = 'published'
-                        AND title IS NOT NULL
-                        AND slug IS NOT NULL
-                        AND content IS NOT NULL
-                        AND published_at IS NOT NULL
+            .create_index(
+                Index::create()
+                    .name("idx_posts_published_at_id_desc")
+                    .table(Posts::Table)
+                    .col((Posts::PublishedAt, IndexOrder::Desc))
+                    .col((Posts::Id, IndexOrder::Desc))
+                    .and_where(
+                        Expr::col(Posts::Status)
+                            .eq(Expr::val("published").as_enum(PostStatus::Table)),
                     )
-                 )",
-            )
-            .await?;
-
-        manager
-            .get_connection()
-            .execute_unprepared(
-                "CREATE INDEX idx_posts_published_feed
-                 ON posts (published_at DESC, id DESC)
-                 WHERE status = 'published'",
+                    .to_owned(),
             )
             .await?;
 

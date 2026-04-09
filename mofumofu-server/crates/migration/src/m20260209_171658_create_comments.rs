@@ -70,7 +70,7 @@ impl MigrationTrait for Migration {
                             .to_tbl(Comments::Table)
                             .to_col(Comments::PostId)
                             .to_col(Comments::Id)
-                            .on_delete(ForeignKeyAction::Cascade),
+                            .on_delete(ForeignKeyAction::NoAction),
                     )
                     .to_owned(),
             )
