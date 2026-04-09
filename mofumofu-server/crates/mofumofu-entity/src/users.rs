@@ -1,32 +1,32 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
+use super::action_logs::Entity as ActionLogsEntity;
+use super::comment_likes::Entity as CommentLikesEntity;
 use super::comments::Entity as CommentsEntity;
-use super::drafts::Entity as DraftsEntity;
-use super::follows::Entity as FollowsEntity;
-use super::likes::Entity as LikesEntity;
 use super::moderation_logs::Entity as ModerationLogsEntity;
+use super::notification_action_preferences::Entity as NotificationActionPreferencesEntity;
+use super::notification_preferences::Entity as NotificationPreferencesEntity;
+use super::post_likes::Entity as PostLikesEntity;
 use super::posts::Entity as PostsEntity;
-use super::reports::Entity as ReportsEntity;
 use super::user_bans::Entity as UserBansEntity;
 use super::user_oauth_connections::Entity as UserOAuthConnectionsEntity;
-use super::user_roles::Entity as UserRolesEntity;
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "users")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: Uuid,
-    #[sea_orm(column_name = "display_name", not_null)]
-    pub display_name: String,
-    #[sea_orm(string_len = 20, not_null, unique)]
+    #[sea_orm(column_type = "Text", not_null, unique)]
     pub handle: String,
-    #[sea_orm(string_len = 200, nullable)]
+    #[sea_orm(column_type = "Text", not_null)]
+    pub display_name: String,
+    #[sea_orm(column_type = "Text", nullable)]
     pub bio: Option<String>,
-    #[sea_orm(string_len = 254, not_null, unique)]
+    #[sea_orm(column_type = "Text", not_null, unique)]
     pub email: String,
     #[sea_orm(column_type = "Text", nullable)]
-    pub password: Option<String>,
+    pub password_hash: Option<String>,
     #[sea_orm(column_type = "TimestampWithTimeZone", nullable)]
     pub verified_at: Option<DateTimeUtc>,
     #[sea_orm(column_type = "Text", nullable)]
@@ -45,6 +45,8 @@ pub struct Model {
     pub following_count: i32,
     #[sea_orm(column_type = "TimestampWithTimeZone", not_null)]
     pub created_at: DateTimeUtc,
+    #[sea_orm(column_type = "TimestampWithTimeZone", not_null)]
+    pub updated_at: DateTimeUtc,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -53,22 +55,22 @@ pub enum Relation {
     OAuthConnections,
     #[sea_orm(has_many = "PostsEntity")]
     Posts,
-    #[sea_orm(has_many = "DraftsEntity")]
-    Drafts,
     #[sea_orm(has_many = "CommentsEntity")]
     Comments,
-    #[sea_orm(has_many = "LikesEntity")]
-    Likes,
-    #[sea_orm(has_many = "ModerationLogsEntity")]
-    ModerationLogs,
-    #[sea_orm(has_many = "UserRolesEntity")]
-    UserRoles,
+    #[sea_orm(has_many = "PostLikesEntity")]
+    PostLikes,
+    #[sea_orm(has_many = "CommentLikesEntity")]
+    CommentLikes,
     #[sea_orm(has_many = "UserBansEntity")]
     UserBans,
-    #[sea_orm(has_many = "FollowsEntity")]
-    Follows,
-    #[sea_orm(has_many = "ReportsEntity")]
-    Reports,
+    #[sea_orm(has_many = "ActionLogsEntity")]
+    ActionLogs,
+    #[sea_orm(has_many = "ModerationLogsEntity")]
+    ModerationLogs,
+    #[sea_orm(has_many = "NotificationPreferencesEntity")]
+    NotificationPreferences,
+    #[sea_orm(has_many = "NotificationActionPreferencesEntity")]
+    NotificationActionPreferences,
 }
 
 impl Related<UserOAuthConnectionsEntity> for Entity {
@@ -83,33 +85,21 @@ impl Related<PostsEntity> for Entity {
     }
 }
 
-impl Related<DraftsEntity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Drafts.def()
-    }
-}
-
 impl Related<CommentsEntity> for Entity {
     fn to() -> RelationDef {
         Relation::Comments.def()
     }
 }
 
-impl Related<LikesEntity> for Entity {
+impl Related<PostLikesEntity> for Entity {
     fn to() -> RelationDef {
-        Relation::Likes.def()
+        Relation::PostLikes.def()
     }
 }
 
-impl Related<ModerationLogsEntity> for Entity {
+impl Related<CommentLikesEntity> for Entity {
     fn to() -> RelationDef {
-        Relation::ModerationLogs.def()
-    }
-}
-
-impl Related<UserRolesEntity> for Entity {
-    fn to() -> RelationDef {
-        Relation::UserRoles.def()
+        Relation::CommentLikes.def()
     }
 }
 
@@ -119,15 +109,27 @@ impl Related<UserBansEntity> for Entity {
     }
 }
 
-impl Related<FollowsEntity> for Entity {
+impl Related<ActionLogsEntity> for Entity {
     fn to() -> RelationDef {
-        Relation::Follows.def()
+        Relation::ActionLogs.def()
     }
 }
 
-impl Related<ReportsEntity> for Entity {
+impl Related<ModerationLogsEntity> for Entity {
     fn to() -> RelationDef {
-        Relation::Reports.def()
+        Relation::ModerationLogs.def()
+    }
+}
+
+impl Related<NotificationPreferencesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::NotificationPreferences.def()
+    }
+}
+
+impl Related<NotificationActionPreferencesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::NotificationActionPreferences.def()
     }
 }
 

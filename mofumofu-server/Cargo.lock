@@ -1845,7 +1845,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_config"
-version = "3.0.0"
+version = "3.0.1"
 dependencies = [
  "axum",
  "dotenvy",
@@ -1854,7 +1854,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_entity"
-version = "3.0.0"
+version = "3.0.1"
 dependencies = [
  "sea-orm",
  "serde",
@@ -1864,7 +1864,7 @@ dependencies = [
 
 [[package]]
 name = "mofumofu_errors"
-version = "3.0.0"
+version = "3.0.1"
 dependencies = [
  "axum",
  "mofumofu_config",

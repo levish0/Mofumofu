@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2026-04-09
+
+### Added
+
+#### Entity (`mofumofu-entity`)
+- Added entity modules for `post_likes`, `comment_likes`, `user_notifications`, `notification_preferences`, and `notification_action_preferences`
+- Added active enums for `post_status` and `notification_type`
+
+### Changed
+
+#### Entity (`mofumofu-entity`)
+- Rebuilt `mofumofu-entity` to match the current migration schema instead of the previous pre-v3 structure
+- Updated `posts` to the unified `status = draft | published` model and removed the old draft-based entity split
+- Updated `comments` to the `parent_id`-only nested reply model and removed the persisted `depth` field
+- Updated `reports` to the nullable three-target foreign key structure (`target_user_id`, `target_post_id`, `target_comment_id`)
+- Updated `user_bans` to the active snapshot model
+- Updated `user_roles`, `user_oauth_connections`, `action_logs`, and `moderation_logs` to match the new column and foreign key definitions
+- Updated entity enum names and values to match the v3 database enums (`user_role`, `user_oauth_provider`, `post_status`, `moderation_resource_type`, `notification_type`)
+
+### Removed
+
+#### Entity (`mofumofu-entity`)
+- Removed legacy entity modules and enum types tied to the old schema, including `drafts`, `likes`, `like_target_type`, and `report_target_type`
+
 ## [3.0.0] - 2026-04-09
 
 ### Added

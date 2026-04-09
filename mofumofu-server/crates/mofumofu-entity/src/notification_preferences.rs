@@ -1,22 +1,21 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::common::LikeTargetType;
-use super::users::Entity as UsersEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
-#[sea_orm(table_name = "likes")]
+#[sea_orm(table_name = "notification_preferences")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: Uuid,
-    #[sea_orm(not_null)]
+    #[sea_orm(not_null, unique)]
     pub user_id: Uuid,
-    #[sea_orm(not_null)]
-    pub target_type: LikeTargetType,
-    #[sea_orm(not_null)]
-    pub target_id: Uuid,
+    #[sea_orm(column_type = "Boolean", not_null)]
+    pub email_enabled: bool,
+    #[sea_orm(column_type = "Boolean", not_null)]
+    pub push_enabled: bool,
     #[sea_orm(column_type = "TimestampWithTimeZone", not_null)]
-    pub created_at: DateTimeUtc,
+    pub updated_at: DateTimeUtc,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -24,7 +23,7 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::UserId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     User,

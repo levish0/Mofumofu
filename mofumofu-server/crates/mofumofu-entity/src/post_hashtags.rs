@@ -1,8 +1,8 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::hashtags::Entity as HashtagsEntity;
-use super::posts::Entity as PostsEntity;
+use super::hashtags::{Column as HashtagsColumn, Entity as HashtagsEntity};
+use super::posts::{Column as PostsColumn, Entity as PostsEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "post_hashtags")]
@@ -18,14 +18,14 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "PostsEntity",
         from = "Column::PostId",
-        to = "super::posts::Column::Id",
+        to = "PostsColumn::Id",
         on_delete = "Cascade"
     )]
     Post,
     #[sea_orm(
         belongs_to = "HashtagsEntity",
         from = "Column::HashtagId",
-        to = "super::hashtags::Column::Id",
+        to = "HashtagsColumn::Id",
         on_delete = "Cascade"
     )]
     Hashtag,

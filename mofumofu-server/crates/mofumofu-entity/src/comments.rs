@@ -1,8 +1,11 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::posts::Entity as PostsEntity;
-use super::users::Entity as UsersEntity;
+use super::comment_likes::Entity as CommentLikesEntity;
+use super::posts::{Column as PostsColumn, Entity as PostsEntity};
+use super::reports::Entity as ReportsEntity;
+use super::user_notifications::Entity as UserNotificationsEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "comments")]
@@ -15,8 +18,6 @@ pub struct Model {
     pub user_id: Uuid,
     #[sea_orm(nullable)]
     pub parent_id: Option<Uuid>,
-    #[sea_orm(not_null)]
-    pub depth: i32,
     #[sea_orm(column_type = "Text", not_null)]
     pub content: String,
     #[sea_orm(not_null)]
@@ -34,14 +35,14 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "PostsEntity",
         from = "Column::PostId",
-        to = "super::posts::Column::Id",
+        to = "PostsColumn::Id",
         on_delete = "Cascade"
     )]
     Post,
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::UserId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     User,
@@ -49,11 +50,17 @@ pub enum Relation {
         belongs_to = "Entity",
         from = "Column::ParentId",
         to = "Column::Id",
-        on_delete = "Cascade"
+        on_delete = "NoAction"
     )]
     ParentComment,
     #[sea_orm(has_many = "Entity", from = "Column::Id", to = "Column::ParentId")]
     ChildComments,
+    #[sea_orm(has_many = "CommentLikesEntity")]
+    CommentLikes,
+    #[sea_orm(has_many = "ReportsEntity")]
+    Reports,
+    #[sea_orm(has_many = "UserNotificationsEntity")]
+    UserNotifications,
 }
 
 impl Related<PostsEntity> for Entity {
@@ -71,6 +78,24 @@ impl Related<UsersEntity> for Entity {
 impl Related<Entity> for Entity {
     fn to() -> RelationDef {
         Relation::ParentComment.def()
+    }
+}
+
+impl Related<CommentLikesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::CommentLikes.def()
+    }
+}
+
+impl Related<ReportsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Reports.def()
+    }
+}
+
+impl Related<UserNotificationsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::UserNotifications.def()
     }
 }
 
