@@ -1,7 +1,8 @@
-use crate::common::UserRole;
-use crate::m20250825_033639_users::Users;
+use crate::common::Role;
+
 use sea_orm_migration::prelude::*;
 use strum::IntoEnumIterator;
+use crate::m20250825_033639_users::Users;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -25,20 +26,23 @@ impl MigrationTrait for Migration {
                     .col(
                         ColumnDef::new(UserRoles::Role)
                             .enumeration(
-                                UserRole::Table,
-                                UserRole::iter()
-                                    .filter(|v| !matches!(v, UserRole::Table))
+                                Role::Table,
+                                Role::iter()
+                                    .filter(|p| !matches!(p, Role::Table))
                                     .collect::<Vec<_>>(),
                             )
-                            .not_null()
-                            .default(Expr::cust("'user'::user_role")),
+                            .not_null(),
                     )
-                    .col(ColumnDef::new(UserRoles::GrantedBy).uuid().null())
                     .col(
-                        ColumnDef::new(UserRoles::CreatedAt)
+                        ColumnDef::new(UserRoles::GrantedAt)
                             .timestamp_with_time_zone()
                             .not_null()
                             .default(Expr::cust("now()")),
+                    )
+                    .col(
+                        ColumnDef::new(UserRoles::ExpiresAt)
+                            .timestamp_with_time_zone()
+                            .null(),
                     )
                     .foreign_key(
                         ForeignKey::create()
@@ -47,22 +51,14 @@ impl MigrationTrait for Migration {
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
-                    .foreign_key(
-                        ForeignKey::create()
-                            .name("fk_user_roles_granted_by")
-                            .from(UserRoles::Table, UserRoles::GrantedBy)
-                            .to(Users::Table, Users::Id)
-                            .on_delete(ForeignKeyAction::SetNull),
-                    )
                     .to_owned(),
             )
             .await?;
 
-        // Unique: one role per user per type
         manager
             .create_index(
                 Index::create()
-                    .name("uq_user_roles_user_role")
+                    .name("idx_user_roles_user_role_unique")
                     .table(UserRoles::Table)
                     .col(UserRoles::UserId)
                     .col(UserRoles::Role)
@@ -71,18 +67,27 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Index: User's roles
+        // Reverse lookup: find all users with a specific role
         manager
             .create_index(
                 Index::create()
-                    .name("idx_user_roles_user_id")
+                    .name("idx_user_roles_role")
                     .table(UserRoles::Table)
-                    .col(UserRoles::UserId)
+                    .col(UserRoles::Role)
                     .to_owned(),
             )
             .await?;
 
-        Ok(())
+        // Expiration cleanup
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_user_roles_expires_at")
+                    .table(UserRoles::Table)
+                    .col(UserRoles::ExpiresAt)
+                    .to_owned(),
+            )
+            .await
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
@@ -94,11 +99,10 @@ impl MigrationTrait for Migration {
 
 #[derive(DeriveIden)]
 pub enum UserRoles {
-    #[sea_orm(iden = "user_roles")]
     Table,
     Id,
     UserId,
     Role,
-    GrantedBy,
-    CreatedAt,
+    GrantedAt,
+    ExpiresAt,
 }

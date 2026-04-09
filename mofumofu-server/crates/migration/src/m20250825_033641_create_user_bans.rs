@@ -1,5 +1,5 @@
-use crate::m20250825_033639_users::Users;
 use sea_orm_migration::prelude::*;
+use crate::m20250825_033639_users::Users;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -19,14 +19,17 @@ impl MigrationTrait for Migration {
                             .primary_key()
                             .default(Expr::cust("uuidv7()")),
                     )
-                    .col(ColumnDef::new(UserBans::UserId).uuid().not_null())
-                    .col(ColumnDef::new(UserBans::BannedBy).uuid().not_null())
-                    .col(ColumnDef::new(UserBans::Reason).text().not_null())
+                    .col(
+                        ColumnDef::new(UserBans::UserId)
+                            .uuid()
+                            .not_null()
+                            .unique_key(),
+                    )
                     .col(
                         ColumnDef::new(UserBans::ExpiresAt)
                             .timestamp_with_time_zone()
                             .null(),
-                    )
+                    ) // NULL = 영구 차단
                     .col(
                         ColumnDef::new(UserBans::CreatedAt)
                             .timestamp_with_time_zone()
@@ -40,29 +43,11 @@ impl MigrationTrait for Migration {
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
-                    .foreign_key(
-                        ForeignKey::create()
-                            .name("fk_user_bans_banned_by")
-                            .from(UserBans::Table, UserBans::BannedBy)
-                            .to(Users::Table, Users::Id)
-                            .on_delete(ForeignKeyAction::Cascade),
-                    )
                     .to_owned(),
             )
             .await?;
 
-        // Index: User's bans
-        manager
-            .create_index(
-                Index::create()
-                    .name("idx_user_bans_user_id")
-                    .table(UserBans::Table)
-                    .col(UserBans::UserId)
-                    .to_owned(),
-            )
-            .await?;
-
-        // Index: Active bans (expires_at filter)
+        // 만료 시간 조회 (임시 차단 해제용)
         manager
             .create_index(
                 Index::create()
@@ -71,9 +56,7 @@ impl MigrationTrait for Migration {
                     .col(UserBans::ExpiresAt)
                     .to_owned(),
             )
-            .await?;
-
-        Ok(())
+            .await
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
@@ -85,12 +68,9 @@ impl MigrationTrait for Migration {
 
 #[derive(DeriveIden)]
 pub enum UserBans {
-    #[sea_orm(iden = "user_bans")]
     Table,
     Id,
     UserId,
-    BannedBy,
-    Reason,
     ExpiresAt,
     CreatedAt,
 }

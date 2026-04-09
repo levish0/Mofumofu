@@ -1,7 +1,8 @@
 use crate::common::OAuthProvider;
-use crate::m20250825_033639_users::Users;
+
 use sea_orm_migration::prelude::*;
 use strum::IntoEnumIterator;
+use crate::m20250825_033639_users::Users;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -44,7 +45,7 @@ impl MigrationTrait for Migration {
                         ColumnDef::new(UserOAuthConnections::CreatedAt)
                             .timestamp_with_time_zone()
                             .not_null()
-                            .default(Expr::cust("NOW()")),
+                            .default(Expr::cust("now()")),
                     )
                     .foreign_key(
                         ForeignKey::create()
@@ -56,7 +57,6 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // 3. provider + provider_user_id 유니크 제약조건
         manager
             .create_index(
                 Index::create()
@@ -69,7 +69,6 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // 4. user_id + provider 유니크 제약조건 (한 유저당 provider별 하나씩만)
         manager
             .create_index(
                 Index::create()
@@ -82,7 +81,6 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // 5. user_id 인덱스 (유저별 연동된 제공자 조회용)
         manager
             .create_index(
                 Index::create()
