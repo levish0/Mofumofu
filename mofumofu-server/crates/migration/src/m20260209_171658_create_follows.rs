@@ -45,7 +45,6 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Unique: follower + followee
         manager
             .create_index(
                 Index::create()
@@ -58,22 +57,33 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Index: Followee's followers
         manager
             .create_index(
                 Index::create()
-                    .name("idx_follows_followee_id")
+                    .name("idx_follows_followee_id_id")
                     .table(Follows::Table)
                     .col(Follows::FolloweeId)
+                    .col(Follows::Id)
                     .to_owned(),
             )
             .await?;
 
-        // CHECK: cannot follow yourself
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_follows_follower_id_id")
+                    .table(Follows::Table)
+                    .col(Follows::FollowerId)
+                    .col(Follows::Id)
+                    .to_owned(),
+            )
+            .await?;
+
         manager
             .get_connection()
             .execute_unprepared(
-                "ALTER TABLE follows ADD CONSTRAINT chk_follows_no_self_follow \
+                "ALTER TABLE follows
+                 ADD CONSTRAINT chk_follows_no_self_follow
                  CHECK (follower_id != followee_id)",
             )
             .await?;

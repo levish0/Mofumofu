@@ -1,4 +1,4 @@
-use crate::common::UserRole;
+use crate::common::PostStatus;
 use crate::extension::postgres::Type;
 use sea_orm_migration::prelude::*;
 use strum::IntoEnumIterator;
@@ -12,10 +12,10 @@ impl MigrationTrait for Migration {
         manager
             .create_type(
                 Type::create()
-                    .as_enum(UserRole::Table)
+                    .as_enum(PostStatus::Table)
                     .values(
-                        UserRole::iter()
-                            .filter(|p| !matches!(p, UserRole::Table))
+                        PostStatus::iter()
+                            .filter(|v| !matches!(v, PostStatus::Table))
                             .collect::<Vec<_>>(),
                     )
                     .to_owned(),
@@ -25,7 +25,12 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_type(Type::drop().if_exists().name(UserRole::Table).to_owned())
+            .drop_type(
+                Type::drop()
+                    .if_exists()
+                    .name(PostStatus::Table)
+                    .to_owned(),
+            )
             .await
     }
 }

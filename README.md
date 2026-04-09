@@ -7,7 +7,7 @@
 
   *"Mofumofu" (もふもふ) - Japanese for something soft and fluffy*
 
-  [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+  [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
   [![Rust](https://img.shields.io/badge/rust-1.86.0+-orange.svg?logo=rust)](https://www.rust-lang.org/)
   [![Svelte](https://img.shields.io/badge/svelte-5-ff3e00.svg?logo=svelte)](https://svelte.dev)
   [![PostgreSQL](https://img.shields.io/badge/postgresql-18+-blue.svg?logo=postgresql)](https://postgresql.org/)

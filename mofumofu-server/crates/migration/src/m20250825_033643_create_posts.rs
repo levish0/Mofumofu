@@ -1,5 +1,7 @@
+use crate::common::PostStatus;
 use crate::m20250825_033639_users::Users;
 use sea_orm_migration::prelude::*;
+use strum::IntoEnumIterator;
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
@@ -20,11 +22,22 @@ impl MigrationTrait for Migration {
                             .default(Expr::cust("uuidv7()")),
                     )
                     .col(ColumnDef::new(Posts::UserId).uuid().not_null())
-                    .col(ColumnDef::new(Posts::Title).text().not_null())
-                    .col(ColumnDef::new(Posts::Slug).text().not_null())
+                    .col(
+                        ColumnDef::new(Posts::Status)
+                            .enumeration(
+                                PostStatus::Table,
+                                PostStatus::iter()
+                                    .filter(|v| !matches!(v, PostStatus::Table))
+                                    .collect::<Vec<_>>(),
+                            )
+                            .not_null()
+                            .default("draft"),
+                    )
+                    .col(ColumnDef::new(Posts::Title).text().null())
+                    .col(ColumnDef::new(Posts::Slug).text().null())
                     .col(ColumnDef::new(Posts::ThumbnailImage).text().null())
                     .col(ColumnDef::new(Posts::Summary).text().null())
-                    .col(ColumnDef::new(Posts::Content).text().not_null())
+                    .col(ColumnDef::new(Posts::Content).text().null())
                     .col(ColumnDef::new(Posts::Render).text().null())
                     .col(ColumnDef::new(Posts::Toc).json_binary().null())
                     .col(
@@ -73,40 +86,18 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Index: User's posts
         manager
             .create_index(
                 Index::create()
-                    .name("idx_posts_user_id")
+                    .name("idx_posts_user_status_id")
                     .table(Posts::Table)
                     .col(Posts::UserId)
+                    .col(Posts::Status)
+                    .col(Posts::Id)
                     .to_owned(),
             )
             .await?;
 
-        // Index: Slug lookup
-        manager
-            .create_index(
-                Index::create()
-                    .name("idx_posts_slug")
-                    .table(Posts::Table)
-                    .col(Posts::Slug)
-                    .to_owned(),
-            )
-            .await?;
-
-        // Index: Created at (timeline)
-        manager
-            .create_index(
-                Index::create()
-                    .name("idx_posts_created_at")
-                    .table(Posts::Table)
-                    .col(Posts::CreatedAt)
-                    .to_owned(),
-            )
-            .await?;
-
-        // Unique: user_id + slug
         manager
             .create_index(
                 Index::create()
@@ -116,6 +107,34 @@ impl MigrationTrait for Migration {
                     .col(Posts::Slug)
                     .unique()
                     .to_owned(),
+            )
+            .await?;
+
+        manager
+            .get_connection()
+            .execute_unprepared(
+                "ALTER TABLE posts
+                 ADD CONSTRAINT chk_posts_status_published_at
+                 CHECK (
+                    (status = 'draft' AND published_at IS NULL)
+                    OR
+                    (
+                        status = 'published'
+                        AND title IS NOT NULL
+                        AND slug IS NOT NULL
+                        AND content IS NOT NULL
+                        AND published_at IS NOT NULL
+                    )
+                 )",
+            )
+            .await?;
+
+        manager
+            .get_connection()
+            .execute_unprepared(
+                "CREATE INDEX idx_posts_published_feed
+                 ON posts (published_at DESC, id DESC)
+                 WHERE status = 'published'",
             )
             .await?;
 
@@ -134,6 +153,7 @@ pub enum Posts {
     Table,
     Id,
     UserId,
+    Status,
     Title,
     Slug,
     ThumbnailImage,

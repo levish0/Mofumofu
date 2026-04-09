@@ -4,9 +4,11 @@ pub mod report;
 
 mod like_target_type;
 mod oauth_provider;
-mod role;
+mod post_status;
+mod user_role;
 pub mod notification;
 
 pub use like_target_type::LikeTargetType;
 pub use oauth_provider::OAuthProvider;
-pub use role::Role;
+pub use post_status::PostStatus;
+pub use user_role::UserRole;

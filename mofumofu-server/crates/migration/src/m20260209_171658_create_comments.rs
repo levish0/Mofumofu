@@ -1,5 +1,5 @@
 use crate::m20250825_033639_users::Users;
-use crate::m20250825_033642_create_posts::Posts;
+use crate::m20250825_033643_create_posts::Posts;
 use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
@@ -69,27 +69,31 @@ impl MigrationTrait for Migration {
                     )
                     .foreign_key(
                         ForeignKey::create()
-                            .name("fk_comments_parent")
-                            .from(Comments::Table, Comments::ParentId)
-                            .to(Comments::Table, Comments::Id)
+                            .name("fk_comments_parent_same_post")
+                            .from_tbl(Comments::Table)
+                            .from_col(Comments::PostId)
+                            .from_col(Comments::ParentId)
+                            .to_tbl(Comments::Table)
+                            .to_col(Comments::PostId)
+                            .to_col(Comments::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .to_owned(),
             )
             .await?;
 
-        // Index: Post's comments
         manager
             .create_index(
                 Index::create()
-                    .name("idx_comments_post_id")
+                    .name("uq_comments_post_id_id")
                     .table(Comments::Table)
                     .col(Comments::PostId)
+                    .col(Comments::Id)
+                    .unique()
                     .to_owned(),
             )
             .await?;
 
-        // Index: User's comments
         manager
             .create_index(
                 Index::create()
@@ -100,14 +104,37 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Index: Thread replies
         manager
             .create_index(
                 Index::create()
-                    .name("idx_comments_parent_id")
+                    .name("idx_comments_post_parent_id_id")
                     .table(Comments::Table)
+                    .col(Comments::PostId)
                     .col(Comments::ParentId)
+                    .col(Comments::Id)
                     .to_owned(),
+            )
+            .await?;
+
+        manager
+            .get_connection()
+            .execute_unprepared(
+                "ALTER TABLE comments
+                 ADD CONSTRAINT chk_comments_depth_nonnegative
+                 CHECK (depth >= 0)",
+            )
+            .await?;
+
+        manager
+            .get_connection()
+            .execute_unprepared(
+                "ALTER TABLE comments
+                 ADD CONSTRAINT chk_comments_parent_depth
+                 CHECK (
+                    (parent_id IS NULL AND depth = 0)
+                    OR
+                    (parent_id IS NOT NULL AND depth > 0)
+                 )",
             )
             .await?;
 

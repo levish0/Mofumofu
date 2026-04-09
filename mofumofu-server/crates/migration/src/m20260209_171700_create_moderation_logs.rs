@@ -22,7 +22,7 @@ impl MigrationTrait for Migration {
                             .default(Expr::cust("uuidv7()")),
                     )
                     .col(ColumnDef::new(ModerationLogs::Action).text().not_null())
-                    .col(ColumnDef::new(ModerationLogs::ActorId).uuid().not_null())
+                    .col(ColumnDef::new(ModerationLogs::ActorId).uuid().null())
                     .col(
                         ColumnDef::new(ModerationLogs::ResourceType)
                             .enumeration(
@@ -51,24 +51,23 @@ impl MigrationTrait for Migration {
                             .name("fk_moderation_logs_actor")
                             .from(ModerationLogs::Table, ModerationLogs::ActorId)
                             .to(Users::Table, Users::Id)
-                            .on_delete(ForeignKeyAction::Cascade),
+                            .on_delete(ForeignKeyAction::SetNull),
                     )
                     .to_owned(),
             )
             .await?;
 
-        // Index: Actor's moderation actions
         manager
             .create_index(
                 Index::create()
                     .name("idx_moderation_logs_actor_id")
                     .table(ModerationLogs::Table)
                     .col(ModerationLogs::ActorId)
+                    .cond_where(Expr::col(ModerationLogs::ActorId).is_not_null())
                     .to_owned(),
             )
             .await?;
 
-        // Index: Resource lookup
         manager
             .create_index(
                 Index::create()
@@ -76,17 +75,18 @@ impl MigrationTrait for Migration {
                     .table(ModerationLogs::Table)
                     .col(ModerationLogs::ResourceType)
                     .col(ModerationLogs::ResourceId)
+                    .col(ModerationLogs::Id)
                     .to_owned(),
             )
             .await?;
 
-        // Index: Action type filter
         manager
             .create_index(
                 Index::create()
-                    .name("idx_moderation_logs_action")
+                    .name("idx_moderation_logs_action_id")
                     .table(ModerationLogs::Table)
                     .col(ModerationLogs::Action)
+                    .col(ModerationLogs::Id)
                     .to_owned(),
             )
             .await?;

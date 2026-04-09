@@ -44,7 +44,7 @@ impl MigrationTrait for Migration {
                                     .collect::<Vec<_>>(),
                             )
                             .not_null()
-                            .default(Expr::cust("'pending'::report_status")),
+                            .default("pending"),
                     )
                     .col(ColumnDef::new(Reports::ResolvedBy).uuid().null())
                     .col(
