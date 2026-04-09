@@ -60,8 +60,8 @@ pub struct ServerConfig {
     pub server_host: String,
     pub server_port: String,
 
-    pub markdown_service_host: String,
-    pub markdown_service_port: String,
+    pub markdown_renderer_host: String,
+    pub markdown_renderer_port: String,
 
     // NATS (for background job queue)
     pub nats_url: String,
@@ -187,7 +187,6 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
     let r2_secret_access_key = require!("R2_SECRET_ACCESS_KEY");
     let r2_assets_public_domain = require!("R2_ASSETS_PUBLIC_DOMAIN");
     let r2_assets_bucket_name = require!("R2_ASSETS_BUCKET_NAME");
-    let r2_revision_bucket_name = require!("R2_REVISION_BUCKET_NAME");
     let turnstile_secret_key = require!("TURNSTILE_SECRET_KEY");
     let db_host = require!("POSTGRES_HOST");
     let db_port = require!("POSTGRES_PORT");
@@ -296,9 +295,9 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         server_host,
         server_port,
 
-        markdown_service_host: env::var("MARKDOWN_SERVICE_HOST")
+        markdown_renderer_host: env::var("MARKDOWN_RENDERER_HOST")
             .unwrap_or_else(|_| "127.0.0.1".to_string()),
-        markdown_service_port: env::var("MARKDOWN_SERVICE_PORT")
+        markdown_renderer_port: env::var("MARKDOWN_RENDERER_PORT")
             .unwrap_or_else(|_| "6700".to_string()),
 
         // NATS
