@@ -8,6 +8,8 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // Nested replies are modeled only with parent_id.
+        // Reply depth is derived at read time instead of being stored.
         manager
             .create_table(
                 Table::create()
@@ -101,6 +103,8 @@ impl MigrationTrait for Migration {
 
         manager
             .create_foreign_key(
+                // Add the same-post self FK after uq_comments_post_id_id exists.
+                // Postgres requires the referenced columns to already be unique.
                 ForeignKey::create()
                     .name("fk_comments_parent_same_post")
                     .from_tbl(Comments::Table)
@@ -109,6 +113,7 @@ impl MigrationTrait for Migration {
                     .to_tbl(Comments::Table)
                     .to_col(Comments::PostId)
                     .to_col(Comments::Id)
+                    // Keep deleted parent comments as placeholders when replies still exist.
                     .on_delete(ForeignKeyAction::NoAction)
                     .to_owned(),
             )

@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-04-09
+
+### Added
+
+#### Schema (`migration`)
+- **Posts**: Added `post_status` enum and unified draft/published lifecycle into a single `posts` table
+- **Likes**: Added dedicated `post_likes` and `comment_likes` tables with concrete foreign keys
+- **Reports**: Added typed nullable targets (`target_user_id`, `target_post_id`, `target_comment_id`) with an exactly-one-target check constraint
+- **Notifications**: Added target presence constraint for `user_notifications` so each notification type requires the correct target references
+- **Comments**: Added same-post self foreign key on `(post_id, parent_id) -> (post_id, id)` to prevent cross-post reply chains
+
+### Changed
+
+#### Schema (`migration`)
+- **Posts**: Removed separate `drafts` persistence model in favor of `posts.status = draft | published`
+- **Posts**: Draft posts may keep public fields nullable, while published posts must have `title`, `slug`, `content`, and `published_at`
+- **Posts**: Replaced feed index naming with explicit published ordering index `idx_posts_published_at_id_desc`
+- **Comments**: Removed stored `depth`; nested replies are now modeled purely through `parent_id`
+- **Comments**: Parent comment deletion policy changed to `NO ACTION` so deleted parents can remain as placeholders while child replies still exist
+- **Comments**: Same-post parent foreign key is created after the composite unique index so PostgreSQL can validate the self-reference
+- **Follows**: Replaced raw SQL self-follow guard with builder-based check constraint
+- **Reports**: Replaced polymorphic `target_type + target_id` design with concrete nullable foreign keys
+- **Reports**: Clarified queue semantics in schema comments; `reports` is the live moderation queue while `moderation_logs` remains the final audit log
+- **User Bans**: Clarified in schema comments that `user_bans` stores only the active ban snapshot and not ban history
+- **User Notifications**: Comment notifications now explicitly keep both `post_id` and `comment_id` for post-page deep links
+- **Enums**: Renamed enum identifiers to domain-specific names such as `user_role`, `post_status`, and `moderation_resource_type`
+- **Columns**: Standardized schema text fields on `text()` instead of length-limited string columns where validation is handled by DTOs
+- **Constraints**: Removed ad hoc raw SQL / `execute_unprepared` usage where SeaORM builder APIs could express the same schema rules
+
+### Removed
+
+#### Schema (`migration`)
+- **Drafts**: Removed the standalone drafts table from the blog content model
+- **Likes**: Removed the polymorphic likes table and `like_target_type` enum
+- **Reports**: Removed the `report_target_type` enum after switching to concrete nullable target foreign keys
+- **Comments**: Removed the persisted `depth` column and related validation constraints
+- **Constraints**: Removed count-based non-negative CHECK constraints that were intentionally delegated to application-layer validation
+
 ## [2.5.0] - 2025-02-11
 
 ### Added

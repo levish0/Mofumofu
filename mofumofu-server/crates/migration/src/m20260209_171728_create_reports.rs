@@ -11,6 +11,8 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // Reports are a live moderation queue, not the final audit log.
+        // Moderator actions are persisted separately in moderation_logs.
         let target_constraint = Cond::any()
             .add(
                 Cond::all()
@@ -92,6 +94,7 @@ impl MigrationTrait for Migration {
                             .name("fk_reports_target_user")
                             .from(Reports::Table, Reports::TargetUserId)
                             .to(Users::Table, Users::Id)
+                            // If the target disappears by hard delete, the open report is dropped as well.
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .foreign_key(
@@ -99,6 +102,7 @@ impl MigrationTrait for Migration {
                             .name("fk_reports_target_post")
                             .from(Reports::Table, Reports::TargetPostId)
                             .to(Posts::Table, Posts::Id)
+                            // Reports only track currently existing targets.
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .foreign_key(
@@ -106,6 +110,7 @@ impl MigrationTrait for Migration {
                             .name("fk_reports_target_comment")
                             .from(Reports::Table, Reports::TargetCommentId)
                             .to(Comments::Table, Comments::Id)
+                            // Reports only track currently existing targets.
                             .on_delete(ForeignKeyAction::Cascade),
                     )
                     .to_owned(),

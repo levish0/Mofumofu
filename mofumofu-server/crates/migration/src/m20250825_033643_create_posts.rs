@@ -9,6 +9,8 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // Drafts and published posts share the same table.
+        // Public fields are allowed to be NULL while drafting, but must exist once published.
         let publish_constraint = Cond::any()
             .add(
                 Cond::all()
