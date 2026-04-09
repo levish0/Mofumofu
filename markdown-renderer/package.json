@@ -8,6 +8,7 @@
 		"dev": "bun run --watch src/index.ts",
 		"start": "bun src/index.ts",
 		"build": "bun build src/index.ts --outdir dist --target bun",
+		"test": "bun test",
 		"fmt": "bunx prettier --write src/",
 		"fmt:check": "bunx prettier --check src/"
 	},
@@ -19,7 +20,6 @@
 		"rehype-sanitize": "^6.0.0",
 		"rehype-slug": "^6.0.0",
 		"rehype-stringify": "^10.0.1",
-		"remark-breaks": "^4.0.0",
 		"remark-emoji": "^5.0.2",
 		"remark-gfm": "^4.0.1",
 		"remark-github-blockquote-alert": "^2.1.0",

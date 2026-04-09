@@ -12,7 +12,6 @@
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
-import remarkBreaks from 'remark-breaks';
 import remarkMath from 'remark-math';
 import remarkEmoji from 'remark-emoji';
 import remarkGithubBlockquoteAlert from 'remark-github-blockquote-alert';
@@ -38,18 +37,17 @@ export interface MarkdownResult {
  * Pipeline order:
  *  1. remark-parse        — Markdown -> mdast
  *  2. remark-gfm          — GFM extensions (tables, strikethrough, checkboxes, etc.)
- *  3. remark-breaks        — Soft line breaks -> <br>
- *  4. remark-math          — Math expressions ($...$, $$...$$)
- *  5. remark-emoji         — :shortcode: -> emoji
- *  6. remark-github-alert  — > [!NOTE] etc. GitHub alert blockquotes
- *  7. remark-rehype        — mdast -> hast (allowDangerousHtml: preserves raw HTML)
- *  8. rehype-raw           — Parses raw HTML in markdown
- *  9. rehype-katex         — Math -> MathML
- * 10. rehype-highlight     — Code block syntax highlighting
- * 11. rehype-slug          — Assigns id to headings (prefix: 'h-')
- * 12. tocPlugin            — Extracts TOC from headings
- * 13. rehype-sanitize      — XSS prevention
- * 14. rehype-stringify      — hast -> HTML string
+ *  3. remark-math          — Math expressions ($...$, $$...$$)
+ *  4. remark-emoji         — :shortcode: -> emoji
+ *  5. remark-github-alert  — > [!NOTE] etc. GitHub alert blockquotes
+ *  6. remark-rehype        — mdast -> hast (allowDangerousHtml: preserves raw HTML)
+ *  7. rehype-raw           — Parses raw HTML in markdown
+ *  8. rehype-katex         — Math -> MathML
+ *  9. rehype-highlight     — Code block syntax highlighting
+ * 10. rehype-slug          — Assigns id to headings (prefix: 'h-')
+ * 11. tocPlugin            — Extracts TOC from headings
+ * 12. rehype-sanitize      — XSS prevention
+ * 13. rehype-stringify     — hast -> HTML string
  */
 export async function processMarkdown(markdown: string): Promise<MarkdownResult> {
 	const tocItems: TocItem[] = [];
@@ -57,7 +55,6 @@ export async function processMarkdown(markdown: string): Promise<MarkdownResult>
 	const result = await unified()
 		.use(remarkParse)
 		.use(remarkGfm)
-		.use(remarkBreaks)
 		.use(remarkMath)
 		.use(remarkEmoji)
 		.use(remarkGithubBlockquoteAlert)
