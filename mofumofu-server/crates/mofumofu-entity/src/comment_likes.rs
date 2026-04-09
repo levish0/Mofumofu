@@ -1,20 +1,18 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::common::UserRole;
+use super::comments::{Column as CommentsColumn, Entity as CommentsEntity};
 use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
-#[sea_orm(table_name = "user_roles")]
+#[sea_orm(table_name = "comment_likes")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: Uuid,
     #[sea_orm(not_null)]
     pub user_id: Uuid,
     #[sea_orm(not_null)]
-    pub role: UserRole,
-    #[sea_orm(nullable)]
-    pub granted_by: Option<Uuid>,
+    pub comment_id: Uuid,
     #[sea_orm(column_type = "TimestampWithTimeZone", not_null)]
     pub created_at: DateTimeUtc,
 }
@@ -29,12 +27,12 @@ pub enum Relation {
     )]
     User,
     #[sea_orm(
-        belongs_to = "UsersEntity",
-        from = "Column::GrantedBy",
-        to = "UsersColumn::Id",
-        on_delete = "SetNull"
+        belongs_to = "CommentsEntity",
+        from = "Column::CommentId",
+        to = "CommentsColumn::Id",
+        on_delete = "Cascade"
     )]
-    GrantedByUser,
+    Comment,
 }
 
 impl Related<UsersEntity> for Entity {
@@ -43,14 +41,9 @@ impl Related<UsersEntity> for Entity {
     }
 }
 
-pub struct GrantedByLink;
-
-impl Linked for GrantedByLink {
-    type FromEntity = Entity;
-    type ToEntity = UsersEntity;
-
-    fn link(&self) -> Vec<RelationDef> {
-        vec![Relation::GrantedByUser.def()]
+impl Related<CommentsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Comment.def()
     }
 }
 

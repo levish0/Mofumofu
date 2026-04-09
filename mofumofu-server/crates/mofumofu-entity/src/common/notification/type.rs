@@ -5,10 +5,14 @@ use utoipa::ToSchema;
 #[derive(
     Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum, Deserialize, Serialize, ToSchema,
 )]
-#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "like_target_type")]
-pub enum LikeTargetType {
+#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "notification_type")]
+pub enum NotificationType {
     #[sea_orm(string_value = "post")]
     Post,
     #[sea_orm(string_value = "comment")]
     Comment,
+    #[sea_orm(string_value = "user")]
+    User,
+    #[sea_orm(string_value = "system")]
+    System,
 }
