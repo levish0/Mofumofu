@@ -45,8 +45,8 @@ export interface MarkdownResult {
  *  8. rehype-katex         — Math -> MathML
  *  9. rehype-highlight     — Code block syntax highlighting
  * 10. rehype-slug          — Assigns id to headings (prefix: 'h-')
- * 11. tocPlugin            — Extracts TOC from headings
- * 12. rehype-sanitize      — XSS prevention
+ * 11. rehype-sanitize      — XSS prevention + clobber-safe IDs
+ * 12. tocPlugin            — Extracts TOC from final sanitized headings
  * 13. rehype-stringify     — hast -> HTML string
  */
 export async function processMarkdown(markdown: string): Promise<MarkdownResult> {
@@ -63,8 +63,8 @@ export async function processMarkdown(markdown: string): Promise<MarkdownResult>
 		.use(rehypeKatex)
 		.use(rehypeHighlight)
 		.use(rehypeSlug, { prefix: 'h-' })
-		.use(tocPlugin(tocItems))
 		.use(rehypeSanitize, sanitizeSchema)
+		.use(tocPlugin(tocItems))
 		.use(rehypeStringify, { allowDangerousHtml: true })
 		.process(markdown);
 

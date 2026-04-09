@@ -10,10 +10,6 @@ import type { Schema } from 'rehype-sanitize';
  */
 export const sanitizeSchema: Schema = {
 	...defaultSchema,
-	clobberPrefix: '',
-	strip: [],
-	clobber: [],
-
 	tagNames: [
 		...(defaultSchema.tagNames ?? []),
 
@@ -71,17 +67,25 @@ export const sanitizeSchema: Schema = {
 	attributes: {
 		...defaultSchema.attributes,
 
-		// Global: className allowed (highlight.js, KaTeX), style excluded (XSS)
-		'*': ['id', 'className', 'title', 'dir', 'lang', ...(defaultSchema.attributes?.['*'] ?? [])],
+		// Global: style stays blocked, but className is needed for syntax highlighting and KaTeX output.
+		'*': [...(defaultSchema.attributes?.['*'] ?? []), 'className', 'title', 'dir', 'lang'],
 
 		// Links
-		a: ['href', 'title', 'target', 'rel'],
+		a: [...(defaultSchema.attributes?.a ?? []), 'title', 'target', 'rel'],
 
 		// Images
-		img: ['src', 'alt', 'title', 'width', 'height', 'loading', 'decoding'],
+		img: [
+			...(defaultSchema.attributes?.img ?? []),
+			'alt',
+			'title',
+			'width',
+			'height',
+			'loading',
+			'decoding'
+		],
 
 		// GFM task list checkbox
-		input: ['type', 'disabled', 'checked'],
+		input: [...(defaultSchema.attributes?.input ?? []), ['checked', true]],
 
 		// Tables
 		th: ['scope', 'colspan', 'rowspan', 'headers'],
@@ -92,9 +96,16 @@ export const sanitizeSchema: Schema = {
 		details: ['open'],
 
 		// Code blocks: highlight.js uses className
-		code: ['className'],
-		span: ['className'],
-		pre: ['className'],
+		code: [...(defaultSchema.attributes?.code ?? []), ['className', /^language-/, 'hljs']],
+		span: [
+			...(defaultSchema.attributes?.span ?? []),
+			['className', /^hljs-/, 'hljs', /^katex/, /^katex-/]
+		],
+		pre: [...(defaultSchema.attributes?.pre ?? []), ['className', 'hljs']],
+		div: [
+			...(defaultSchema.attributes?.div ?? []),
+			['className', 'katex', 'katex-display', 'math', 'math-inline', 'math-display']
+		],
 
 		// SVG
 		svg: ['width', 'height', 'viewBox', 'xmlns', 'fill', 'stroke', 'preserveAspectRatio'],
@@ -140,11 +151,12 @@ export const sanitizeSchema: Schema = {
 		msub: ['subscriptshift'],
 		mspace: ['width', 'height', 'depth'],
 		menclose: ['notation'],
-		mpadded: ['width', 'height', 'depth', 'lspace', 'rspace']
+		mpadded: ['width', 'height', 'depth', 'lspace', 'rspace'],
+		annotation: ['encoding']
 	},
 
 	protocols: {
-		href: ['http', 'https', 'mailto', 'tel'],
-		src: ['http', 'https', 'data']
+		...defaultSchema.protocols,
+		href: [...(defaultSchema.protocols?.href ?? []), 'tel']
 	}
 };

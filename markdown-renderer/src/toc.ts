@@ -1,7 +1,7 @@
 /**
  * Custom rehype plugin: extracts TOC items from headings.
  *
- * Must run after rehype-slug (to have IDs) and before rehype-sanitize.
+ * Must run after rehype-slug and rehype-sanitize so IDs match final rendered HTML.
  * Walks heading nodes and collects level, text, and id.
  */
 
