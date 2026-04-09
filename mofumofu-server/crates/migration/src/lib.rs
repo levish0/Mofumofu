@@ -22,6 +22,10 @@ mod m20260209_171659_create_report_status_enum;
 mod m20260209_171659_create_report_target_type_enum;
 mod m20260209_171659_create_reports;
 mod m20260209_171700_create_moderation_logs;
+mod m20260409_132532_notification_type_enum;
+mod m20260409_132622_user_notifications;
+mod m20260409_132751_notification_action_preferences;
+mod m20260409_132659_notification_preferences;
 
 pub struct Migrator;
 
@@ -45,11 +49,15 @@ impl MigratorTrait for Migrator {
             Box::new(m20260209_171658_create_follows::Migration),
             Box::new(m20260209_171658_create_like_target_type_enum::Migration),
             Box::new(m20260209_171658_create_likes::Migration),
-            Box::new(m20260209_171659_create_report_target_type_enum::Migration),
-            Box::new(m20260209_171659_create_report_status_enum::Migration),
-            Box::new(m20260209_171659_create_reports::Migration),
             Box::new(m20260209_171659_create_moderation_resource_type_enum::Migration),
+            Box::new(m20260209_171659_create_report_status_enum::Migration),
+            Box::new(m20260209_171659_create_report_target_type_enum::Migration),
+            Box::new(m20260209_171659_create_reports::Migration),
             Box::new(m20260209_171700_create_moderation_logs::Migration),
+            Box::new(m20260409_132532_notification_type_enum::Migration),
+            Box::new(m20260409_132622_user_notifications::Migration),
+            Box::new(m20260409_132659_notification_preferences::Migration),
+            Box::new(m20260409_132751_notification_action_preferences::Migration),
         ]
     }
 }

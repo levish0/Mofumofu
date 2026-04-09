@@ -5,7 +5,7 @@ pub mod report;
 mod like_target_type;
 mod oauth_provider;
 mod role;
-mod notification;
+pub mod notification;
 
 pub use like_target_type::LikeTargetType;
 pub use oauth_provider::OAuthProvider;
