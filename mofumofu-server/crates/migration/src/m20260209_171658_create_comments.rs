@@ -61,17 +61,6 @@ impl MigrationTrait for Migration {
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
-                    .foreign_key(
-                        ForeignKey::create()
-                            .name("fk_comments_parent_same_post")
-                            .from_tbl(Comments::Table)
-                            .from_col(Comments::PostId)
-                            .from_col(Comments::ParentId)
-                            .to_tbl(Comments::Table)
-                            .to_col(Comments::PostId)
-                            .to_col(Comments::Id)
-                            .on_delete(ForeignKeyAction::NoAction),
-                    )
                     .to_owned(),
             )
             .await?;
@@ -106,6 +95,21 @@ impl MigrationTrait for Migration {
                     .col(Comments::PostId)
                     .col(Comments::ParentId)
                     .col(Comments::Id)
+                    .to_owned(),
+            )
+            .await?;
+
+        manager
+            .create_foreign_key(
+                ForeignKey::create()
+                    .name("fk_comments_parent_same_post")
+                    .from_tbl(Comments::Table)
+                    .from_col(Comments::PostId)
+                    .from_col(Comments::ParentId)
+                    .to_tbl(Comments::Table)
+                    .to_col(Comments::PostId)
+                    .to_col(Comments::Id)
+                    .on_delete(ForeignKeyAction::NoAction)
                     .to_owned(),
             )
             .await?;
