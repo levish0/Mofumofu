@@ -1,13 +1,11 @@
-name: Build mofumofu-server
+name: server-check
 
 on:
   push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     defaults:
@@ -19,11 +17,19 @@ jobs:
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: "/mofumofu-server"
+          workspaces: "."
 
-      - name: Release Build
-        run: cargo build --release
+      - name: Check
+        run: cargo check --all-targets
+
+      - name: Clippy
+        run: cargo clippy --all-targets
+
+      - name: Format
+        run: cargo fmt --check
