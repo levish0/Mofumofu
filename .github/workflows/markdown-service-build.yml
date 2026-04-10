@@ -1,4 +1,4 @@
-name: Build markdown-service
+name: Build markdown-renderer
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: mofumofu-server/markdown-service
+        working-directory: markdown-renderer
 
     steps:
       - uses: actions/checkout@v4
@@ -25,6 +25,9 @@ jobs:
 
       - name: Check formatting
         run: bun run fmt:check
+
+      - name: Run tests
+        run: bun run test
 
       - name: Build
         run: bun run build

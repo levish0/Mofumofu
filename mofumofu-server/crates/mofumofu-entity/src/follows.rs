@@ -1,7 +1,7 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::users::Entity as UsersEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "follows")]
@@ -21,14 +21,14 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::FollowerId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     Follower,
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::FolloweeId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     Followee,
@@ -37,6 +37,17 @@ pub enum Relation {
 impl Related<UsersEntity> for Entity {
     fn to() -> RelationDef {
         Relation::Follower.def()
+    }
+}
+
+pub struct FolloweeLink;
+
+impl Linked for FolloweeLink {
+    type FromEntity = Entity;
+    type ToEntity = UsersEntity;
+
+    fn link(&self) -> Vec<RelationDef> {
+        vec![Relation::Followee.def()]
     }
 }
 

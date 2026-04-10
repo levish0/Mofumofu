@@ -1,8 +1,10 @@
 use sea_orm::prelude::*;
 use uuid::Uuid;
 
-use super::common::{ReportStatus, ReportTargetType};
-use super::users::Entity as UsersEntity;
+use super::comments::{Column as CommentsColumn, Entity as CommentsEntity};
+use super::common::ReportStatus;
+use super::posts::{Column as PostsColumn, Entity as PostsEntity};
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "reports")]
@@ -11,10 +13,12 @@ pub struct Model {
     pub id: Uuid,
     #[sea_orm(not_null)]
     pub reporter_id: Uuid,
-    #[sea_orm(not_null)]
-    pub target_type: ReportTargetType,
-    #[sea_orm(not_null)]
-    pub target_id: Uuid,
+    #[sea_orm(nullable)]
+    pub target_user_id: Option<Uuid>,
+    #[sea_orm(nullable)]
+    pub target_post_id: Option<Uuid>,
+    #[sea_orm(nullable)]
+    pub target_comment_id: Option<Uuid>,
     #[sea_orm(column_type = "Text", not_null)]
     pub reason: String,
     #[sea_orm(column_type = "Text", nullable)]
@@ -34,14 +38,35 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::ReporterId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     Reporter,
     #[sea_orm(
         belongs_to = "UsersEntity",
+        from = "Column::TargetUserId",
+        to = "UsersColumn::Id",
+        on_delete = "Cascade"
+    )]
+    TargetUser,
+    #[sea_orm(
+        belongs_to = "PostsEntity",
+        from = "Column::TargetPostId",
+        to = "PostsColumn::Id",
+        on_delete = "Cascade"
+    )]
+    TargetPost,
+    #[sea_orm(
+        belongs_to = "CommentsEntity",
+        from = "Column::TargetCommentId",
+        to = "CommentsColumn::Id",
+        on_delete = "Cascade"
+    )]
+    TargetComment,
+    #[sea_orm(
+        belongs_to = "UsersEntity",
         from = "Column::ResolvedBy",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "SetNull"
     )]
     Resolver,
@@ -53,24 +78,34 @@ impl Related<UsersEntity> for Entity {
     }
 }
 
-#[derive(Debug, Clone)]
-pub struct ReporterLink;
-
-impl Linked for ReporterLink {
-    type FromEntity = Entity;
-    type ToEntity = super::users::Entity;
-
-    fn link(&self) -> Vec<RelationDef> {
-        vec![Relation::Reporter.def()]
+impl Related<PostsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::TargetPost.def()
     }
 }
 
-#[derive(Debug, Clone)]
+impl Related<CommentsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::TargetComment.def()
+    }
+}
+
+pub struct TargetUserLink;
+
+impl Linked for TargetUserLink {
+    type FromEntity = Entity;
+    type ToEntity = UsersEntity;
+
+    fn link(&self) -> Vec<RelationDef> {
+        vec![Relation::TargetUser.def()]
+    }
+}
+
 pub struct ResolverLink;
 
 impl Linked for ResolverLink {
     type FromEntity = Entity;
-    type ToEntity = super::users::Entity;
+    type ToEntity = UsersEntity;
 
     fn link(&self) -> Vec<RelationDef> {
         vec![Relation::Resolver.def()]

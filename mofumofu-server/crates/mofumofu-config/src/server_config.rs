@@ -27,32 +27,26 @@ pub struct ServerConfig {
     pub github_client_secret: String,
     pub github_redirect_uri: String,
 
-    // Cloudflare
+    // Cloudflare R2 (shared credentials)
     pub r2_endpoint: String,
     pub r2_region: String,
-    pub r2_public_domain: String,
-    pub r2_bucket_name: String,
     pub r2_access_key_id: String,
     pub r2_secret_access_key: String,
+    // R2 Assets (public bucket - images, sitemap)
+    pub r2_assets_public_domain: String,
+    pub r2_assets_bucket_name: String,
+
+    // Cloudflare Turnstile
     pub turnstile_secret_key: String,
 
-    // Write DB (Primary)
-    pub db_write_host: String,
-    pub db_write_port: String,
-    pub db_write_name: String,
-    pub db_write_user: String,
-    pub db_write_password: String,
-    pub db_write_max_connection: u32,
-    pub db_write_min_connection: u32,
-
-    // Read DB (Replica)
-    pub db_read_host: String,
-    pub db_read_port: String,
-    pub db_read_name: String,
-    pub db_read_user: String,
-    pub db_read_password: String,
-    pub db_read_max_connection: u32,
-    pub db_read_min_connection: u32,
+    // Database (via PgDog connection pooler)
+    pub db_host: String,
+    pub db_port: String,
+    pub db_name: String,
+    pub db_user: String,
+    pub db_password: String,
+    pub db_max_connection: u32,
+    pub db_min_connection: u32,
 
     // Redis Session (persistent, for sessions/tokens/rate-limit)
     pub redis_session_host: String,
@@ -66,11 +60,11 @@ pub struct ServerConfig {
     pub server_host: String,
     pub server_port: String,
 
+    pub markdown_renderer_host: String,
+    pub markdown_renderer_port: String,
+
     // NATS (for background job queue)
     pub nats_url: String,
-
-    // Markdown Service
-    pub markdown_service_url: String,
 
     // Meilisearch
     pub meilisearch_host: String,
@@ -95,6 +89,7 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
 
     let mut errors: Vec<String> = Vec::new();
 
+    // 필수 환경변수 (누락 시 에러 수집, panic하지 않음)
     macro_rules! require {
         ($name:expr) => {
             env::var($name).unwrap_or_else(|_| {
@@ -104,6 +99,7 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         };
     }
 
+    // 필수 환경변수 + 파싱 (누락/파싱 실패 시 에러 수집)
     macro_rules! require_parse {
         ($name:expr, $ty:ty) => {{
             match env::var($name) {
@@ -187,23 +183,19 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
     let github_redirect_uri = require!("GITHUB_REDIRECT_URI");
     let r2_endpoint = require!("R2_ENDPOINT");
     let r2_region = require!("R2_REGION");
-    let r2_public_domain = require!("R2_PUBLIC_DOMAIN");
-    let r2_bucket_name = require!("R2_BUCKET_NAME");
     let r2_access_key_id = require!("R2_ACCESS_KEY_ID");
     let r2_secret_access_key = require!("R2_SECRET_ACCESS_KEY");
+    let r2_assets_public_domain = require!("R2_ASSETS_PUBLIC_DOMAIN");
+    let r2_assets_bucket_name = require!("R2_ASSETS_BUCKET_NAME");
     let turnstile_secret_key = require!("TURNSTILE_SECRET_KEY");
-    let db_write_host = require!("POSTGRES_WRITE_HOST");
-    let db_write_port = require!("POSTGRES_WRITE_PORT");
-    let db_write_name = require!("POSTGRES_WRITE_NAME");
-    let db_write_user = require!("POSTGRES_WRITE_USER");
-    let db_write_password = require!("POSTGRES_WRITE_PASSWORD");
-    let db_read_host = require!("POSTGRES_READ_HOST");
-    let db_read_port = require!("POSTGRES_READ_PORT");
-    let db_read_name = require!("POSTGRES_READ_NAME");
-    let db_read_user = require!("POSTGRES_READ_USER");
-    let db_read_password = require!("POSTGRES_READ_PASSWORD");
+    let db_host = require!("POSTGRES_HOST");
+    let db_port = require!("POSTGRES_PORT");
+    let db_name = require!("POSTGRES_NAME");
+    let db_user = require!("POSTGRES_USER");
+    let db_password = require!("POSTGRES_PASSWORD");
     let server_host = require!("HOST");
     let server_port = require!("PORT");
+
     // Required parsed vars
     let auth_session_max_lifetime_hours = require_parse!("AUTH_SESSION_MAX_LIFETIME_HOURS", i64);
     let auth_session_sliding_ttl_hours = require_parse!("AUTH_SESSION_SLIDING_TTL_HOURS", i64);
@@ -222,28 +214,32 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         is_dev,
         totp_secret,
 
-        auth_session_max_lifetime_hours,
-        auth_session_sliding_ttl_hours,
+        auth_session_max_lifetime_hours: auth_session_max_lifetime_hours.max(0),
+        auth_session_sliding_ttl_hours: auth_session_sliding_ttl_hours.max(0),
         auth_session_refresh_threshold,
 
         auth_email_verification_token_expire_time: env::var(
             "AUTH_EMAIL_VERIFICATION_TOKEN_EXPIRE_TIME",
         )
         .ok()
-        .and_then(|v| v.parse().ok())
-        .unwrap_or(1), // 기본값 1시간 (minutes)
+        .and_then(|v| v.parse::<i64>().ok())
+        .unwrap_or(15)
+        .max(0), // 기본값 15분 (minutes)
         auth_password_reset_token_expire_time: env::var("AUTH_PASSWORD_RESET_TOKEN_EXPIRE_TIME")
             .ok()
-            .and_then(|v| v.parse().ok())
-            .unwrap_or(15), // 기본값 15분
+            .and_then(|v| v.parse::<i64>().ok())
+            .unwrap_or(15)
+            .max(0), // 기본값 15분
         auth_email_change_token_expire_time: env::var("AUTH_EMAIL_CHANGE_TOKEN_EXPIRE_TIME")
             .ok()
-            .and_then(|v| v.parse().ok())
-            .unwrap_or(15), // 기본값 15분
+            .and_then(|v| v.parse::<i64>().ok())
+            .unwrap_or(15)
+            .max(0), // 기본값 15분
         oauth_pending_signup_ttl_minutes: env::var("OAUTH_PENDING_SIGNUP_TTL_MINUTES")
             .ok()
-            .and_then(|v| v.parse().ok())
-            .unwrap_or(10), // 기본값 10분
+            .and_then(|v| v.parse::<i64>().ok())
+            .unwrap_or(10)
+            .max(0), // 기본값 10분
 
         // Google
         google_client_id,
@@ -255,44 +251,32 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         github_client_secret,
         github_redirect_uri,
 
-        // Cloudflare
+        // Cloudflare R2 (shared credentials)
         r2_endpoint,
         r2_region,
-        r2_public_domain,
-        r2_bucket_name,
         r2_access_key_id,
         r2_secret_access_key,
+        // R2 Assets (public bucket)
+        r2_assets_public_domain,
+        r2_assets_bucket_name,
+
+        // Cloudflare Turnstile
         turnstile_secret_key,
 
-        // Write DB (Primary)
-        db_write_host,
-        db_write_port,
-        db_write_name,
-        db_write_user,
-        db_write_password,
-        db_write_max_connection: env::var("POSTGRES_WRITE_MAX_CONNECTION")
+        // Database (via PgDog)
+        db_host,
+        db_port,
+        db_name,
+        db_user,
+        db_password,
+        db_max_connection: env::var("POSTGRES_MAX_CONNECTION")
             .ok()
             .and_then(|v| v.parse().ok())
-            .unwrap_or(100),
-        db_write_min_connection: env::var("POSTGRES_WRITE_MIN_CONNECTION")
+            .unwrap_or(30),
+        db_min_connection: env::var("POSTGRES_MIN_CONNECTION")
             .ok()
             .and_then(|v| v.parse().ok())
-            .unwrap_or(10),
-
-        // Read DB (Replica)
-        db_read_host,
-        db_read_port,
-        db_read_name,
-        db_read_user,
-        db_read_password,
-        db_read_max_connection: env::var("POSTGRES_READ_MAX_CONNECTION")
-            .ok()
-            .and_then(|v| v.parse().ok())
-            .unwrap_or(100),
-        db_read_min_connection: env::var("POSTGRES_READ_MIN_CONNECTION")
-            .ok()
-            .and_then(|v| v.parse().ok())
-            .unwrap_or(10),
+            .unwrap_or(5),
 
         // Redis Session
         redis_session_host: env::var("REDIS_SESSION_HOST")
@@ -311,12 +295,13 @@ static CONFIG: LazyLock<ServerConfig> = LazyLock::new(|| {
         server_host,
         server_port,
 
+        markdown_renderer_host: env::var("MARKDOWN_RENDERER_HOST")
+            .unwrap_or_else(|_| "127.0.0.1".to_string()),
+        markdown_renderer_port: env::var("MARKDOWN_RENDERER_PORT")
+            .unwrap_or_else(|_| "6700".to_string()),
+
         // NATS
         nats_url: env::var("NATS_URL").unwrap_or_else(|_| "nats://localhost:4222".to_string()),
-
-        // Markdown Service
-        markdown_service_url: env::var("MARKDOWN_SERVICE_URL")
-            .unwrap_or_else(|_| "http://markdown-service:6700".to_string()),
 
         // Meilisearch
         meilisearch_host: env::var("MEILISEARCH_HOST")

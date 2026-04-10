@@ -2,8 +2,12 @@ use sea_orm::prelude::*;
 use uuid::Uuid;
 
 use super::comments::Entity as CommentsEntity;
+use super::common::PostStatus;
+use super::notification_events::Entity as NotificationEventsEntity;
 use super::post_hashtags::Entity as PostHashtagsEntity;
-use super::users::Entity as UsersEntity;
+use super::post_likes::Entity as PostLikesEntity;
+use super::reports::Entity as ReportsEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "posts")]
@@ -12,16 +16,18 @@ pub struct Model {
     pub id: Uuid,
     #[sea_orm(not_null)]
     pub user_id: Uuid,
-    #[sea_orm(column_type = "Text", not_null)]
-    pub title: String,
-    #[sea_orm(column_type = "Text", not_null)]
-    pub slug: String,
+    #[sea_orm(not_null)]
+    pub status: PostStatus,
+    #[sea_orm(column_type = "Text", nullable)]
+    pub title: Option<String>,
+    #[sea_orm(column_type = "Text", nullable)]
+    pub slug: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub thumbnail_image: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub summary: Option<String>,
-    #[sea_orm(column_type = "Text", not_null)]
-    pub content: String,
+    #[sea_orm(column_type = "Text", nullable)]
+    pub content: Option<String>,
     #[sea_orm(column_type = "Text", nullable)]
     pub render: Option<String>,
     #[sea_orm(column_type = "JsonBinary", nullable)]
@@ -45,7 +51,7 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::UserId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     User,
@@ -53,6 +59,12 @@ pub enum Relation {
     Comments,
     #[sea_orm(has_many = "PostHashtagsEntity")]
     PostHashtags,
+    #[sea_orm(has_many = "PostLikesEntity")]
+    PostLikes,
+    #[sea_orm(has_many = "ReportsEntity")]
+    Reports,
+    #[sea_orm(has_many = "NotificationEventsEntity")]
+    NotificationEvents,
 }
 
 impl Related<UsersEntity> for Entity {
@@ -70,6 +82,24 @@ impl Related<CommentsEntity> for Entity {
 impl Related<PostHashtagsEntity> for Entity {
     fn to() -> RelationDef {
         Relation::PostHashtags.def()
+    }
+}
+
+impl Related<PostLikesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::PostLikes.def()
+    }
+}
+
+impl Related<ReportsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::Reports.def()
+    }
+}
+
+impl Related<NotificationEventsEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::NotificationEvents.def()
     }
 }
 
