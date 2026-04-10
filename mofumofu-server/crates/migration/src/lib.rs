@@ -22,7 +22,9 @@ mod m20260209_171725_create_report_status_enum;
 mod m20260209_171728_create_reports;
 mod m20260209_171731_create_moderation_logs;
 mod m20260409_132532_notification_type_enum;
-mod m20260409_132622_user_notifications;
+mod m20260409_132610_notification_target_kind_enum;
+mod m20260409_132622_notification_events;
+mod m20260409_132641_notification_deliveries;
 mod m20260409_132659_notification_preferences;
 mod m20260409_132751_notification_action_preferences;
 
@@ -53,7 +55,9 @@ impl MigratorTrait for Migrator {
             Box::new(m20260209_171728_create_reports::Migration),
             Box::new(m20260209_171731_create_moderation_logs::Migration),
             Box::new(m20260409_132532_notification_type_enum::Migration),
-            Box::new(m20260409_132622_user_notifications::Migration),
+            Box::new(m20260409_132610_notification_target_kind_enum::Migration),
+            Box::new(m20260409_132622_notification_events::Migration),
+            Box::new(m20260409_132641_notification_deliveries::Migration),
             Box::new(m20260409_132659_notification_preferences::Migration),
             Box::new(m20260409_132751_notification_action_preferences::Migration),
         ]

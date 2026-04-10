@@ -3,10 +3,10 @@ use uuid::Uuid;
 
 use super::comments::Entity as CommentsEntity;
 use super::common::PostStatus;
+use super::notification_events::Entity as NotificationEventsEntity;
 use super::post_hashtags::Entity as PostHashtagsEntity;
 use super::post_likes::Entity as PostLikesEntity;
 use super::reports::Entity as ReportsEntity;
-use super::user_notifications::Entity as UserNotificationsEntity;
 use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
@@ -63,8 +63,8 @@ pub enum Relation {
     PostLikes,
     #[sea_orm(has_many = "ReportsEntity")]
     Reports,
-    #[sea_orm(has_many = "UserNotificationsEntity")]
-    UserNotifications,
+    #[sea_orm(has_many = "NotificationEventsEntity")]
+    NotificationEvents,
 }
 
 impl Related<UsersEntity> for Entity {
@@ -97,9 +97,9 @@ impl Related<ReportsEntity> for Entity {
     }
 }
 
-impl Related<UserNotificationsEntity> for Entity {
+impl Related<NotificationEventsEntity> for Entity {
     fn to() -> RelationDef {
-        Relation::UserNotifications.def()
+        Relation::NotificationEvents.def()
     }
 }
 

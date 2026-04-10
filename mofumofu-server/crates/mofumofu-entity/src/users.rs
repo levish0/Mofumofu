@@ -6,6 +6,7 @@ use super::comment_likes::Entity as CommentLikesEntity;
 use super::comments::Entity as CommentsEntity;
 use super::moderation_logs::Entity as ModerationLogsEntity;
 use super::notification_action_preferences::Entity as NotificationActionPreferencesEntity;
+use super::notification_deliveries::Entity as NotificationDeliveriesEntity;
 use super::notification_preferences::Entity as NotificationPreferencesEntity;
 use super::post_likes::Entity as PostLikesEntity;
 use super::posts::Entity as PostsEntity;
@@ -69,6 +70,8 @@ pub enum Relation {
     NotificationPreferences,
     #[sea_orm(has_many = "NotificationActionPreferencesEntity")]
     NotificationActionPreferences,
+    #[sea_orm(has_many = "NotificationDeliveriesEntity")]
+    NotificationDeliveries,
 }
 
 impl Related<UserOAuthConnectionsEntity> for Entity {
@@ -128,6 +131,12 @@ impl Related<NotificationPreferencesEntity> for Entity {
 impl Related<NotificationActionPreferencesEntity> for Entity {
     fn to() -> RelationDef {
         Relation::NotificationActionPreferences.def()
+    }
+}
+
+impl Related<NotificationDeliveriesEntity> for Entity {
+    fn to() -> RelationDef {
+        Relation::NotificationDeliveries.def()
     }
 }
 
