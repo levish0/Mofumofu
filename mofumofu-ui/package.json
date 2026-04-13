@@ -65,7 +65,7 @@
 		"remark-rehype": "^11.1.2",
 		"rollup-plugin-visualizer": "^6.0.5",
 		"runed": "^0.37.1",
-		"svelte": "^5.49.2",
+		"svelte": "^5.55.3",
 		"svelte-check": "^4.3.6",
 		"svelte-easy-crop": "^5.0.0",
 		"svelte-hero-icons": "^5.2.0",
