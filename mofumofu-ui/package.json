@@ -41,7 +41,7 @@
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.14.0",
-		"globals": "^17.3.0",
+		"globals": "^17.5.0",
 		"highlight.js": "^11.11.1",
 		"jsrepo": "^3.2.1",
 		"ky": "^1.14.3",
