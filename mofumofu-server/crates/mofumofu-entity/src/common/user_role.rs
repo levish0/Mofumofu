@@ -7,10 +7,8 @@ use utoipa::ToSchema;
 )]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "user_role")]
 pub enum UserRole {
-    #[sea_orm(string_value = "user")]
-    User,
-    #[sea_orm(string_value = "moderator")]
-    Moderator,
+    #[sea_orm(string_value = "mod")]
+    Mod,
     #[sea_orm(string_value = "admin")]
     Admin,
 }
@@ -18,9 +16,8 @@ pub enum UserRole {
 impl UserRole {
     pub fn priority(&self) -> u8 {
         match self {
-            UserRole::User => 1,
-            UserRole::Moderator => 2,
-            UserRole::Admin => 3,
+            UserRole::Mod => 1,
+            UserRole::Admin => 2,
         }
     }
 }

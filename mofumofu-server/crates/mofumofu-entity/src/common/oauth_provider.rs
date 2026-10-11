@@ -5,7 +5,11 @@ use utoipa::ToSchema;
 #[derive(
     Debug, Clone, PartialEq, Eq, EnumIter, DeriveActiveEnum, Deserialize, Serialize, ToSchema,
 )]
-#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "oauth_provider")]
+#[sea_orm(
+    rs_type = "String",
+    db_type = "Enum",
+    enum_name = "user_oauth_provider"
+)]
 pub enum OAuthProvider {
     #[sea_orm(string_value = "google")]
     Google,

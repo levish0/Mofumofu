@@ -2,7 +2,7 @@ use sea_orm::prelude::*;
 use uuid::Uuid;
 
 use super::common::ModerationResourceType;
-use super::users::Entity as UsersEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "moderation_logs")]
@@ -11,8 +11,8 @@ pub struct Model {
     pub id: Uuid,
     #[sea_orm(column_type = "Text", not_null)]
     pub action: String,
-    #[sea_orm(not_null)]
-    pub actor_id: Uuid,
+    #[sea_orm(nullable)]
+    pub actor_id: Option<Uuid>,
     #[sea_orm(not_null)]
     pub resource_type: ModerationResourceType,
     #[sea_orm(nullable)]
@@ -30,8 +30,8 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::ActorId",
-        to = "super::users::Column::Id",
-        on_delete = "Cascade"
+        to = "UsersColumn::Id",
+        on_delete = "SetNull"
     )]
     Actor,
 }

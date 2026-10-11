@@ -8,10 +8,12 @@ use super::post_hashtags::Entity as PostHashtagsEntity;
 pub struct Model {
     #[sea_orm(primary_key)]
     pub id: Uuid,
-    #[sea_orm(column_type = "Text", not_null, unique)]
+    #[sea_orm(column_type = "Text", not_null)]
     pub name: String,
+    #[sea_orm(column_type = "Text", not_null, unique)]
+    pub normalized_name: String,
     #[sea_orm(not_null)]
-    pub usage_count: i32,
+    pub post_count: i32,
     #[sea_orm(column_type = "TimestampWithTimeZone", nullable)]
     pub last_used_at: Option<DateTimeUtc>,
     #[sea_orm(column_type = "TimestampWithTimeZone", not_null)]

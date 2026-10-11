@@ -2,7 +2,7 @@ use sea_orm::prelude::*;
 use uuid::Uuid;
 
 use super::common::UserRole;
-use super::users::Entity as UsersEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "user_roles")]
@@ -24,22 +24,33 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::UserId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "Cascade"
     )]
     User,
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::GrantedBy",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "SetNull"
     )]
-    Granter,
+    GrantedByUser,
 }
 
 impl Related<UsersEntity> for Entity {
     fn to() -> RelationDef {
         Relation::User.def()
+    }
+}
+
+pub struct GrantedByLink;
+
+impl Linked for GrantedByLink {
+    type FromEntity = Entity;
+    type ToEntity = UsersEntity;
+
+    fn link(&self) -> Vec<RelationDef> {
+        vec![Relation::GrantedByUser.def()]
     }
 }
 

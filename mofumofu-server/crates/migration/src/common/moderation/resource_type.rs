@@ -11,6 +11,8 @@ pub enum ModerationResourceType {
     Post,
     #[sea_orm(iden = "comment")]
     Comment,
+    #[sea_orm(iden = "report")]
+    Report,
     #[sea_orm(iden = "system")]
     System,
 }

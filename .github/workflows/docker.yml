@@ -101,8 +101,8 @@ jobs:
       - name: Build and push Markdown Service image
         uses: docker/build-push-action@v5
         with:
-          context: ./mofumofu-server/markdown-service
-          file: ./mofumofu-server/markdown-service/Dockerfile
+          context: ./markdown-renderer
+          file: ./markdown-renderer/Dockerfile
           push: true
           tags: ${{ steps.meta-markdown.outputs.tags }}
           labels: ${{ steps.meta-markdown.outputs.labels }}
@@ -169,8 +169,8 @@ jobs:
       - name: Build test markdown image
         uses: docker/build-push-action@v5
         with:
-          context: ./mofumofu-server/markdown-service
-          file: ./mofumofu-server/markdown-service/Dockerfile
+          context: ./markdown-renderer
+          file: ./markdown-renderer/Dockerfile
           load: true
           tags: mofumofu-markdown:test
           cache-from: type=gha

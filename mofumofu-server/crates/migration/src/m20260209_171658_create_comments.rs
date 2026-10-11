@@ -1,5 +1,5 @@
 use crate::m20250825_033639_users::Users;
-use crate::m20250825_033642_create_posts::Posts;
+use crate::m20250825_033643_create_posts::Posts;
 use sea_orm_migration::prelude::*;
 
 #[derive(DeriveMigrationName)]
@@ -8,6 +8,8 @@ pub struct Migration;
 #[async_trait::async_trait]
 impl MigrationTrait for Migration {
     async fn up(&self, manager: &SchemaManager) -> Result<(), DbErr> {
+        // Nested replies are modeled only with parent_id.
+        // Reply depth is derived at read time instead of being stored.
         manager
             .create_table(
                 Table::create()
@@ -23,12 +25,6 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(Comments::PostId).uuid().not_null())
                     .col(ColumnDef::new(Comments::UserId).uuid().not_null())
                     .col(ColumnDef::new(Comments::ParentId).uuid().null())
-                    .col(
-                        ColumnDef::new(Comments::Depth)
-                            .integer()
-                            .not_null()
-                            .default(0),
-                    )
                     .col(ColumnDef::new(Comments::Content).text().not_null())
                     .col(
                         ColumnDef::new(Comments::LikeCount)
@@ -67,29 +63,22 @@ impl MigrationTrait for Migration {
                             .to(Users::Table, Users::Id)
                             .on_delete(ForeignKeyAction::Cascade),
                     )
-                    .foreign_key(
-                        ForeignKey::create()
-                            .name("fk_comments_parent")
-                            .from(Comments::Table, Comments::ParentId)
-                            .to(Comments::Table, Comments::Id)
-                            .on_delete(ForeignKeyAction::Cascade),
-                    )
                     .to_owned(),
             )
             .await?;
 
-        // Index: Post's comments
         manager
             .create_index(
                 Index::create()
-                    .name("idx_comments_post_id")
+                    .name("uq_comments_post_id_id")
                     .table(Comments::Table)
                     .col(Comments::PostId)
+                    .col(Comments::Id)
+                    .unique()
                     .to_owned(),
             )
             .await?;
 
-        // Index: User's comments
         manager
             .create_index(
                 Index::create()
@@ -100,13 +89,32 @@ impl MigrationTrait for Migration {
             )
             .await?;
 
-        // Index: Thread replies
         manager
             .create_index(
                 Index::create()
-                    .name("idx_comments_parent_id")
+                    .name("idx_comments_post_parent_id_id")
                     .table(Comments::Table)
+                    .col(Comments::PostId)
                     .col(Comments::ParentId)
+                    .col(Comments::Id)
+                    .to_owned(),
+            )
+            .await?;
+
+        manager
+            .create_foreign_key(
+                // Add the same-post self FK after uq_comments_post_id_id exists.
+                // Postgres requires the referenced columns to already be unique.
+                ForeignKey::create()
+                    .name("fk_comments_parent_same_post")
+                    .from_tbl(Comments::Table)
+                    .from_col(Comments::PostId)
+                    .from_col(Comments::ParentId)
+                    .to_tbl(Comments::Table)
+                    .to_col(Comments::PostId)
+                    .to_col(Comments::Id)
+                    // Keep deleted parent comments as placeholders when replies still exist.
+                    .on_delete(ForeignKeyAction::NoAction)
                     .to_owned(),
             )
             .await?;
@@ -128,7 +136,6 @@ pub enum Comments {
     PostId,
     UserId,
     ParentId,
-    Depth,
     Content,
     LikeCount,
     DeletedAt,

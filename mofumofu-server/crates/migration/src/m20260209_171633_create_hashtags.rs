@@ -18,14 +18,15 @@ impl MigrationTrait for Migration {
                             .primary_key()
                             .default(Expr::cust("uuidv7()")),
                     )
+                    .col(ColumnDef::new(Hashtags::Name).text().not_null())
                     .col(
-                        ColumnDef::new(Hashtags::Name)
+                        ColumnDef::new(Hashtags::NormalizedName)
                             .text()
                             .not_null()
                             .unique_key(),
                     )
                     .col(
-                        ColumnDef::new(Hashtags::UsageCount)
+                        ColumnDef::new(Hashtags::PostCount)
                             .integer()
                             .not_null()
                             .default(0),
@@ -43,7 +44,20 @@ impl MigrationTrait for Migration {
                     )
                     .to_owned(),
             )
-            .await
+            .await?;
+
+        manager
+            .create_index(
+                Index::create()
+                    .name("idx_hashtags_trending")
+                    .table(Hashtags::Table)
+                    .col(Hashtags::PostCount)
+                    .col(Hashtags::LastUsedAt)
+                    .to_owned(),
+            )
+            .await?;
+
+        Ok(())
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
@@ -58,7 +72,8 @@ pub enum Hashtags {
     Table,
     Id,
     Name,
-    UsageCount,
+    NormalizedName,
+    PostCount,
     LastUsedAt,
     CreatedAt,
 }

@@ -2,7 +2,7 @@ use sea_orm::prelude::*;
 use uuid::Uuid;
 
 use super::common::ActionResourceType;
-use super::users::Entity as UsersEntity;
+use super::users::{Column as UsersColumn, Entity as UsersEntity};
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveEntityModel)]
 #[sea_orm(table_name = "action_logs")]
@@ -13,8 +13,6 @@ pub struct Model {
     pub action: String,
     #[sea_orm(nullable)]
     pub actor_id: Option<Uuid>,
-    #[sea_orm(nullable)]
-    pub actor_ip: Option<IpNetwork>,
     #[sea_orm(not_null)]
     pub resource_type: ActionResourceType,
     #[sea_orm(nullable)]
@@ -32,7 +30,7 @@ pub enum Relation {
     #[sea_orm(
         belongs_to = "UsersEntity",
         from = "Column::ActorId",
-        to = "super::users::Column::Id",
+        to = "UsersColumn::Id",
         on_delete = "SetNull"
     )]
     Actor,

@@ -1,4 +1,4 @@
-use crate::m20250825_033642_create_posts::Posts;
+use crate::m20250825_033643_create_posts::Posts;
 use crate::m20260209_171633_create_hashtags::Hashtags;
 use sea_orm_migration::prelude::*;
 
